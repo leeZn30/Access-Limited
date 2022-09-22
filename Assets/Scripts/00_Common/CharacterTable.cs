@@ -7,7 +7,7 @@ public static class CharacterTable
     [Header("Character Table")]
     public static Hashtable cTable = new Hashtable();
 
-    // DialogueManager, 혹은 게임 시작할 때 최초 호출
+    // 게임 시작할 때 최초 호출 (현재는 DialogueManager 호출 시)
     static public void setTable()
     {
         // cTable 초기화
