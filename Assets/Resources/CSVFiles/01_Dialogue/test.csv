@@ -1,0 +1,9 @@
+﻿Turn,Type,CharacterId,Dialogue,CharacterNum,MCharacter,MCIllust,Lcharacter,LCIllust,RCharacter,RCIllust,BGM,EffectSound,Answer
+0,0,2,기본 다이얼로그,1,0,0,,,,,,,
+1,1,2,답변 요구 및 캐릭터 이동,2,,,0,0,1,0,,,answer1
+1,1,2,답변 요구 및 캐릭터 이동,2,,,0,0,1,0,,,answer2
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
