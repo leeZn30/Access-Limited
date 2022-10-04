@@ -22,9 +22,31 @@ public class Character : MonoBehaviour
     public int now_illust = 0;
 
     [Header("위치")]
-    [SerializeField] private Vector3 position = new Vector3(-1, 0, 0); // 초기위치
+    [SerializeField] private Vector3 position; // 초기위치
+
+
+    void Start()
+    {
+        position = gameObject.transform.position;
+
+        StartCoroutine(fadeIn());
+    }
+    
 
     // 등장 애니메이션
+    IEnumerator fadeIn()
+    {
+        Color color = GetComponentInChildren<SpriteRenderer>().color;
+        color.a = 0;
+
+        while (color.a < 1f)
+        {
+            color.a += Time.deltaTime / 1f;
+            GetComponentInChildren<SpriteRenderer>().color = color;
+            yield return null;
+        }
+
+    }
 
     // 퇴장 애니메이션
 
@@ -32,6 +54,8 @@ public class Character : MonoBehaviour
 
     void onDestory()
     {
+        Debug.Log(c_name + " destroyed!");
+
         // 다른 Character도 찾아서 삭제 > 연쇄적
         Destroy(GameObject.FindGameObjectWithTag("Character"));
     }

@@ -19,5 +19,7 @@ public class Dialogue : MonoBehaviour
         line_b.text = line;
     }
 
+    // 칸 스크롤링 - 추후 필요하면 개발
+
 
 }

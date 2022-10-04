@@ -74,6 +74,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
         if (now_line != lines.Count - 1)
         {
+            destoryObjects();
             now_line++;
             readlines();
         }
@@ -92,7 +93,7 @@ public class DialogueManager : Singleton<DialogueManager>
         }
     }
 
-    // 대화 역행시 지우거나 초기화하는 것들
+    // 대화 진행,역행시 지우거나 초기화하는 것들
     void destoryObjects()
     {
         // 만약 현재 타입이 n이라면 처리해주기
@@ -100,7 +101,12 @@ public class DialogueManager : Singleton<DialogueManager>
         {
             case 1:
                 // 다른 Answer도 찾아서 삭제 > 연쇄적
-                Destroy(GameObject.FindGameObjectWithTag("Answer"));
+                //Destroy(GameObject.FindGameObjectWithTag("Answer"));
+                GameObject[] answer_objs = GameObject.FindGameObjectsWithTag("Answer");
+                foreach(GameObject answer in answer_objs)
+                {
+                    Destroy(answer);
+                }
                 break;
 
             default:
@@ -108,7 +114,12 @@ public class DialogueManager : Singleton<DialogueManager>
         }
 
         // 다른 Character도 찾아서 삭제 > 연쇄적
-        Destroy(GameObject.FindGameObjectWithTag("Character"));
+        //Destroy(GameObject.FindGameObjectWithTag("Character"));
+        GameObject[] character_objs = GameObject.FindGameObjectsWithTag("Character");
+        foreach (GameObject character in character_objs)
+        {
+            Destroy(character);
+        }
         mission = 0;
 
     }
@@ -130,20 +141,21 @@ public class DialogueManager : Singleton<DialogueManager>
         switch (characterNum)
         {
             case 1:
-                Character character = Instantiate(character_prb);
+                Character character = Instantiate(character_prb, new Vector3(0, 1), Quaternion.identity);
                 character.id = int.Parse(line["MCharacter"].ToString());
+                character.c_name = getCharacterName(character.id);
                 character.now_illust = int.Parse(line["MCIllust"].ToString());
                 break;
 
             case 2:
-                Character characterL = Instantiate(character_prb);
-                characterL.transform.position = new Vector3(-2, 0, 0);
+                Character characterL = Instantiate(character_prb, new Vector3(-5, 1), Quaternion.identity);
                 characterL.id = int.Parse(line["LCharacter"].ToString());
+                characterL.c_name = getCharacterName(characterL.id);
                 characterL.now_illust = int.Parse(line["LCIllust"].ToString());
 
-                Character characterR = Instantiate(character_prb);
-                characterL.transform.position = new Vector3(0, 0, 0);
+                Character characterR = Instantiate(character_prb, new Vector3(5, 1), Quaternion.identity);
                 characterR.id = int.Parse(line["RCharacter"].ToString());
+                characterR.c_name = getCharacterName(characterR.id);
                 characterR.now_illust = int.Parse(line["RCIllust"].ToString());
                 break;
 

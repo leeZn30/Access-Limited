@@ -78,8 +78,6 @@ public class Answer : MonoBehaviour
         DialogueManager.Instance.mission = 0;
 
         setPlayerStatus();
-
-        Destroy(gameObject);
         
         DialogueManager.Instance.nextDialogue();
     }
