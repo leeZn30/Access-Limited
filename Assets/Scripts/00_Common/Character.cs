@@ -28,10 +28,15 @@ public class Character : MonoBehaviour
     void Start()
     {
         position = gameObject.transform.position;
-
-        StartCoroutine(fadeIn());
     }
-    
+
+    public void setIllust(int illust)
+    {
+        now_illust = illust;
+
+        //GetComponent<SpriteRenderer>().sprite = illusts[now_illust];
+    }
+
 
     // 등장 애니메이션
     IEnumerator fadeIn()
@@ -49,8 +54,70 @@ public class Character : MonoBehaviour
     }
 
     // 퇴장 애니메이션
+    IEnumerator fadeOut()
+    {
+        Color color = GetComponentInChildren<SpriteRenderer>().color;
+        color.a = 1f;
+
+        while (color.a > 0f)
+        {
+            color.a -= Time.deltaTime / 1f;
+            GetComponentInChildren<SpriteRenderer>().color = color;
+            yield return null;
+        }
+
+    }
 
     // 무브 애니메이션
+    IEnumerator moveLeftCo()
+    {
+        Vector3 targetPos = new Vector3(-5, 1, 0);
+
+        while (gameObject.transform.position != targetPos)
+        {
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, Time.deltaTime / 0.2f);
+            yield return null;
+        }
+
+    }
+
+    public void moveLeft()
+    {
+        StartCoroutine(moveLeftCo());
+    }
+
+    IEnumerator moveRightCo()
+    {
+        Vector3 targetPos = new Vector3(5, 1, 0);
+
+        while (gameObject.transform.position != targetPos)
+        {
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, Time.deltaTime / 0.2f);
+            yield return null;
+        }
+    }
+
+    public void moveRight()
+    {
+        StartCoroutine(moveRightCo());
+    }
+
+    IEnumerator moveMiddleCo()
+    {
+        Vector3 targetPos = new Vector3(0, 1, 0);
+
+        while (gameObject.transform.position != targetPos)
+        {
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, Time.deltaTime / 0.2f);
+            yield return null;
+        }
+    }
+
+    public void moveMiddle()
+    {
+        StartCoroutine(moveMiddleCo());
+    }
+
 
     void onDestory()
     {

@@ -8,10 +8,13 @@ using TMPro;
 public class DialogueManager : Singleton<DialogueManager>
 {
     [Header("Dialogue 정보")]
-    [SerializeField] string dialogueId;
     public int mission = 0;
     public int type = 0;
+
+    [Header("등장 캐릭터")]
     public int characterNum;
+    [SerializeField] Character[] characters = new Character[3] {null, null, null};
+
 
     [Header("CSV 파일")]
     [SerializeField] TextAsset d_file;
@@ -29,8 +32,6 @@ public class DialogueManager : Singleton<DialogueManager>
     [Header("오브젝트")]
     [SerializeField] Button reversebtn;
     [SerializeField] Dialogue dialogueBox;
-    [SerializeField] TextMeshProUGUI name_b;
-    [SerializeField] TextMeshProUGUI line_b;
     [SerializeField] GameObject answer_box;
     [SerializeField] Answer answer_prb;
     [SerializeField] Character character_prb;
@@ -60,7 +61,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Return))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             if (type == 0 && mission == 0)
                 nextDialogue();
@@ -137,26 +138,64 @@ public class DialogueManager : Singleton<DialogueManager>
         dialogueBox.showline();
 
         // 캐릭터 관련 전달 값
-        int characterNum = int.Parse(line["CharacterNum"].ToString());
+        characterNum = int.Parse(line["CharacterNum"].ToString());
+        // 좀 많이 맘에 안듦
         switch (characterNum)
         {
             case 1:
                 Character character = Instantiate(character_prb, new Vector3(0, 1), Quaternion.identity);
                 character.id = int.Parse(line["MCharacter"].ToString());
                 character.c_name = getCharacterName(character.id);
-                character.now_illust = int.Parse(line["MCIllust"].ToString());
+                character.setIllust(int.Parse(line["MCIllust"].ToString()));
+
+                if (characters[0] != null || characters[2] != null)
+                {
+                    if (character.id == characters[0].id)
+                    {
+                        character.transform.position = new Vector3(-5, 1);
+                        character.moveMiddle();
+                    }
+                    else if (character.id == characters[2].id)
+                    {
+                        character.transform.position = new Vector3(5, 1);
+                        character.moveMiddle();
+                    }
+
+                }
+
+                characters[1] = character;
+                characters[0] = null;
+                characters[2] = null;
                 break;
 
             case 2:
                 Character characterL = Instantiate(character_prb, new Vector3(-5, 1), Quaternion.identity);
                 characterL.id = int.Parse(line["LCharacter"].ToString());
                 characterL.c_name = getCharacterName(characterL.id);
-                characterL.now_illust = int.Parse(line["LCIllust"].ToString());
+                characterL.setIllust(int.Parse(line["LCIllust"].ToString()));
 
                 Character characterR = Instantiate(character_prb, new Vector3(5, 1), Quaternion.identity);
                 characterR.id = int.Parse(line["RCharacter"].ToString());
                 characterR.c_name = getCharacterName(characterR.id);
-                characterR.now_illust = int.Parse(line["RCIllust"].ToString());
+                characterR.setIllust(int.Parse(line["RCIllust"].ToString()));
+
+                if (characters[1] != null)
+                {
+                    if (characterL.id == characters[1].id)
+                    {
+                        characterL.transform.position = new Vector3(0, 1);
+                        characterL.moveLeft();
+                    }
+                    else if (characterR.id == characters[1].id)
+                    {
+                        characterR.transform.position = new Vector3(0, 1);
+                        characterR.moveRight();
+                    }
+                }
+
+                characters[1] = null;
+                characters[0] = characterL;
+                characters[2] = characterR;
                 break;
 
             default:
