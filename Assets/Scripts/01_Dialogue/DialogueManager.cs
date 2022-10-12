@@ -31,6 +31,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     [Header("오브젝트")]
     [SerializeField] Button reversebtn;
+    [SerializeField] Button databasebtn;
     [SerializeField] Dialogue dialogueBox;
     [SerializeField] GameObject answer_box;
     [SerializeField] Answer answer_prb;
@@ -49,6 +50,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
         // 버튼 설정
         reversebtn.onClick.AddListener(previousDialogue);
+        databasebtn.onClick.AddListener(delegate { GameManager.Instance.openPopup(); });
 
         readlines();
     }
