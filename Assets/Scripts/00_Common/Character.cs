@@ -34,7 +34,7 @@ public class Character : MonoBehaviour
     {
         now_illust = illust;
 
-        //GetComponent<SpriteRenderer>().sprite = illusts[now_illust];
+        GetComponentInChildren<SpriteRenderer>().sprite = illusts[now_illust];
     }
 
 
