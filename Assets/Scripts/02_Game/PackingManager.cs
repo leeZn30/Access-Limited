@@ -17,16 +17,12 @@ public class PackingManager : Singleton<PackingManager>
     }
 
     // 순서 넣기
-    public void insertIdx(Block idx, int order)
+    public void insertIdx()
     {
-        nowIdxs[order] = idx;
-
-        checkAnswer();
     }
 
     public void disconnectUpBlock(int order)
     {
-        nowIdxs[order - 1].downChaining = false;
     }
 
     void checkAnswer()

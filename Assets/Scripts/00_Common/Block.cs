@@ -94,7 +94,7 @@ public class Block : MonoBehaviour
                 other.downChaining = true;
                 blockorder = other.blockorder + 1;
 
-                PackingManager.Instance.insertIdx(this, blockorder);
+                PackingManager.Instance.insertIdx();
             }
 
         }

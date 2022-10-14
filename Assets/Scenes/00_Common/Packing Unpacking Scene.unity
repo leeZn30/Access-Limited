@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   answerIdxs: 010000000200000003000000
-  nowIdxs: 000000000000000000000000
+  nowIdxs: []
   isRunning: 1
 --- !u!1 &368320535
 GameObject:
@@ -351,6 +351,14 @@ PrefabInstance:
     - target: {fileID: 2723934753707060359, guid: 61e99f3f9e4326a45ae43fbdd1280262, type: 3}
       propertyPath: m_Name
       value: Block (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189066982210805279, guid: 61e99f3f9e4326a45ae43fbdd1280262, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189066982210805279, guid: 61e99f3f9e4326a45ae43fbdd1280262, type: 3}
+      propertyPath: m_AutoTiling
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4028323212781010576, guid: 61e99f3f9e4326a45ae43fbdd1280262, type: 3}
       propertyPath: m_text

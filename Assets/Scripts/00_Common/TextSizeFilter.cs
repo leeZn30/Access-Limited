@@ -8,17 +8,22 @@ public class TextSizeFilter : MonoBehaviour
     [Header("크기")]
     RectTransform rect;
     float minWidth = 400f;
+
+    [Header("콜라이더")]
     [SerializeField] BoxCollider2D collider;
 
     void Start()
     {
         rect = GetComponent<RectTransform>();
         collider = GetComponent<BoxCollider2D>();
+
+        sizeFiltering();
+        colliderSizeFiltering();
     }
 
     void Update()
     {
-        sizeFiltering();
+        //sizeFiltering();
     }
 
 
@@ -30,11 +35,17 @@ public class TextSizeFilter : MonoBehaviour
         if (width > minWidth)
         {
             rect.sizeDelta = new Vector2(width + 40f, rect.sizeDelta.y);
-            collider.size = rect.sizeDelta;
         }
         else
         {
             rect.sizeDelta = new Vector2(400f, rect.sizeDelta.y);
+        }
+    }
+
+    void colliderSizeFiltering()
+    {
+        if (collider != null)
+        {
             collider.size = rect.sizeDelta;
         }
     }

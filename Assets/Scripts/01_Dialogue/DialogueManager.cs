@@ -9,7 +9,10 @@ public class DialogueManager : Singleton<DialogueManager>
 {
     [Header("Dialogue 정보")]
     public int mission = 0;
+    public int now_turn;
     public int type = 0;
+    public int chosen_line;
+    [SerializeField] bool nextEnd = false;
 
     [Header("등장 캐릭터")]
     public int characterNum;
@@ -23,7 +26,6 @@ public class DialogueManager : Singleton<DialogueManager>
     [Header("CSV 출력")]
     public List<Dictionary<string, object>> lines;
     public Dictionary<string, object> line;
-    public int now_line;
     public List<Dictionary<string, object>> answers;
 
     [Header("Answer 정보")]
@@ -45,8 +47,9 @@ public class DialogueManager : Singleton<DialogueManager>
         // 캐릭터 해시테이블 (후에는 게임 최초 실행시로 변경)
         CharacterTable.setTable();
 
-        // 지금 라인
-        now_line = 0;
+        // 현재 출력되는 턴과 해당 라인
+        now_turn = 0;
+        chosen_line = 0;
 
         // 버튼 설정
         reversebtn.onClick.AddListener(previousDialogue);
@@ -65,34 +68,33 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            if (type == 0 && mission == 0)
+            if (mission == 0)
                 nextDialogue();
         }
 
     }
 
 
-    public void nextDialogue()
+    public void nextDialogue(int offset = 0)
     {
-
-        if (now_line != lines.Count - 1)
+        if (!nextEnd)
         {
             destoryObjects();
-            now_line++;
+            now_turn++;
+            chosen_line = offset;
             readlines();
         }
     }
 
     void previousDialogue()
     {
-        // now_line이 0이고 전 대화가 특수 대화(type != 0)가 아니어야 역행 가능
-        if (now_line > 0 && int.Parse(lines[now_line - 1]["Type"].ToString()) == 0)
+        // now_turn이 0이고 전 대화가 특수 대화(type != 0)가 아니어야 역행 가능
+        // 대답의 모든 타입은 같기 때문에, 인덱스[0]으로 통일
+        if (now_turn > 0 && int.Parse(lines.Where(turn => turn["Turn"].ToString() == (now_turn - 1).ToString()).ToList()[0]["Type"].ToString()) == 0)
         {
             destoryObjects();
-
-            now_line--;
+            now_turn--;
             readlines();
-
         }
     }
 
@@ -129,10 +131,12 @@ public class DialogueManager : Singleton<DialogueManager>
 
     void readlines()
     {
-        line = lines[now_line];
+        line = lines.Where(turn => turn["Turn"].ToString() == now_turn.ToString()).ToList()[chosen_line]; // 왜 int.Parse 안됨
 
         type = int.Parse(line["Type"].ToString());
         answerId = line["AnswerId"].ToString();
+
+        //nextEnd
 
         // 대사 및 이름 전달
         dialogueBox.line = line["Dialogue"].ToString();
@@ -219,6 +223,9 @@ public class DialogueManager : Singleton<DialogueManager>
             answer_prb.content = answer["Content"].ToString();
             answer_prb.S1 = int.Parse(answer["S1"].ToString());
             answer_prb.S2 = int.Parse(answer["S1"].ToString());
+
+            int answer_offset;
+            answer_prb.offset = int.TryParse(answer["Nextline"].ToString(), out answer_offset)? answer_offset:0;
 
             Instantiate(answer_prb, answer_box.transform);
         }

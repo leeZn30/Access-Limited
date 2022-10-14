@@ -15,6 +15,7 @@ public class Answer : MonoBehaviour
     [SerializeField] int _S5;
     [SerializeField] int _S6;
     [SerializeField] int _S7;
+    [SerializeField] int _offset;
 
     [Header("Objects")]
     [SerializeField] TextMeshProUGUI content_b;
@@ -66,6 +67,12 @@ public class Answer : MonoBehaviour
         set { _S7 = value; }   // value 키워드 사용
     }
 
+    public int offset
+    {
+        get { return _offset; }
+        set { _offset = value; }
+    }
+
 
     void Start()
     {
@@ -78,8 +85,8 @@ public class Answer : MonoBehaviour
         DialogueManager.Instance.mission = 0;
 
         setPlayerStatus();
-        
-        DialogueManager.Instance.nextDialogue();
+
+        DialogueManager.Instance.nextDialogue(offset);
     }
 
 

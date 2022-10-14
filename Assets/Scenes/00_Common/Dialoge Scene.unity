@@ -695,7 +695,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mission: 0
+  now_turn: 0
   type: 0
+  chosen_line: 0
+  nextEnd: 0
   characterNum: 0
   characters:
   - {fileID: 0}
@@ -703,7 +706,6 @@ MonoBehaviour:
   - {fileID: 0}
   d_file: {fileID: 4900000, guid: 3bf11f89d8984d04cb3eb93641ffac68, type: 3}
   a_file: {fileID: 4900000, guid: 520af013f0ffd524490d888feed725c9, type: 3}
-  now_line: 0
   answerId: 
   reversebtn: {fileID: 354305643}
   databasebtn: {fileID: 335163948}
@@ -809,11 +811,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747227884}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c97d1c7e3daf0c54594d61bea656d82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collider: {fileID: 0}
 --- !u!1 &888096367
 GameObject:
   m_ObjectHideFlags: 0
