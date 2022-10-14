@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3189066982210805279}
   m_Layer: 5
   m_Name: Block
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b9664ec373ea2845b1e282d01f2b817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockIdx: 0
   startPosition: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0}
+  isFixed: 0
 --- !u!114 &1712587742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97d1c7e3daf0c54594d61bea656d82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collider: {fileID: 0}
 --- !u!210 &2107949003
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -140,7 +144,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 400, y: 100}
+  m_Size: {x: 400, y: 70}
   m_EdgeRadius: 0
 --- !u!1 &8262377841614440139
 GameObject:
@@ -208,7 +212,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE14\uB7ED \uB0B4\uC6A9"
+  m_text: "\uBE14\uB7ED \uB0B4\uC6A91"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0fe724d9ebdf4e4baae87cf259c9f50, type: 2}
   m_sharedMaterial: {fileID: 3057066335638687475, guid: c0fe724d9ebdf4e4baae87cf259c9f50, type: 2}

@@ -7,11 +7,13 @@ public class TextSizeFilter : MonoBehaviour
 {
     [Header("Å©±â")]
     RectTransform rect;
-    float minWidth;
+    float minWidth = 400f;
+    [SerializeField] BoxCollider2D collider;
 
     void Start()
     {
         rect = GetComponent<RectTransform>();
+        collider = GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -25,13 +27,15 @@ public class TextSizeFilter : MonoBehaviour
     {
         float width = GetComponentInChildren<TextMeshProUGUI>().preferredWidth;
 
-        if (width > 400f)
+        if (width > minWidth)
         {
-            rect.sizeDelta = new Vector2(width + 40f, 100);
+            rect.sizeDelta = new Vector2(width + 40f, rect.sizeDelta.y);
+            collider.size = rect.sizeDelta;
         }
         else
         {
-            rect.sizeDelta = new Vector2(400f, 100);
+            rect.sizeDelta = new Vector2(400f, rect.sizeDelta.y);
+            collider.size = rect.sizeDelta;
         }
     }
 }

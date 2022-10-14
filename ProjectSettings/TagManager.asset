@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Answer
   - Character
+  - Block
   layers:
   - Default
   - TransparentFX
