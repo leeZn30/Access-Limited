@@ -14,6 +14,10 @@ public class DialogueManager : Singleton<DialogueManager>
     public int chosen_line;
     [SerializeField] bool nextEnd = false;
 
+    [Header("대사 출력")]
+    public bool isLineEnd = false;
+
+
     [Header("등장 캐릭터")]
     public int characterNum;
     [SerializeField] Character[] characters = new Character[3] {null, null, null};
@@ -69,8 +73,11 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            if (mission == 0)
+            // 미션 성공 & 글자 다 출력
+            if (mission == 0 && isLineEnd)
                 nextDialogue();
+            else if (!isLineEnd)
+                dialogueBox.callStopTyping();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
