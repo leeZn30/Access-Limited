@@ -18,7 +18,6 @@ public class DialogueManager : Singleton<DialogueManager>
     public int characterNum;
     [SerializeField] Character[] characters = new Character[3] {null, null, null};
 
-
     [Header("CSV 파일")]
     [SerializeField] TextAsset d_file;
     [SerializeField] TextAsset a_file; // GameManager에 넣는게 나을 수도
@@ -38,6 +37,9 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] GameObject answer_box;
     [SerializeField] Answer answer_prb;
     [SerializeField] Character character_prb;
+    [SerializeField] DialogueLog dialogueLog;
+
+    [SerializeField] bool isDLogOpen = false;
 
     void Awake()
     {
@@ -63,13 +65,17 @@ public class DialogueManager : Singleton<DialogueManager>
         //readlines(); 왜 여기다가 하면 안되지?
     }
 
-
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
             if (mission == 0)
                 nextDialogue();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            openDialogueLog();
         }
 
     }
@@ -136,11 +142,10 @@ public class DialogueManager : Singleton<DialogueManager>
         type = int.Parse(line["Type"].ToString());
         answerId = line["AnswerId"].ToString();
 
-        //nextEnd
-
         // 대사 및 이름 전달
         dialogueBox.line = line["Dialogue"].ToString();
         dialogueBox.c_name = getCharacterName(int.Parse(line["CharacterId"].ToString()));
+        dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
         dialogueBox.showline();
 
         // 캐릭터 관련 전달 값
@@ -238,10 +243,22 @@ public class DialogueManager : Singleton<DialogueManager>
         createAnswer();
     }
 
-
     string getCharacterName(int id)
     {
         return CharacterTable.cTable[id].ToString();
     }
 
+    void openDialogueLog()
+    {
+        if (!isDLogOpen)
+        {
+            dialogueLog.gameObject.SetActive(true);
+            isDLogOpen = true;
+        }
+        else
+        {
+            dialogueLog.gameObject.SetActive(false);
+            isDLogOpen = false;
+        }
+    }
 }
