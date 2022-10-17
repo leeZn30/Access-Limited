@@ -1,5 +1,5 @@
 ﻿Turn,Type,CharacterId,Dialogue,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,AnswerId,DataBaseId,Background,EffectSound,BGM
-0,0,0,line1 - 기본,1,0,0,,,,,,,,,
+0,0,0,line1 - 기본,1,0,1,,,,,,,,,
 1,0,0,line2 - 기본,2,,,0,0,4,0,,,,,
 2,1,0,line3 - 답변 요구 및 캐릭터 이동,2,,,0,0,4,0,A1-1-0,,,,
 3,2,4,line4 - 답변 완료1,2,,,0,0,4,0,,,,,

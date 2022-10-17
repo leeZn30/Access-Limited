@@ -158,6 +158,7 @@ public class DialogueManager : Singleton<DialogueManager>
                 character.id = int.Parse(line["MCharacter"].ToString());
                 character.c_name = getCharacterName(character.id);
                 character.illust_num = getCharacterIllustNum(character.id);
+                character.now_illust = int.Parse(line["MCIllust"].ToString());
 
                 if (characters[0] != null || characters[2] != null)
                 {
@@ -184,11 +185,13 @@ public class DialogueManager : Singleton<DialogueManager>
                 characterL.id = int.Parse(line["LCharacter"].ToString());
                 characterL.c_name = getCharacterName(characterL.id);
                 characterL.illust_num = getCharacterIllustNum(characterL.id);
+                characterL.now_illust = int.Parse(line["LCIllust"].ToString());
 
                 Character characterR = Instantiate(character_prb, new Vector3(5, 1), Quaternion.identity);
                 characterR.id = int.Parse(line["RCharacter"].ToString());
                 characterR.c_name = getCharacterName(characterR.id);
                 characterR.illust_num = getCharacterIllustNum(characterR.id);
+                characterR.now_illust = int.Parse(line["RCIllust"].ToString());
 
                 if (characters[1] != null)
                 {
