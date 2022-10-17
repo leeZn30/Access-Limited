@@ -10,6 +10,7 @@ public class EventFileRayout : MonoBehaviour
     [SerializeField] int _chapter;
     [SerializeField] List<TextAsset> CSVList;
 
+
     public int chapter
     {
         get { return _chapter; }
