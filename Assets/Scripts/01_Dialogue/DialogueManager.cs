@@ -157,7 +157,7 @@ public class DialogueManager : Singleton<DialogueManager>
                 Character character = Instantiate(character_prb, new Vector3(0, 1), Quaternion.identity);
                 character.id = int.Parse(line["MCharacter"].ToString());
                 character.c_name = getCharacterName(character.id);
-                character.setIllust(int.Parse(line["MCIllust"].ToString()));
+                character.illust_num = getCharacterIllustNum(character.id);
 
                 if (characters[0] != null || characters[2] != null)
                 {
@@ -183,12 +183,12 @@ public class DialogueManager : Singleton<DialogueManager>
                 Character characterL = Instantiate(character_prb, new Vector3(-5, 1), Quaternion.identity);
                 characterL.id = int.Parse(line["LCharacter"].ToString());
                 characterL.c_name = getCharacterName(characterL.id);
-                characterL.setIllust(int.Parse(line["LCIllust"].ToString()));
+                characterL.illust_num = getCharacterIllustNum(characterL.id);
 
                 Character characterR = Instantiate(character_prb, new Vector3(5, 1), Quaternion.identity);
                 characterR.id = int.Parse(line["RCharacter"].ToString());
                 characterR.c_name = getCharacterName(characterR.id);
-                characterR.setIllust(int.Parse(line["RCIllust"].ToString()));
+                characterR.illust_num = getCharacterIllustNum(characterR.id);
 
                 if (characters[1] != null)
                 {
@@ -245,7 +245,14 @@ public class DialogueManager : Singleton<DialogueManager>
 
     string getCharacterName(int id)
     {
-        return CharacterTable.cTable[id].ToString();
+        CharacterData element = CharacterTable.cTable[id] as CharacterData;
+        return element.name;
+    }
+
+    int getCharacterIllustNum(int id)
+    {
+        CharacterData element = CharacterTable.cTable[id] as CharacterData;
+        return element.illustNum;
     }
 
     void openDialogueLog()

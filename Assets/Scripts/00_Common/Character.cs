@@ -19,15 +19,30 @@ public class Character : MonoBehaviour
      * 
     * */
     public List<Sprite> illusts;
+    public int illust_num;
     public int now_illust = 0;
 
     [Header("위치")]
     [SerializeField] private Vector3 position; // 초기위치
 
 
+
     void Start()
     {
         position = gameObject.transform.position;
+
+        setIllustSet();
+        setIllust(now_illust);
+    }
+
+    void setIllustSet()
+    {
+        string path = "Images/Characters/" + id + "/";
+
+        for (int i = 0; i < illust_num; i++)
+        {
+            illusts[i] = Resources.Load<Sprite>(path + i);
+        }
     }
 
     public void setIllust(int illust)
