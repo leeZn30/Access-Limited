@@ -10,12 +10,12 @@ public class Character : MonoBehaviour
     /**
      * illust index
      * 0: 기본
-     * 1: 곤란
-     * 2: 짜증
+     * 1: 곤란, 당황
+     * 2: 어이없음
      * 3: 놀람
-     * 4: 미소
+     * 4: 웃음
      * 5: 화남
-     * 6: 
+     * 6: 짜증
      * 
     * */
     public List<Sprite> illusts;
@@ -86,7 +86,7 @@ public class Character : MonoBehaviour
     // 무브 애니메이션
     IEnumerator moveLeftCo()
     {
-        Vector3 targetPos = new Vector3(-5, 1, 0);
+        Vector3 targetPos = new Vector3(-4, 1, 0);
 
         while (gameObject.transform.position != targetPos)
         {
@@ -103,7 +103,7 @@ public class Character : MonoBehaviour
 
     IEnumerator moveRightCo()
     {
-        Vector3 targetPos = new Vector3(5, 1, 0);
+        Vector3 targetPos = new Vector3(4, 1, 0);
 
         while (gameObject.transform.position != targetPos)
         {

@@ -7,6 +7,9 @@ using TMPro;
 
 public class DialogueManager : Singleton<DialogueManager>
 {
+    [Header("씬 정보")]
+    [SerializeField] int chapter;
+
     [Header("Dialogue 정보")]
     public int mission = 0;
     public int now_turn;
@@ -16,7 +19,6 @@ public class DialogueManager : Singleton<DialogueManager>
 
     [Header("대사 출력")]
     public bool isLineEnd = false;
-
 
     [Header("등장 캐릭터")]
     public int characterNum;
@@ -39,9 +41,12 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] Button databasebtn;
     [SerializeField] Dialogue dialogueBox;
     [SerializeField] GameObject answer_box;
+    [SerializeField] DialogueLog dialogueLog;
+    [SerializeField] Background backgroundCanvas;
+
+    [Header("사용 프리팹")]
     [SerializeField] Answer answer_prb;
     [SerializeField] Character character_prb;
-    [SerializeField] DialogueLog dialogueLog;
 
     [SerializeField] bool isDLogOpen = false;
 
@@ -155,6 +160,11 @@ public class DialogueManager : Singleton<DialogueManager>
         dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
         dialogueBox.showline();
 
+        // 배경 있다면 전달
+        int BGid;
+        if (int.TryParse(line["Background"].ToString(), out BGid))
+            backgroundCanvas.setBackground(chapter, BGid);
+
         // 캐릭터 관련 전달 값
         characterNum = int.Parse(line["CharacterNum"].ToString());
         // 좀 많이 맘에 안듦
@@ -171,12 +181,12 @@ public class DialogueManager : Singleton<DialogueManager>
                 {
                     if (character.id == characters[0].id)
                     {
-                        character.transform.position = new Vector3(-5, 1);
+                        character.transform.position = new Vector3(-4, 1);
                         character.moveMiddle();
                     }
                     else if (character.id == characters[2].id)
                     {
-                        character.transform.position = new Vector3(5, 1);
+                        character.transform.position = new Vector3(4, 1);
                         character.moveMiddle();
                     }
 
@@ -188,13 +198,13 @@ public class DialogueManager : Singleton<DialogueManager>
                 break;
 
             case 2:
-                Character characterL = Instantiate(character_prb, new Vector3(-5, 1), Quaternion.identity);
+                Character characterL = Instantiate(character_prb, new Vector3(-4, 1), Quaternion.identity);
                 characterL.id = int.Parse(line["LCharacter"].ToString());
                 characterL.c_name = getCharacterName(characterL.id);
                 characterL.illust_num = getCharacterIllustNum(characterL.id);
                 characterL.now_illust = int.Parse(line["LCIllust"].ToString());
 
-                Character characterR = Instantiate(character_prb, new Vector3(5, 1), Quaternion.identity);
+                Character characterR = Instantiate(character_prb, new Vector3(4, 1), Quaternion.identity);
                 characterR.id = int.Parse(line["RCharacter"].ToString());
                 characterR.c_name = getCharacterName(characterR.id);
                 characterR.illust_num = getCharacterIllustNum(characterR.id);

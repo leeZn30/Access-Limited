@@ -12,13 +12,22 @@ public class Dialogue : MonoBehaviour
 
     [Header("대사")]
     public string line;
+    [SerializeField] string[] paragraphs;
     public string c_name;
 
     [Header("코루틴")]
     [SerializeField] Coroutine typing;
 
+    void Start()
+    {
+        // 문단 별로 나누기
+        paragraphs = line.Split('\n');
+    }
+
     public void showline()
     {
+        // 문단 여러개일때 엔터 적용해야함
+
         DialogueManager.Instance.isLineEnd = false;
         name_b.text = c_name;
         typing = StartCoroutine(Typing(line, 0.05f));
