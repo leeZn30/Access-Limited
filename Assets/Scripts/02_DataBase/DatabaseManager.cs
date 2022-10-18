@@ -7,7 +7,12 @@ using TMPro;
 public class DatabaseManager : Singleton<DatabaseManager>
 {
     [Header("챕터 정보")]
-    public int chapter;
+    [SerializeField] int _chapter;
+    public int chapter
+    {
+        get { return _chapter; }
+        set { _chapter = value;  }
+    }
 
     [Header("필요한 CSV파일")]
     [SerializeField] TextAsset ef; //eventfiles
@@ -16,7 +21,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
     [Header("현재 레이아웃 정보")]
     [SerializeField] int now_rayout;
-    [SerializeField] int prev_rayout = -1;
 
     [Header("버튼")]
     [SerializeField] Button exitBtn;
@@ -51,10 +55,10 @@ public class DatabaseManager : Singleton<DatabaseManager>
         backBtn.onClick.AddListener(backPage);
 
         // 레이아웃 링크 설정
-        setTest();
+        setLinks();
     }
 
-    void setTest()
+    void setLinks()
     {
         for (int i = 1; i < 5; i++)
         {
@@ -86,6 +90,21 @@ public class DatabaseManager : Singleton<DatabaseManager>
         }
     }
 
+    public List<Dictionary<string, object>> getCSV(int mode)
+    {
+        switch (mode)
+        {
+            case 0:
+                return CSVReader.Read("CSVfiles/02_Database/Eventfiles/" + ef.name);
+
+            case 1:
+                return CSVReader.Read("CSVfiles/02_Database/Eventfiles/" + ef.name);
+
+            default:
+                return null;
+        }
+    }
+
     void exit()
     {
         // 초기화(DB레이아웃 활성화) 필요
@@ -109,5 +128,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
         rayouts[pageIdx].SetActive(true);
 
         now_rayout = pageIdx;
+
+
     }
 }
