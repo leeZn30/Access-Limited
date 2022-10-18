@@ -1921,8 +1921,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c32fd33ee1db8c243a65594c57a90de1, type: 2}
-  m_sharedMaterial: {fileID: -1736856737223074633, guid: c32fd33ee1db8c243a65594c57a90de1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f61629bfa3634d4a9b1f42cfb55c4fe, type: 2}
+  m_sharedMaterial: {fileID: -2739736935706639561, guid: 8f61629bfa3634d4a9b1f42cfb55c4fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1954,7 +1954,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2309,14 +2309,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 326038956}
     m_Modifications:
-    - target: {fileID: 356945998, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 1039298057, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1156144777}
+    - target: {fileID: 1948698731, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 2342123465012678403, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2401,33 +2401,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3080037009069290375, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3080037009069290375, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3080037009069290375, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
+    - target: {fileID: 2501705943900232245, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -210
       objectReference: {fileID: 0}
     - target: {fileID: 4492035642699593628, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1156144777}
     - target: {fileID: 4589739586168127434, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
+      propertyPath: m_lineSpacing
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4589739586168127434, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589739586168127434, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
+      propertyPath: m_paragraphSpacing
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8529950375317984282, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
       propertyPath: m_Name
