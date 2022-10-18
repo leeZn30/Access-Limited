@@ -55,4 +55,16 @@ public class Figure
         return contents;
     }
 
+    public string showContentsTxt()
+    {
+        string txt = "";
+
+        foreach(string c in contents)
+        {
+            txt += c + "\n";
+        }
+
+        return txt;
+    }
+
 }

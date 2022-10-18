@@ -32,8 +32,6 @@ public class ChapterInitializer : Singleton<ChapterInitializer>
         {
             Dictionary<string, object> figureInfo = chapterFigures[i];
 
-            Debug.Log(figureInfo["Name"].ToString());
-
             Figure figure = new Figure(int.Parse(figureInfo["Id"].ToString()), 
                                        figureInfo["Name"].ToString(), 
                                        int.Parse(figureInfo["Age"].ToString()),

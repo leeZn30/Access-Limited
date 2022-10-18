@@ -130,4 +130,12 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
 
     }
+
+    public void pickFigure(Figure figure)
+    {
+        FigureInfoRayout flrayout = rayouts[3].GetComponent<FigureInfoRayout>();
+
+        flrayout.pickedFigure = figure;
+        flrayout.setContent();
+    }
 }
