@@ -16,7 +16,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
     [Header("필요한 CSV파일")]
     [SerializeField] TextAsset ef; //eventfiles
-    [SerializeField] TextAsset ff; //figurefiles
     [SerializeField] TextAsset fa; //figureAdds
 
     [Header("현재 레이아웃 정보")]
@@ -43,7 +42,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
     void Awake()
     {
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
 
 

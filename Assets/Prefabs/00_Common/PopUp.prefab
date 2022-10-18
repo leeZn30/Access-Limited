@@ -1086,6 +1086,7 @@ GameObject:
   - component: {fileID: 743235741}
   - component: {fileID: 1679855347215615120}
   - component: {fileID: 3936292905118275597}
+  - component: {fileID: 4257460109313952799}
   m_Layer: 5
   m_Name: FigureListRayout
   m_TagString: Untagged
@@ -1151,6 +1152,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4257460109313952799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743235740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7708a7f195d9649867b29288f5c27a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chapter: 0
+  list_prb: {fileID: 5444653607871554159, guid: bec8cf2c1fba93c4090b54ba15cd6b31, type: 3}
+  scrollContent: {fileID: 1403101370}
 --- !u!1 &1026738196
 GameObject:
   m_ObjectHideFlags: 0
