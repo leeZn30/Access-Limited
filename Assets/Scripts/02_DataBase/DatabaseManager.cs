@@ -30,11 +30,12 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
     [Header("레이아웃")]
     [SerializeField] GameObject[] rayouts = new GameObject[5];
-    [SerializeField] GameObject DBRayout;
-    [SerializeField] GameObject EFRayout;
-    [SerializeField] GameObject FFRayout;
-    [SerializeField] GameObject FLRayout;
-    [SerializeField] GameObject FIRayout;
+    [SerializeField] LinkedList<int>[] pageLinks = new LinkedList<int>[5];
+
+    [Header("팝업창")]
+    [SerializeField] bool isPopupOpen = false;
+    [SerializeField] GameObject popup;
+
 
     void Awake()
     {
@@ -49,27 +50,57 @@ public class DatabaseManager : Singleton<DatabaseManager>
         exitBtn.onClick.AddListener(exit);
         backBtn.onClick.AddListener(backPage);
 
+        // 레이아웃 링크 설정
+        setTest();
     }
 
-    // Update is called once per frame
-    void Update()
+    void setTest()
     {
-        
+        for (int i = 1; i < 5; i++)
+        {
+            LinkedList<int> tmp = new LinkedList<int>();
+            LinkedListNode<int> node = tmp.AddLast(i);
+            pageLinks[i] = tmp;
+
+            tmp.AddBefore(node, i - 1);
+        }
+    }
+
+    public void openPopup()
+    {
+        if (!isPopupOpen)
+        {
+            popup.SetActive(true);
+            isPopupOpen = true;
+            DialogueManager.Instance.isEnable = false;
+        }
+    }
+
+    public void closePopup()
+    {
+        if (isPopupOpen)
+        {
+            popup.SetActive(false);
+            isPopupOpen = false;
+            DialogueManager.Instance.isEnable = true;
+        }
     }
 
     void exit()
     {
         // 초기화(DB레이아웃 활성화) 필요
+        goPage(0);
+
+        //팝업창 닫기
+        closePopup();
+
     }
 
     void backPage()
     {
         rayouts[now_rayout].SetActive(false);
-        rayouts[prev_rayout].SetActive(true);
-
-        int tmp = prev_rayout;
-        now_rayout = prev_rayout;
-        prev_rayout = tmp;
+        rayouts[pageLinks[now_rayout].Find(now_rayout).Previous.Value].SetActive(true);
+        now_rayout = pageLinks[now_rayout].Find(now_rayout).Previous.Value;
     }
 
     public void goPage(int pageIdx)
@@ -77,7 +108,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
         rayouts[now_rayout].SetActive(false);
         rayouts[pageIdx].SetActive(true);
 
-        prev_rayout = now_rayout;
         now_rayout = pageIdx;
     }
 }

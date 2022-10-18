@@ -9,6 +9,7 @@ public class DialogueManager : Singleton<DialogueManager>
 {
     [Header("씬 정보")]
     [SerializeField] int chapter;
+    public bool isEnable = true;
 
     [Header("Dialogue 정보")]
     public int mission = 0;
@@ -64,7 +65,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
         // 버튼 설정
         reversebtn.onClick.AddListener(previousDialogue);
-        databasebtn.onClick.AddListener(delegate { GameManager.Instance.openPopup(); });
+        databasebtn.onClick.AddListener(delegate { DatabaseManager.Instance.openPopup(); });
 
         readlines();
     }
@@ -79,15 +80,18 @@ public class DialogueManager : Singleton<DialogueManager>
         if (Input.GetKeyUp(KeyCode.Space))
         {
             // 미션 성공 & 글자 다 출력
-            if (mission == 0 && isLineEnd)
-                nextDialogue();
-            else if (!isLineEnd)
-                dialogueBox.callStopTyping();
+            if (isEnable)
+            {
+                if (mission == 0 && isLineEnd)
+                    nextDialogue();
+                else if (!isLineEnd)
+                    dialogueBox.callStopTyping();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            openDialogueLog();
+            openCloseDialogueLog();
         }
 
     }
@@ -275,17 +279,19 @@ public class DialogueManager : Singleton<DialogueManager>
         return element.illustNum;
     }
 
-    void openDialogueLog()
+    void openCloseDialogueLog()
     {
         if (!isDLogOpen)
         {
             dialogueLog.gameObject.SetActive(true);
             isDLogOpen = true;
+            isEnable = false;
         }
         else
         {
             dialogueLog.gameObject.SetActive(false);
             isDLogOpen = false;
+            isEnable = true;
         }
     }
 }
