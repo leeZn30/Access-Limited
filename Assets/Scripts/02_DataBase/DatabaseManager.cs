@@ -23,12 +23,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
     [Header("버튼")]
     [SerializeField] Button exitBtn;
     [SerializeField] Button backBtn;
-    [SerializeField] Button EFBtn;
-    [SerializeField] Button diaryBtn;
-    [SerializeField] Button FFBtn;
-    [SerializeField] Button privisonBtn;
-    [SerializeField] Button FLBtn;
-    [SerializeField] Button FIBtn;
 
     [Header("레이아웃")]
     const int rayoutNum = 7;
@@ -67,6 +61,8 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
             if (i == 5) // 일기
                 tmp.AddBefore(node, 0);
+            else if (i == 4) // 단서
+                tmp.AddBefore(node, 1);
             else
                 tmp.AddBefore(node, i - 1);
         }
