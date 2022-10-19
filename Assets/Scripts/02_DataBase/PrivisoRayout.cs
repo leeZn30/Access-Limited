@@ -6,6 +6,9 @@ using TMPro;
 
 public class PrivisoRayout : MonoBehaviour
 {
+    [Header("챕터")]
+    [SerializeField] int chapter;
+
     [Header("오브젝트")]
     [SerializeField] Image privisoImage = null;
     [SerializeField] TextMeshProUGUI pName;
@@ -19,13 +22,9 @@ public class PrivisoRayout : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        setPrivisoInventory();
-    }
+        chapter = DatabaseManager.Instance.chapter;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        setPrivisoInventory();
     }
 
     void setPrivisoInventory()

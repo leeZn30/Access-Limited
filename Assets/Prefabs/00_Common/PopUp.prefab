@@ -1626,7 +1626,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3001,6 +3001,7 @@ GameObject:
   - component: {fileID: 1477780477}
   - component: {fileID: 1477780479}
   - component: {fileID: 1477780478}
+  - component: {fileID: 1477780480}
   m_Layer: 5
   m_Name: ProvisoRayout
   m_TagString: Untagged
@@ -3067,6 +3068,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1477780480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477780476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d1fba1a76188c468c2ff08438ec5c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  privisoImage: {fileID: 678530470}
+  pName: {fileID: 309634392}
+  pDesc: {fileID: 0}
+  scrollview: {fileID: 1418831333}
+  priviso_prb: {fileID: 3917823928467176863, guid: 5643b84a98ccb2346b2218d049295740, type: 3}
 --- !u!1 &1635423513
 GameObject:
   m_ObjectHideFlags: 0
