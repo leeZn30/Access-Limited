@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DiaryListRayout : MonoBehaviour
 {
     [Header("챕터")]
     [SerializeField] int chapter;
+    string text = "Chapter. ";
     [SerializeField] int selectChapter;
 
-    [Header("챕터 연결")]
-    [SerializeField] LinkedList<int> chapters = new LinkedList<int>();
-
     [Header("오브젝트")]
+    [SerializeField] GameObject chapterObj;
     [SerializeField] TextMeshProUGUI chapterNumtxt;
 
     void Start()
@@ -20,9 +20,10 @@ public class DiaryListRayout : MonoBehaviour
         chapter = DatabaseManager.Instance.chapter;
         selectChapter = chapter;
 
-        chapterNumtxt.text = "Chapter. " + chapter;
+        chapterNumtxt.text = text + chapter;
 
-        setChapterLinks();
+        chapterObj.GetComponent<Button>().onClick.AddListener(delegate { DatabaseManager.Instance.pickDiary(selectChapter); });
+
     }
 
     // Update is called once per frame
@@ -30,29 +31,77 @@ public class DiaryListRayout : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            selectChapter--;
-            chapterNumtxt.text = "Chapter. " + selectChapter;
+            if (selectChapter - 1 > 0)
+            {
+                StartCoroutine(moveLeft());
+                selectChapter--;
+                chapterNumtxt.text = text + selectChapter;
+            }
         }
-    }
-
-    void setChapterObject()
-    {
-
-    }
-
-    void setChapterLinks()
-    {
-        LinkedListNode<int> node = new LinkedListNode<int>(0);
-        chapters.AddFirst(node);
-
-        for (int i = 1; i <= chapter; i++)
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            LinkedListNode<int> nowNode = chapters.AddLast(i);
-            LinkedListNode<int> prevNode = new LinkedListNode<int>(i-1);
-            LinkedListNode<int> nextNode = new LinkedListNode<int>(i+1);
+            if (selectChapter + 1 <= chapter)
+            {
+                StartCoroutine(moveRight());
+                selectChapter++;
+                chapterNumtxt.text = text + selectChapter;
 
-            chapters.AddBefore(nowNode, prevNode);
-            chapters.AddAfter(nowNode, nextNode);
+            }
         }
     }
+
+
+    // 움직임 애니메이션 좀 많이 고쳐야함
+    IEnumerator moveLeft()
+    {
+        float duration = 0.15f;
+        float time = 0f;
+        float speed = 30f;
+
+        RectTransform rect = chapterObj.GetComponent<RectTransform>();
+
+        Vector3 originPos = chapterObj.transform.position;
+        Vector2 originWidth = rect.sizeDelta;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+
+            chapterObj.transform.position += Vector3.left * Time.deltaTime * speed;
+            rect.sizeDelta -= new Vector2(100, 0) * Time.deltaTime * 20;
+            yield return null;
+        }
+
+        rect.sizeDelta = originWidth;
+        rect.position = originPos;
+
+        yield return null;
+    }
+
+    IEnumerator moveRight()
+    {
+        float duration = 0.15f;
+        float time = 0f;
+        float speed = 30f;
+
+        RectTransform rect = chapterObj.GetComponent<RectTransform>();
+
+        Vector3 originPos = chapterObj.transform.position;
+        Vector2 originWidth = rect.sizeDelta;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+
+            chapterObj.transform.position += Vector3.right * Time.deltaTime * speed;
+            rect.sizeDelta -= new Vector2(100, 0) * Time.deltaTime * 20;
+            yield return null;
+        }
+
+        rect.sizeDelta = originWidth;
+        rect.position = originPos;
+
+        yield return null;
+    }
+
 }

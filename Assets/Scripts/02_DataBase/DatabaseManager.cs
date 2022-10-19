@@ -16,7 +16,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
     [Header("필요한 CSV파일")]
     [SerializeField] TextAsset ef; //eventfiles
-    [SerializeField] TextAsset fa; //figureAdds
 
     [Header("현재 레이아웃 정보")]
     [SerializeField] int now_rayout;
@@ -32,8 +31,9 @@ public class DatabaseManager : Singleton<DatabaseManager>
     [SerializeField] Button FIBtn;
 
     [Header("레이아웃")]
-    [SerializeField] GameObject[] rayouts = new GameObject[5];
-    [SerializeField] LinkedList<int>[] pageLinks = new LinkedList<int>[5];
+    const int rayoutNum = 7;
+    [SerializeField] GameObject[] rayouts = new GameObject[rayoutNum];
+    [SerializeField] LinkedList<int>[] pageLinks = new LinkedList<int>[rayoutNum];
 
     [Header("팝업창")]
     [SerializeField] bool isPopupOpen = false;
@@ -59,13 +59,16 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
     void setLinks()
     {
-        for (int i = 1; i < 5; i++)
+        for (int i = 1; i < rayoutNum; i++)
         {
             LinkedList<int> tmp = new LinkedList<int>();
             LinkedListNode<int> node = tmp.AddLast(i);
             pageLinks[i] = tmp;
 
-            tmp.AddBefore(node, i - 1);
+            if (i == 5) // 일기
+                tmp.AddBefore(node, 0);
+            else
+                tmp.AddBefore(node, i - 1);
         }
     }
 
@@ -94,9 +97,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
         switch (mode)
         {
             case 0:
-                return CSVReader.Read("CSVfiles/02_Database/Eventfiles/" + ef.name);
-
-            case 1:
                 return CSVReader.Read("CSVfiles/02_Database/Eventfiles/" + ef.name);
 
             default:
@@ -137,5 +137,12 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
         flrayout.pickedFigure = figure;
         flrayout.setContent();
+    }
+
+    public void pickDiary(int chapter)
+    {
+        DiaryDescRayout ddrayout = rayouts[6].GetComponent<DiaryDescRayout>();
+
+        ddrayout.selectedC = chapter;
     }
 }
