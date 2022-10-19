@@ -2327,6 +2327,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 326038956}
     m_Modifications:
+    - target: {fileID: 559450811, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fbd3c9ae2082757458e7b7cc5a523a0c, type: 2}
+    - target: {fileID: 559450811, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1039298057, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2335,10 +2343,34 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1156144777}
+    - target: {fileID: 1457717891, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fbd3c9ae2082757458e7b7cc5a523a0c, type: 2}
+    - target: {fileID: 1457717891, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1536753951, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1156144777}
+    - target: {fileID: 1578472022, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fbd3c9ae2082757458e7b7cc5a523a0c, type: 2}
+    - target: {fileID: 1578472022, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1864901513, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fbd3c9ae2082757458e7b7cc5a523a0c, type: 2}
+    - target: {fileID: 1864901513, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2342123465012678403, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

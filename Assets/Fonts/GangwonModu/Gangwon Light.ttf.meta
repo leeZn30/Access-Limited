@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 5e59e667e962c2c4aa21c35a1378b724
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - GangwonEduAll
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 56fdb6d01ce206247a5432148548fd20, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
