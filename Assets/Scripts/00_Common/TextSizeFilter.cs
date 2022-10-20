@@ -7,7 +7,7 @@ public class TextSizeFilter : MonoBehaviour
 {
     [Header("크기")]
     RectTransform rect;
-    float minWidth = 400f;
+    [SerializeField] float minWidth;
 
     [Header("콜라이더")]
     [SerializeField] BoxCollider2D collider;

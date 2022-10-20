@@ -170,11 +170,10 @@ public class DialogueManager : Singleton<DialogueManager>
         dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
         dialogueBox.showline();
 
-        // 대답에 따른 반응 연속 라인 오프셋
+        // 대답에 따른 반응이 연속이라면
         int lineoffset;
         if (int.TryParse(line["LineOffset"].ToString(), out lineoffset))
             chosen_line = lineoffset;
-
 
         // 배경 있다면 전달
         int BGid;
@@ -183,6 +182,20 @@ public class DialogueManager : Singleton<DialogueManager>
 
         // 캐릭터 관련 전달 값
         characterNum = int.Parse(line["CharacterNum"].ToString());
+        moveCharacter(characterNum);
+
+        // 플레이어 대답 요구 시
+        if (type == 1)
+        {
+            Instance.mission = 1;
+            Instance.getAnswers();
+        }
+    }
+
+    void moveCharacter(int characterNum)
+    {
+
+
         // 좀 많이 맘에 안듦
         switch (characterNum)
         {
@@ -226,6 +239,16 @@ public class DialogueManager : Singleton<DialogueManager>
                 characterR.illust_num = getCharacterIllustNum(characterR.id);
                 characterR.now_illust = int.Parse(line["RCIllust"].ToString());
 
+                // 말안하면 색상 낮추기
+                if (characterL.id != int.Parse(line["CharacterId"].ToString()))
+                {
+                    characterL.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
+                }
+                else if (characterR.id != int.Parse(line["CharacterId"].ToString()))
+                {
+                    characterR.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
+                }
+
                 if (characters[1] != null)
                 {
                     if (characterL.id == characters[1].id)
@@ -247,13 +270,6 @@ public class DialogueManager : Singleton<DialogueManager>
 
             default:
                 break;
-        }
-
-        // 플레이어 대답 요구 시
-        if (type == 1)
-        {
-            Instance.mission = 1;
-            Instance.getAnswers();
         }
     }
 

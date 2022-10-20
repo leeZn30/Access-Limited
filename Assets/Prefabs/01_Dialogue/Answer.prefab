@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2083461263915801827}
   - component: {fileID: 5808427731944876406}
+  - component: {fileID: 7310468996296186653}
   m_Layer: 5
   m_Name: Answer
   m_TagString: Answer
@@ -178,7 +179,22 @@ MonoBehaviour:
   _S5: 0
   _S6: 0
   _S7: 0
+  _offset: 0
   content_b: {fileID: 2374035790404333070}
+--- !u!114 &7310468996296186653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4744292283156411987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c97d1c7e3daf0c54594d61bea656d82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minWidth: 600
+  collider: {fileID: 0}
 --- !u!1 &8561060589084822210
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,10 +260,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Answer
+  m_text: "\uC88B\uC740 \uC77C\uC774\uC57C. \uADF8\uAC78\uB85C \uBAA8\uB450\uB97C
+    \uAD6C\uD560 \uC218 \uC788\uC796\uC544,"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c0fe724d9ebdf4e4baae87cf259c9f50, type: 2}
-  m_sharedMaterial: {fileID: 3057066335638687475, guid: c0fe724d9ebdf4e4baae87cf259c9f50, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f61629bfa3634d4a9b1f42cfb55c4fe, type: 2}
+  m_sharedMaterial: {fileID: -2739736935706639561, guid: 8f61629bfa3634d4a9b1f42cfb55c4fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -271,8 +288,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27
-  m_fontSizeBase: 27
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
