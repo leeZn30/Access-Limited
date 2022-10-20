@@ -9,7 +9,7 @@ public class ChapterInitializer : Singleton<ChapterInitializer>
     [SerializeField] List<Figure> figures;
 
     [Header("초기 정보를 위한 CSV")]
-    [SerializeField] TextAsset[] ffs = new TextAsset[6];
+    [SerializeField] string path = "CSVfiles/02_Database/Figurefiles/";
 
     void Awake()
     {
@@ -26,13 +26,17 @@ public class ChapterInitializer : Singleton<ChapterInitializer>
     // 챕터별 인물 파일 생성
     void setInitialFigure()
     {
-        List<Dictionary<string, object>> chapterFigures = CSVReader.Read("CSVfiles/02_Database/Figurefiles/" + ffs[chapter].name);
+        TextAsset nowFF = Resources.Load<TextAsset>(path + chapter);
+
+        List<Dictionary<string, object>> chapterFigures 
+            = CSVReader.Read("CSVfiles/02_Database/Figurefiles/" + nowFF.name + "(tmp)");
+            //= CSVReader.Read("CSVfiles/02_Database/Figurefiles/" + nowFF.name);
 
         for (int i = 0; i < chapterFigures.Count; i++)
         {
             Dictionary<string, object> figureInfo = chapterFigures[i];
 
-            Figure figure = new Figure(int.Parse(figureInfo["Id"].ToString()), 
+            Figure figure = new Figure(figureInfo["Id"].ToString(), 
                                        figureInfo["Name"].ToString(), 
                                        int.Parse(figureInfo["Age"].ToString()),
                                        figureInfo["Gender"].ToString(),

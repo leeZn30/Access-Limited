@@ -53,6 +53,8 @@ public class DialogueManager : Singleton<DialogueManager>
 
     void Awake()
     {
+        chapter = GameData.Instance.chapter;
+
         // CSV파일 읽기
         lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
 
@@ -96,6 +98,11 @@ public class DialogueManager : Singleton<DialogueManager>
 
     }
 
+    // 다이얼로그 매니저 설정
+    public void setDialogueManager()
+    {
+        chapter = GameData.Instance.chapter;
+    }
 
     public void nextDialogue(int offset = 0)
     {
@@ -263,8 +270,11 @@ public class DialogueManager : Singleton<DialogueManager>
 
     void getAnswers()
     {
-        answers = CSVReader.Read("CSVfiles/01_Dialogue/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
-        createAnswer();
+        if (a_file != null)
+        {
+            answers = CSVReader.Read("CSVfiles/01_Dialogue/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
+            createAnswer();
+        }
     }
 
     string getCharacterName(int id)

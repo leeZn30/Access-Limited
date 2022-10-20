@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 public class Figure
 {
-    private int _id;
-    public int id
+    private string _id;
+    public string id
     {
         get { return _id; }
         set { _id = value; }
@@ -33,7 +33,7 @@ public class Figure
     List<string> contents = new List<string>();
 
     // »ı¼ºÀÚ
-    public Figure(int id, string name, int age, string gender, string content)
+    public Figure(string id, string name, int age, string gender, string content)
     {
         this.id = id;
         this.name = name;

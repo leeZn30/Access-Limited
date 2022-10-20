@@ -40,7 +40,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
     }
 
 
-    // Start is called before the first frame update
     void Start()
     {
         // 버튼 리스너

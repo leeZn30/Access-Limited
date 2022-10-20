@@ -35,10 +35,10 @@ public class GameData : Singleton<GameData>
     void Start()
     {
         // 임시로 단서 넣어두기
-        setTmpPriviso();
+        //setTmpPriviso();
 
         // 임시로 챕터별 일기 갱신 라인 넣어두기
-        saveDiaryData[1] = 5;
+        //saveDiaryData[1] = 5;
         
     }
 

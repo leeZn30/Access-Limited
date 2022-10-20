@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneChanger : MonoBehaviour
+public static class SceneChanger
 {
-    public void goScene(int scene)
+    public static void goScene(int scene)
     {
         SceneManager.LoadScene(scene);
     }
