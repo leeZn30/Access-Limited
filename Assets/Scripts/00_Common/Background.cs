@@ -16,6 +16,7 @@ public class Background : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        chapter = GameData.Instance.chapter;
         background = GetComponentInChildren<Image>();
     }
 

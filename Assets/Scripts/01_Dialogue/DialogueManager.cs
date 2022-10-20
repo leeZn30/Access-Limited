@@ -56,7 +56,7 @@ public class DialogueManager : Singleton<DialogueManager>
         chapter = GameData.Instance.chapter;
 
         // CSV파일 읽기
-        lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
+        lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
 
         // 캐릭터 해시테이블 (후에는 게임 최초 실행시로 변경)
         CharacterTable.setTable();
@@ -104,13 +104,12 @@ public class DialogueManager : Singleton<DialogueManager>
         chapter = GameData.Instance.chapter;
     }
 
-    public void nextDialogue(int offset = 0)
+    public void nextDialogue()
     {
         if (!nextEnd)
         {
             destoryObjects();
             now_turn++;
-            chosen_line = offset;
             readlines();
         }
     }
@@ -170,6 +169,12 @@ public class DialogueManager : Singleton<DialogueManager>
         dialogueBox.c_name = getCharacterName(int.Parse(line["CharacterId"].ToString()));
         dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
         dialogueBox.showline();
+
+        // 대답에 따른 반응 연속 라인 오프셋
+        int lineoffset;
+        if (int.TryParse(line["LineOffset"].ToString(), out lineoffset))
+            chosen_line = lineoffset;
+
 
         // 배경 있다면 전달
         int BGid;
@@ -272,7 +277,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         if (a_file != null)
         {
-            answers = CSVReader.Read("CSVfiles/01_Dialogue/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
+            answers = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
             createAnswer();
         }
     }

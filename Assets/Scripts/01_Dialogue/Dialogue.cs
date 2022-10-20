@@ -30,7 +30,7 @@ public class Dialogue : MonoBehaviour
 
         DialogueManager.Instance.isLineEnd = false;
         name_b.text = c_name;
-        typing = StartCoroutine(Typing(line, 0.05f));
+        typing = StartCoroutine(Typing(line, 0.07f));
 
         /**
         // Dotween ¹öÀü

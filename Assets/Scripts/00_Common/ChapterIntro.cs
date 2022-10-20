@@ -83,6 +83,7 @@ public class ChapterIntro : MonoBehaviour
         }
         catch (ArgumentException e)
         {
+            isEnd = true;
             text.text = "Chapter." + chapter;
             text.color = Color.black;
             //StartCoroutine(textFadein(text));
@@ -112,7 +113,7 @@ public class ChapterIntro : MonoBehaviour
             yield return null;
         }
 
-        isEnd = true;
+        SceneChanger.goScene(2);
         yield return null;
     }
 
