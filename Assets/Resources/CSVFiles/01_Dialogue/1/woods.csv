@@ -1,0 +1,9 @@
+﻿Turn,Type,CharacterId,Dialogue,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,AnswerId,LineOffset,FigureId,PrivisoId,DiaryId,Background,EffectSound,BGM
+0,0,0,여기 곶은 지형이 특이하네.,2,,,0,0,4,0,,,,,,,,
+1,0,0,맨 꼭대기엔 나무가 없고 돌로만 이루어져 있어.,2,,,0,0,4,0,,,,,,,,
+2,0,4,"아마 인공적으로 만든걸거야.
+보면 울타리도 쳐져있고, 쉴 수 있는 의자도 있네",2,,,0,0,4,0,,,,,,,,
+3,0,4,원래는 나무가 울창했던 지역을 벌목하고 쉴 수 있는 공간으로 만든거겠지.,2,,,0,0,4,0,,,,,,,,
+4,0,0,꼭대기로 올라가는 길도 나있어.,2,,,0,0,4,0,,,,,,,,
+5,0,0,그 옆은 다 숲으로 되어있네.,2,,,0,0,4,0,,,,,,,,
+6,0,4,굉장히 빽빽해 잘 안보일거같아.,2,,,0,0,4,0,,,,P1-1-1,,,,

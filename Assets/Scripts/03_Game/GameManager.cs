@@ -15,10 +15,11 @@ public class GameManager : Singleton<GameManager>
         // 데이터베이스 단축키
         if (Input.GetKeyDown(KeyCode.D))
         {
-            openPopup();
+            DatabaseManager.Instance.openPopup();
         }
 
-        // 시간정지 단축키
+
+            // 시간정지 단축키
         if (Input.GetKeyDown(KeyCode.Return))
         {
 
@@ -27,13 +28,7 @@ public class GameManager : Singleton<GameManager>
         // 임시
         if (Input.GetKeyDown(KeyCode.S))
         {
-            SceneManager.LoadScene(1);
         }
-    }
-
-    public void openPopup(int mode = 0)
-    {
-
     }
 
 }

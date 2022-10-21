@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameData : Singleton<GameData>
 {
@@ -25,7 +26,7 @@ public class GameData : Singleton<GameData>
     public List<Figure> figures = new List<Figure>();
 
     [Header("챕터별 단서")]
-    [SerializeField] TextAsset privisoCSVTmp;
+    [SerializeField] TextAsset privisoCSV;
     public List<Priviso> privios = new List<Priviso>();
 
     [Header("챕터별 갱신 일기")]
@@ -39,18 +40,17 @@ public class GameData : Singleton<GameData>
 
         // 임시로 챕터별 일기 갱신 라인 넣어두기
         //saveDiaryData[1] = 5;
-        
+       
     }
 
-    void setTmpPriviso()
+    public void addPriviso(string privisoId)
     {
-        List<Dictionary<string, object>> tmp = CSVReader.Read("CSVfiles/02_Database/Privisofiles/" + privisoCSVTmp.name);
+        List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Privisofiles/" + privisoCSV.name);
+        Dictionary<string, object> p = csv.Where(p => p["Id"].ToString() == privisoId).ToList()[0];
 
-        foreach(Dictionary<string, object> item in tmp)
-        {
-            Priviso p = new Priviso(item["Id"].ToString(), item["Name"].ToString(), item["Content"].ToString());
+        Priviso priviso = new Priviso(p["Id"].ToString(), p["Name"].ToString(), p["Content"].ToString());
+        privios.Add(priviso);
 
-            privios.Add(p);
-        }
+        // 단서 획득 화면 띄우기
     }
 }

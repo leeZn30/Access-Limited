@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class DialogueManager : Singleton<DialogueManager>
 {
@@ -27,6 +28,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     [Header("CSV 파일")]
     [SerializeField] TextAsset d_file;
+    [SerializeField] TextAsset p_file;
     [SerializeField] TextAsset a_file; // GameManager에 넣는게 나을 수도
 
     [Header("CSV 출력")]
@@ -38,7 +40,6 @@ public class DialogueManager : Singleton<DialogueManager>
     public string answerId;
 
     [Header("오브젝트")]
-    [SerializeField] Button reversebtn;
     [SerializeField] Button databasebtn;
     [SerializeField] Dialogue dialogueBox;
     [SerializeField] GameObject answer_box;
@@ -46,6 +47,7 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] Background backgroundCanvas;
 
     [Header("사용 프리팹")]
+    [SerializeField] GameObject dialogueUIs;
     [SerializeField] Answer answer_prb;
     [SerializeField] Character character_prb;
 
@@ -55,9 +57,6 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         chapter = GameData.Instance.chapter;
 
-        // CSV파일 읽기
-        lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
-
         // 캐릭터 해시테이블 (후에는 게임 최초 실행시로 변경)
         CharacterTable.setTable();
 
@@ -66,10 +65,8 @@ public class DialogueManager : Singleton<DialogueManager>
         chosen_line = 0;
 
         // 버튼 설정
-        reversebtn.onClick.AddListener(previousDialogue);
         databasebtn.onClick.AddListener(delegate { DatabaseManager.Instance.openPopup(); });
 
-        readlines();
     }
 
     void start()
@@ -99,10 +96,20 @@ public class DialogueManager : Singleton<DialogueManager>
     }
 
     // 다이얼로그 매니저 설정
-    public void setDialogueManager()
+    public void setDialogueManager(TextAsset d_file)
     {
-        chapter = GameData.Instance.chapter;
+        this.d_file = d_file;
+
+        // CSV파일 읽기
+        lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
+        readlines();
     }
+
+    public void resetDialogue()
+    {
+        destoryObjects();
+    }
+
 
     public void nextDialogue()
     {
@@ -110,18 +117,6 @@ public class DialogueManager : Singleton<DialogueManager>
         {
             destoryObjects();
             now_turn++;
-            readlines();
-        }
-    }
-
-    void previousDialogue()
-    {
-        // now_turn이 0이고 전 대화가 특수 대화(type != 0)가 아니어야 역행 가능
-        // 대답의 모든 타입은 같기 때문에, 인덱스[0]으로 통일
-        if (now_turn > 0 && int.Parse(lines.Where(turn => turn["Turn"].ToString() == (now_turn - 1).ToString()).ToList()[0]["Type"].ToString()) == 0)
-        {
-            destoryObjects();
-            now_turn--;
             readlines();
         }
     }
@@ -159,7 +154,15 @@ public class DialogueManager : Singleton<DialogueManager>
 
     void readlines()
     {
-        line = lines.Where(turn => turn["Turn"].ToString() == now_turn.ToString()).ToList()[chosen_line]; // 왜 int.Parse 안됨
+        try
+        {
+            line = lines.Where(turn => turn["Turn"].ToString() == now_turn.ToString()).ToList()[chosen_line]; // 왜 int.Parse 안됨
+        }
+        catch (ArgumentException e)
+        {
+            dialogueUIs.SetActive(false);
+            resetDialogue();
+        }
 
         type = int.Parse(line["Type"].ToString());
         answerId = line["AnswerId"].ToString();
@@ -183,6 +186,15 @@ public class DialogueManager : Singleton<DialogueManager>
         // 캐릭터 관련 전달 값
         characterNum = int.Parse(line["CharacterNum"].ToString());
         moveCharacter(characterNum);
+
+        // 단서 관련 전달
+        string priviso;
+        if (!line["PrivisoId"].ToString().Equals(""))
+        {
+            priviso = line["PrivisoId"].ToString();
+            GameData.Instance.addPriviso(priviso);
+        }
+
 
         // 플레이어 대답 요구 시
         if (type == 1)

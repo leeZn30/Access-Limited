@@ -73,7 +73,15 @@ public class DatabaseManager : Singleton<DatabaseManager>
         {
             popup.SetActive(true);
             isPopupOpen = true;
-            DialogueManager.Instance.isEnable = false;
+            if (DialogueManager.Instance != null)
+                DialogueManager.Instance.isEnable = false;
+        }
+        else
+        {
+            popup.SetActive(false);
+            isPopupOpen = false;
+            if (DialogueManager.Instance != null)
+                DialogueManager.Instance.isEnable = true;
         }
     }
 

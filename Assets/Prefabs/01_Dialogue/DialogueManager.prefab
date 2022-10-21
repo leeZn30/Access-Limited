@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6296532349036478487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6296532349036478485}
+  - component: {fileID: 6296532349036478484}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6296532349036478485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296532349036478487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.9120917, y: -4.439773, z: 99.801895}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6296532349036478484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296532349036478487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e08fd9996266346a5663a0e4f8c61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chapter: 1
+  isEnable: 1
+  mission: 0
+  now_turn: 0
+  type: 0
+  chosen_line: 0
+  nextEnd: 0
+  isLineEnd: 0
+  characterNum: 0
+  characters:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  d_file: {fileID: 4900000, guid: ed2cd3bf5eaf9004aaa9fa2cb2adfaf5, type: 3}
+  a_file: {fileID: 4900000, guid: 520af013f0ffd524490d888feed725c9, type: 3}
+  answerId: 
+  reversebtn: {fileID: 0}
+  databasebtn: {fileID: 0}
+  dialogueBox: {fileID: 0}
+  answer_box: {fileID: 0}
+  dialogueLog: {fileID: 0}
+  backgroundCanvas: {fileID: 0}
+  answer_prb: {fileID: 5808427731944876406, guid: 8fcd5923480cdd543b7f396517ed4aa5, type: 3}
+  character_prb: {fileID: 3675280021743624330, guid: e8693e7deebe5044cbdb10809b99f972, type: 3}
+  isDLogOpen: 0
