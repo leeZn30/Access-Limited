@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine;
 
 public class Priviso
 {
@@ -15,13 +18,14 @@ public class Priviso
         set { _name = value; }
     }
 
-    // 단서는 내용 추가 없을듯
+    List<string> contents = new List<string>();
+    public int updatedInfo = 0;
 
-    private string _content;
-    public string content
+    Sprite _image = null;
+    public Sprite image
     {
-        get { return _content; }
-        set { _content = value; }
+        get { return _image; }
+        set { _image = value; }
     }
 
     // 생성자
@@ -29,7 +33,31 @@ public class Priviso
     {
         this.id = id;
         this.name = name;
-        this.content = content;
+        image = Resources.Load<Sprite>("Images/Objects/" + GameData.Instance.chapter + "/" + id);
+
+        addContent(content);
+    }
+
+    public void addContent(string content)
+    {
+        contents.Add(content);
+        updatedInfo++;
+    }
+
+    public List<string> getContents()
+    {
+        return contents;
+    }
+    public string showContentsTxt()
+    {
+        string txt = "";
+
+        foreach (string c in contents)
+        {
+            txt += c + "\n";
+        }
+
+        return txt;
     }
 
 }

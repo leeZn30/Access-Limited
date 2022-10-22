@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chapter: 1
-  isEnable: 1
+  isEnable: 0
   isDLogOpen: 0
   mission: 0
   now_turn: 0

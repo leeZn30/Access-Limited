@@ -24,7 +24,8 @@ public class PrivisoInfo : MonoBehaviour
         if (priviso != null)
         {
             GameObject.Find("단서 이름").GetComponent<TextMeshProUGUI>().text = priviso.name;
-            GameObject.Find("단서 설명").GetComponent<TextMeshProUGUI>().text = priviso.content;
+            GameObject.Find("단서 설명").GetComponent<TextMeshProUGUI>().text = priviso.showContentsTxt();
+            GameObject.Find("단서 이미지").GetComponent<Image>().sprite = priviso.image;
         }
     }
 }

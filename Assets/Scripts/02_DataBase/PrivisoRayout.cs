@@ -29,7 +29,7 @@ public class PrivisoRayout : MonoBehaviour
 
     void setPrivisoInventory()
     {
-        foreach(Priviso item in GameData.Instance.privios)
+        foreach(Priviso item in GameData.Instance.privisos)
         {
             PrivisoInfo p = Instantiate(priviso_prb, scrollview.transform).GetComponent<PrivisoInfo>();
             p.setProviso(item);

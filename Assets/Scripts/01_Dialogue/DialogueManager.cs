@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using TMPro;
 
 public class DialogueManager : Singleton<DialogueManager>
 {
@@ -47,7 +48,6 @@ public class DialogueManager : Singleton<DialogueManager>
 
     [Header("사용 프리팹")]
     [SerializeField] Answer answer_prb;
-    [SerializeField] Character character_prb;
 
     void Awake()
     {
@@ -61,7 +61,9 @@ public class DialogueManager : Singleton<DialogueManager>
         chosen_line = 0;
 
         // 배경 찾기
-        backgroundCanvas = GameObject.Find("Background").GetComponent<Background>();
+        backgroundCanvas = GameObject.Find("BackgroundCanvas").GetComponentInChildren<Background>();
+
+        //resetDialogueManager(d_file);
     }
 
 
@@ -193,6 +195,27 @@ public class DialogueManager : Singleton<DialogueManager>
         {
             case 1:
                 Instance.getAnswers();
+                break;
+
+            case 2:
+                mission = 2;
+                GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "D를 눌러 통신 연결을 확인하세요.";
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    mission = 0;
+                }
+                GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "";
+                break;
+
+            case 3:
+                mission = 3;
+                GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "D를 눌러 통신 연결을 확인하세요.";
+                // databaseManager.rayouts[2].isEnable
+                if (true)
+                {
+                    mission = 0;
+                    GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "";
+                }
                 break;
 
             default:

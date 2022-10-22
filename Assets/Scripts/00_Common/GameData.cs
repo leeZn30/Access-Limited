@@ -28,7 +28,7 @@ public class GameData : Singleton<GameData>
 
     [Header("챕터별 단서")]
     [SerializeField] TextAsset privisoCSV;
-    public List<Priviso> privios = new List<Priviso>();
+    public List<Priviso> privisos = new List<Priviso>();
 
     [Header("챕터별 갱신 일기")]
     public int[] saveDiaryData = new int[6];
@@ -70,12 +70,25 @@ public class GameData : Singleton<GameData>
 
     public void addPriviso(string privisoId)
     {
+
         List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Privisofiles/" + privisoCSV.name);
-        Dictionary<string, object> p = csv.Where(p => p["Id"].ToString() == privisoId).ToList()[0];
 
-        Priviso priviso = new Priviso(p["Id"].ToString(), p["Name"].ToString(), p["Content"].ToString());
-        privios.Add(priviso);
+        // figure  찾기
+        var priviso = privisos.Find(p => p.id == privisoId);
 
-        // 단서 획득 화면 띄우기
+        // 없으면 새로 추가
+        if (priviso == null)
+        {
+            Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == privisoId).ToList()[0];
+            priviso = new Priviso(element["Id"].ToString(), element["Name"].ToString(), element["Content"].ToString());
+
+            privisos.Add(priviso);
+        }
+        // 있으면 내용 추가
+        else
+        {
+            string newContent = csv.Where(e => e["Id"].ToString() == privisoId).ToList()[priviso.updatedInfo]["Content"].ToString();
+            priviso.addContent(newContent);
+        }
     }
 }
