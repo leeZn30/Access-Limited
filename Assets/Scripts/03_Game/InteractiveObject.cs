@@ -19,12 +19,12 @@ public class InteractiveObject : MonoBehaviour
     {
         if (!isChecked)
         {
-            DialogueManager.Instance.setDialogueManager(lineCSV);
+            DialogueManager.Instance.resetDialogueManager(lineCSV);
             isChecked = true;
         }
         else
         {
-            DialogueManager.Instance.setDialogueManager(defaultCSV);
+            DialogueManager.Instance.resetDialogueManager(defaultCSV);
         }
     }
 }

@@ -46,13 +46,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chapter: 1
   isEnable: 1
+  isDLogOpen: 0
   mission: 0
   now_turn: 0
   type: 0
   chosen_line: 0
-  nextEnd: 0
   isLineEnd: 0
+  speakingC: 0
   characterNum: 0
+  ids: ffffffffffffffffffffffff
+  illusts: ffffffffffffffffffffffff
   characters:
   - {fileID: 0}
   - {fileID: 0}
@@ -60,16 +63,13 @@ MonoBehaviour:
   d_file: {fileID: 0}
   p_file: {fileID: 0}
   a_file: {fileID: 4900000, guid: 520af013f0ffd524490d888feed725c9, type: 3}
-  answerId: 
   dialogueUIs: {fileID: 6037993964454304325}
-  databasebtn: {fileID: 0}
   dialogueBox: {fileID: 5427846343484947818}
   answer_box: {fileID: 5427846343108958064}
   dialogueLog: {fileID: 5427846344284167832}
   backgroundCanvas: {fileID: 0}
   answer_prb: {fileID: 5808427731944876406, guid: 8fcd5923480cdd543b7f396517ed4aa5, type: 3}
   character_prb: {fileID: 3675280021743624330, guid: e8693e7deebe5044cbdb10809b99f972, type: 3}
-  isDLogOpen: 0
 --- !u!1 &5427846342236468469
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,8 +517,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -84.99994, y: 0}
-  m_SizeDelta: {x: -230, y: -100}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -59.999985, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5427846343244845556
 CanvasRenderer:
@@ -558,7 +558,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281874488
-  m_fontColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+  m_fontColor: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1007,7 +1007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6711f0d728360684283fdd5f70e54713, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

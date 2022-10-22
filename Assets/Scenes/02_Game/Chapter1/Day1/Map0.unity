@@ -651,7 +651,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 4f0d712a44ea9654f9aebae3ee877192, type: 3}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: objectId
-      value: P1-1-1
+      value: P1-2
       objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: dialogueUIs
@@ -1051,7 +1051,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 8931d2193bc8c9a4f8fd405ca0b9f391, type: 3}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: objectId
-      value: P1-1-0
+      value: P1-1
       objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: dialogueUIs

@@ -17,7 +17,6 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] int now_turn;
     [SerializeField] int type = 0;
     public int chosen_line;
-    [SerializeField] bool nextEnd = false;
 
     [Header("대사 출력")]
     public bool isLineEnd = false;
@@ -84,8 +83,10 @@ public class DialogueManager : Singleton<DialogueManager>
     }
 
     // 다이얼로그 매니저 설정
-    public void setDialogueManager(TextAsset d_file)
+    public void resetDialogueManager(TextAsset d_file)
     {
+        now_turn = 0;
+
         // CSV파일 읽기
         this.d_file = d_file;
         lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
@@ -95,30 +96,12 @@ public class DialogueManager : Singleton<DialogueManager>
         readlines();
     }
 
-    // 다이얼로그UI 키고끄기
-    void openCloseDialogue()
-    {
-        if (!isEnable)
-        {
-            dialogueUIs.SetActive(true);
-            isEnable = true;
-        }
-        else
-        {
-            dialogueUIs.SetActive(false);
-            isEnable = false;
-        }
-    }
-
     // 다음 대사로 가는 메서드
     public void nextDialogue()
     {
-        if (!nextEnd)
-        {
-            destroyObjects();
-            now_turn++;
-            readlines();
-        }
+        destroyObjects();
+        now_turn++;
+        readlines();
     }
 
     // 대화가 넘어갈때 지우거나 초기화하는 것들
@@ -147,6 +130,39 @@ public class DialogueManager : Singleton<DialogueManager>
         try
         {
             line = lines.Where(turn => turn["Turn"].ToString() == now_turn.ToString()).ToList()[chosen_line]; // 왜 int.Parse 안됨
+
+            int.TryParse(line["Type"].ToString(), out type);
+
+            // 대화에 나타난 단서/인물
+            checkInfos();
+
+            // 캐릭터 관련 전달 값
+            if (line["CharacterId"].ToString() != "")
+                speakingC = int.Parse(line["CharacterId"].ToString());
+
+            if (line["CharacterNum"].ToString() != "")
+                characterNum = int.Parse(line["CharacterNum"].ToString());
+            operateCharacter();
+
+            // 대사 및 이름 전달
+            dialogueBox.line = line["Dialogue"].ToString();
+            dialogueBox.c_name = getCharacterName(speakingC);
+            dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
+            dialogueBox.showline();
+
+            // 대답에 따른 반응이 연속된다면
+            int lineoffset;
+            if (int.TryParse(line["LineOffset"].ToString(), out lineoffset))
+                chosen_line = lineoffset;
+
+            // 배경 있다면 전달
+            int BGid;
+            if (int.TryParse(line["Background"].ToString(), out BGid))
+                backgroundCanvas.setBackground(chapter, BGid);
+
+            // 미션
+            doMission(type);
+
         }
         catch (ArgumentException e)
         {
@@ -154,38 +170,6 @@ public class DialogueManager : Singleton<DialogueManager>
             destroyObjects();
             openCloseDialogue();
         }
-
-        int.TryParse(line["Type"].ToString(), out type);
-
-        // 대화에 나타난 단서/인물
-        checkInfos();
-
-        // 캐릭터 관련 전달 값
-        if (line["CharacterId"].ToString() != "")
-            speakingC = int.Parse(line["CharacterId"].ToString());
-
-        if (line["CharacterNum"].ToString() != "")
-            characterNum = int.Parse(line["CharacterNum"].ToString());
-        operateCharacter();
-
-        // 대사 및 이름 전달
-        dialogueBox.line = line["Dialogue"].ToString();
-        dialogueBox.c_name = getCharacterName(speakingC);
-        dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
-        dialogueBox.showline();
-
-        // 대답에 따른 반응이 연속된다면
-        int lineoffset;
-        if (int.TryParse(line["LineOffset"].ToString(), out lineoffset))
-            chosen_line = lineoffset;
-
-        // 배경 있다면 전달
-        int BGid;
-        if (int.TryParse(line["Background"].ToString(), out BGid))
-            backgroundCanvas.setBackground(chapter, BGid);
-
-        // 미션
-        doMission(type);
     }
 
     void checkInfos()
@@ -342,6 +326,21 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         CharacterData element = CharacterTable.cTable[id] as CharacterData;
         return element.illustNum;
+    }
+
+    // 다이얼로그UI 키고끄기
+    void openCloseDialogue()
+    {
+        if (!isEnable)
+        {
+            dialogueUIs.SetActive(true);
+            isEnable = true;
+        }
+        else
+        {
+            dialogueUIs.SetActive(false);
+            isEnable = false;
+        }
     }
 
     void openCloseDialogueLog()
