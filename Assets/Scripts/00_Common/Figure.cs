@@ -31,6 +31,7 @@ public class Figure
     }
 
     List<string> contents = new List<string>();
+    public int updatedInfo = 0;
 
     // »ı¼ºÀÚ
     public Figure(string id, string name, int age, string gender, string content)
@@ -40,12 +41,13 @@ public class Figure
         this.age = age;
         this.gender = gender;
 
-        contents.Add(content);
+        addContents(content);
     }
 
     public void addContents(string content)
     {
         contents.Add(content);
+        updatedInfo++;
     }
 
     public List<string> getContents()

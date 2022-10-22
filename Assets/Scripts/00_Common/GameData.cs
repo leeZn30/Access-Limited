@@ -23,6 +23,7 @@ public class GameData : Singleton<GameData>
     }
 
     [Header("챕터별 인물")]
+    [SerializeField] TextAsset figureCSV;
     public List<Figure> figures = new List<Figure>();
 
     [Header("챕터별 단서")]
@@ -41,6 +42,30 @@ public class GameData : Singleton<GameData>
         // 임시로 챕터별 일기 갱신 라인 넣어두기
         //saveDiaryData[1] = 5;
        
+    }
+
+    public void addFigures(string figureId)
+    {
+        List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Figurefiles/" + figureCSV.name);
+        
+        // figure  찾기
+        var figure = figures.Find(f => f.id == figureId);
+
+        // 없으면 새로 추가
+        if (figure == null)
+        {
+            Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == figureId).ToList()[0];
+            figure = new Figure(element["Id"].ToString(), element["Name"].ToString(), int.Parse(element["Age"].ToString()), element["Gender"].ToString(), element["Content"].ToString());
+
+            figures.Add(figure);
+        }
+        // 있으면 내용 추가
+        else
+        {
+            string newContent = csv.Where(e => e["Id"].ToString() == figureId).ToList()[figure.updatedInfo]["Content"].ToString();
+            figure.addContents(newContent);
+        }
+
     }
 
     public void addPriviso(string privisoId)

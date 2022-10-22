@@ -10,12 +10,14 @@ public class DialogueManager : Singleton<DialogueManager>
 {
     [Header("씬 정보")]
     [SerializeField] int chapter;
-    public bool isEnable = true;
+    // dialogueUI가 열려있는지 > 이게 열려있어야 모든 대화에 관련된 기능 가능
+    public bool isEnable = false;
+    [SerializeField] bool isDLogOpen = false;
 
     [Header("Dialogue 정보")]
     public int mission = 0;
-    public int now_turn;
-    public int type = 0;
+    [SerializeField] int now_turn;
+    [SerializeField] int type = 0;
     public int chosen_line;
     [SerializeField] bool nextEnd = false;
 
@@ -23,7 +25,9 @@ public class DialogueManager : Singleton<DialogueManager>
     public bool isLineEnd = false;
 
     [Header("등장 캐릭터")]
-    public int characterNum;
+    [SerializeField] int speakingC;
+    [SerializeField] int characterNum;
+    [SerializeField] int[] ids = new int[3] {-1, -1, -1};
     [SerializeField] Character[] characters = new Character[3] {null, null, null};
 
     [Header("CSV 파일")]
@@ -36,22 +40,16 @@ public class DialogueManager : Singleton<DialogueManager>
     public Dictionary<string, object> line;
     public List<Dictionary<string, object>> answers;
 
-    [Header("Answer 정보")]
-    public string answerId;
-
     [Header("오브젝트")]
-    [SerializeField] Button databasebtn;
+    [SerializeField] GameObject dialogueUIs;
     [SerializeField] Dialogue dialogueBox;
     [SerializeField] GameObject answer_box;
     [SerializeField] DialogueLog dialogueLog;
     [SerializeField] Background backgroundCanvas;
 
     [Header("사용 프리팹")]
-    [SerializeField] GameObject dialogueUIs;
     [SerializeField] Answer answer_prb;
     [SerializeField] Character character_prb;
-
-    [SerializeField] bool isDLogOpen = false;
 
     void Awake()
     {
@@ -64,31 +62,22 @@ public class DialogueManager : Singleton<DialogueManager>
         now_turn = 0;
         chosen_line = 0;
 
-        // 버튼 설정
-        databasebtn.onClick.AddListener(delegate { DatabaseManager.Instance.openPopup(); });
-
+        // 배경 찾기
+        backgroundCanvas = GameObject.Find("Background").GetComponent<Background>();
     }
 
-    void start()
-    {
-        //readlines(); 왜 여기다가 하면 안되지?
-    }
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && isEnable && !isDLogOpen)
         {
-            // 미션 성공 & 글자 다 출력
-            if (isEnable)
-            {
-                if (mission == 0 && isLineEnd)
-                    nextDialogue();
-                else if (!isLineEnd)
-                    dialogueBox.callStopTyping();
-            }
+            if (mission == 0 && isLineEnd)
+                nextDialogue();
+            else if (!isLineEnd)
+                dialogueBox.callStopTyping();
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L) && isEnable)
         {
             openCloseDialogueLog();
         }
@@ -98,60 +87,61 @@ public class DialogueManager : Singleton<DialogueManager>
     // 다이얼로그 매니저 설정
     public void setDialogueManager(TextAsset d_file)
     {
-        this.d_file = d_file;
-
         // CSV파일 읽기
+        this.d_file = d_file;
         lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
+
+        openCloseDialogue();
+
         readlines();
     }
 
-    public void resetDialogue()
+    // 다이얼로그UI 키고끄기
+    void openCloseDialogue()
     {
-        destoryObjects();
+        if (!isEnable)
+        {
+            dialogueUIs.SetActive(true);
+            isEnable = true;
+        }
+        else
+        {
+            dialogueUIs.SetActive(false);
+            isEnable = false;
+        }
     }
 
-
+    // 다음 대사로 가는 메서드
     public void nextDialogue()
     {
         if (!nextEnd)
         {
-            destoryObjects();
+            destroyObjects();
             now_turn++;
             readlines();
         }
     }
 
-    // 대화 진행,역행시 지우거나 초기화하는 것들
-    void destoryObjects()
+    // 대화가 넘어갈때 지우거나 초기화하는 것들
+    void destroyObjects()
     {
-        // 만약 현재 타입이 n이라면 처리해주기
-        switch (type)
+        GameObject[] answer_objs = GameObject.FindGameObjectsWithTag("Answer");
+        foreach (GameObject answer in answer_objs)
         {
-            case 1:
-                // 다른 Answer도 찾아서 삭제 > 연쇄적
-                //Destroy(GameObject.FindGameObjectWithTag("Answer"));
-                GameObject[] answer_objs = GameObject.FindGameObjectsWithTag("Answer");
-                foreach(GameObject answer in answer_objs)
-                {
-                    Destroy(answer);
-                }
-                break;
-
-            default:
-                break;
+            Destroy(answer);
         }
 
         // 다른 Character도 찾아서 삭제 > 연쇄적
-        //Destroy(GameObject.FindGameObjectWithTag("Character"));
         GameObject[] character_objs = GameObject.FindGameObjectsWithTag("Character");
         foreach (GameObject character in character_objs)
         {
             Destroy(character);
         }
-        mission = 0;
 
+        mission = 0;
     }
 
+    // 라인 읽기
     void readlines()
     {
         try
@@ -160,20 +150,31 @@ public class DialogueManager : Singleton<DialogueManager>
         }
         catch (ArgumentException e)
         {
-            dialogueUIs.SetActive(false);
-            resetDialogue();
+            Debug.Log("+++++++csv 종료+++++++++");
+            destroyObjects();
+            openCloseDialogue();
         }
 
-        type = int.Parse(line["Type"].ToString());
-        answerId = line["AnswerId"].ToString();
+        int.TryParse(line["Type"].ToString(), out type);
+
+        // 대화에 나타난 단서/인물
+        checkInfos();
+
+        // 캐릭터 관련 전달 값
+        if (line["CharacterId"].ToString() != "")
+            speakingC = int.Parse(line["CharacterId"].ToString());
+
+        if (line["CharacterNum"].ToString() != "")
+            characterNum = int.Parse(line["CharacterNum"].ToString());
+        operateCharacter();
 
         // 대사 및 이름 전달
         dialogueBox.line = line["Dialogue"].ToString();
-        dialogueBox.c_name = getCharacterName(int.Parse(line["CharacterId"].ToString()));
+        dialogueBox.c_name = getCharacterName(speakingC);
         dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
         dialogueBox.showline();
 
-        // 대답에 따른 반응이 연속이라면
+        // 대답에 따른 반응이 연속된다면
         int lineoffset;
         if (int.TryParse(line["LineOffset"].ToString(), out lineoffset))
             chosen_line = lineoffset;
@@ -183,31 +184,40 @@ public class DialogueManager : Singleton<DialogueManager>
         if (int.TryParse(line["Background"].ToString(), out BGid))
             backgroundCanvas.setBackground(chapter, BGid);
 
-        // 캐릭터 관련 전달 값
-        characterNum = int.Parse(line["CharacterNum"].ToString());
-        moveCharacter(characterNum);
+        // 미션
+        doMission(type);
+    }
 
-        // 단서 관련 전달
-        string priviso;
-        if (!line["PrivisoId"].ToString().Equals(""))
+    void checkInfos()
+    {
+        if (line["PrivisoId"].ToString() != "")
         {
-            priviso = line["PrivisoId"].ToString();
-            GameData.Instance.addPriviso(priviso);
+            string privisoId = line["PrivisoId"].ToString();
+            GameData.Instance.addPriviso(privisoId);
         }
 
-
-        // 플레이어 대답 요구 시
-        if (type == 1)
+        if(line["FigureId"].ToString() != "")
         {
-            Instance.mission = 1;
-            Instance.getAnswers();
+            string figureId = line["FigureId"].ToString();
+            GameData.Instance.addFigures(figureId);
         }
     }
 
-    void moveCharacter(int characterNum)
+    void doMission(int type)
     {
+        switch (type)
+        {
+            case 1:
+                Instance.getAnswers();
+                break;
 
+            default:
+                break;
+        }
+    }
 
+    void operateCharacter()
+    {
         // 좀 많이 맘에 안듦
         switch (characterNum)
         {
@@ -217,6 +227,8 @@ public class DialogueManager : Singleton<DialogueManager>
                 character.c_name = getCharacterName(character.id);
                 character.illust_num = getCharacterIllustNum(character.id);
                 character.now_illust = int.Parse(line["MCIllust"].ToString());
+
+                ids[1] = character.id;
 
                 if (characters[0] != null || characters[2] != null)
                 {
@@ -252,11 +264,11 @@ public class DialogueManager : Singleton<DialogueManager>
                 characterR.now_illust = int.Parse(line["RCIllust"].ToString());
 
                 // 말안하면 색상 낮추기
-                if (characterL.id != int.Parse(line["CharacterId"].ToString()))
+                if (characterL.id != speakingC)
                 {
                     characterL.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
                 }
-                else if (characterR.id != int.Parse(line["CharacterId"].ToString()))
+                else if (characterR.id != speakingC)
                 {
                     characterR.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
                 }
@@ -305,6 +317,9 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         if (a_file != null)
         {
+            string answerId = line["AnswerId"].ToString();
+            Instance.mission = 1;
+
             answers = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
             createAnswer();
         }
@@ -328,13 +343,11 @@ public class DialogueManager : Singleton<DialogueManager>
         {
             dialogueLog.gameObject.SetActive(true);
             isDLogOpen = true;
-            isEnable = false;
         }
         else
         {
             dialogueLog.gameObject.SetActive(false);
             isDLogOpen = false;
-            isEnable = true;
         }
     }
 }

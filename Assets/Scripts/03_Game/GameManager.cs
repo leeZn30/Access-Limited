@@ -25,10 +25,6 @@ public class GameManager : Singleton<GameManager>
 
         }
 
-        // юс╫ц
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-        }
     }
 
 }
