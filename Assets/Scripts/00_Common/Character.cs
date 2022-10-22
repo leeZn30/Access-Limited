@@ -22,19 +22,6 @@ public class Character : MonoBehaviour
     public int illust_num;
     public int now_illust = 0;
 
-    [Header("위치")]
-    [SerializeField] private Vector3 position; // 초기위치
-
-
-
-    void Start()
-    {
-        position = gameObject.transform.position;
-
-        setIllustSet();
-        setIllust(now_illust);
-    }
-
     void setIllustSet()
     {
         string path = "Images/Characters/" + id + "/";
@@ -45,7 +32,19 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void setIllust(int illust)
+    public void setCharacter(int id, string name, int illustNum, int illust, Vector3 position)
+    {
+        this.id = id;
+        c_name = name;
+        illust_num = illustNum;
+
+        setIllustSet();
+        setIllust(illust);
+
+        transform.position = position;
+    }
+
+    void setIllust(int illust)
     {
         now_illust = illust;
 
@@ -131,15 +130,6 @@ public class Character : MonoBehaviour
     public void moveMiddle()
     {
         StartCoroutine(moveMiddleCo());
-    }
-
-
-    void onDestory()
-    {
-        Debug.Log(c_name + " destroyed!");
-
-        // 다른 Character도 찾아서 삭제 > 연쇄적
-        Destroy(GameObject.FindGameObjectWithTag("Character"));
     }
 
 }

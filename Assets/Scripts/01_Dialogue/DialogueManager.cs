@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.UI;
-using TMPro;
 using System;
 
 public class DialogueManager : Singleton<DialogueManager>
@@ -28,6 +26,7 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] int speakingC;
     [SerializeField] int characterNum;
     [SerializeField] int[] ids = new int[3] {-1, -1, -1};
+    [SerializeField] int[] illusts = new int[3] { -1, -1, -1 };
     [SerializeField] Character[] characters = new Character[3] {null, null, null};
 
     [Header("CSV 파일")]
@@ -130,12 +129,13 @@ public class DialogueManager : Singleton<DialogueManager>
         {
             Destroy(answer);
         }
-
-        // 다른 Character도 찾아서 삭제 > 연쇄적
+        
         GameObject[] character_objs = GameObject.FindGameObjectsWithTag("Character");
         foreach (GameObject character in character_objs)
         {
-            Destroy(character);
+            character.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+            character.SetActive(false);
+            ObjectPool.Instance.CharacterQueue.Enqueue(character);
         }
 
         mission = 0;
@@ -218,78 +218,85 @@ public class DialogueManager : Singleton<DialogueManager>
 
     void operateCharacter()
     {
-        // 좀 많이 맘에 안듦
         switch (characterNum)
         {
             case 1:
-                Character character = Instantiate(character_prb, new Vector3(0, 1), Quaternion.identity);
-                character.id = int.Parse(line["MCharacter"].ToString());
-                character.c_name = getCharacterName(character.id);
-                character.illust_num = getCharacterIllustNum(character.id);
-                character.now_illust = int.Parse(line["MCIllust"].ToString());
+                if (line["MCharacter"].ToString() != "")
+                    ids[1] = int.Parse(line["MCharacter"].ToString());
+                if (line["MCIllust"].ToString() != "")
+                    illusts[1] = int.Parse(line["MCIllust"].ToString());
 
-                ids[1] = character.id;
+                Character m = ObjectPool.Instance.CharacterQueue.Dequeue().GetComponent<Character>();
+                m.setCharacter(ids[1], getCharacterName(ids[1]), getCharacterIllustNum(ids[1]), illusts[1], new Vector3(0, 1));
+                m.gameObject.SetActive(true);
 
                 if (characters[0] != null || characters[2] != null)
                 {
-                    if (character.id == characters[0].id)
+                    if (m.id == characters[0].id)
                     {
-                        character.transform.position = new Vector3(-4, 1);
-                        character.moveMiddle();
+                        m.transform.position = new Vector3(-4, 1);
+                        m.moveMiddle();
                     }
-                    else if (character.id == characters[2].id)
+                    else if (m.id == characters[2].id)
                     {
-                        character.transform.position = new Vector3(4, 1);
-                        character.moveMiddle();
+                        m.transform.position = new Vector3(4, 1);
+                        m.moveMiddle();
                     }
 
                 }
 
-                characters[1] = character;
+                characters[1] = m;
                 characters[0] = null;
                 characters[2] = null;
                 break;
 
             case 2:
-                Character characterL = Instantiate(character_prb, new Vector3(-4, 1), Quaternion.identity);
-                characterL.id = int.Parse(line["LCharacter"].ToString());
-                characterL.c_name = getCharacterName(characterL.id);
-                characterL.illust_num = getCharacterIllustNum(characterL.id);
-                characterL.now_illust = int.Parse(line["LCIllust"].ToString());
+                if (line["LCharacter"].ToString() != "")
+                    ids[0] = int.Parse(line["LCharacter"].ToString());
+                if (line["LCIllust"].ToString() != "")
+                    illusts[0] = int.Parse(line["LCIllust"].ToString());
 
-                Character characterR = Instantiate(character_prb, new Vector3(4, 1), Quaternion.identity);
-                characterR.id = int.Parse(line["RCharacter"].ToString());
-                characterR.c_name = getCharacterName(characterR.id);
-                characterR.illust_num = getCharacterIllustNum(characterR.id);
-                characterR.now_illust = int.Parse(line["RCIllust"].ToString());
+                Character l = ObjectPool.Instance.CharacterQueue.Dequeue().GetComponent<Character>();
+                l.setCharacter(ids[0], getCharacterName(ids[0]), getCharacterIllustNum(ids[0]), illusts[0], new Vector3(-4, 1));
+                l.gameObject.SetActive(true);
+
+
+                if (line["RCharacter"].ToString() != "")
+                    ids[2] = int.Parse(line["RCharacter"].ToString());
+                if (line["RCIllust"].ToString() != "")
+                    illusts[2] = int.Parse(line["RCIllust"].ToString());
+
+                Character r = ObjectPool.Instance.CharacterQueue.Dequeue().GetComponent<Character>();
+                r.setCharacter(ids[2], getCharacterName(ids[2]), getCharacterIllustNum(ids[2]), illusts[2], new Vector3(4, 1));
+                r.gameObject.SetActive(true);
 
                 // 말안하면 색상 낮추기
-                if (characterL.id != speakingC)
+                if (l.id != speakingC)
                 {
-                    characterL.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
+                    l.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
                 }
-                else if (characterR.id != speakingC)
+                else if (r.id != speakingC)
                 {
-                    characterR.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
+                    r.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
                 }
 
                 if (characters[1] != null)
                 {
-                    if (characterL.id == characters[1].id)
+                    if (l.id == characters[1].id)
                     {
-                        characterL.transform.position = new Vector3(0, 1);
-                        characterL.moveLeft();
+                        l.transform.position = new Vector3(0, 1);
+                        l.moveLeft();
                     }
-                    else if (characterR.id == characters[1].id)
+                    else if (r.id == characters[1].id)
                     {
-                        characterR.transform.position = new Vector3(0, 1);
-                        characterR.moveRight();
+                        r.transform.position = new Vector3(0, 1);
+                        r.moveRight();
                     }
                 }
 
                 characters[1] = null;
-                characters[0] = characterL;
-                characters[2] = characterR;
+                characters[0] = l;
+                characters[2] = r;
                 break;
 
             default:
