@@ -675,6 +675,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68105ac1471b80241a2c98cdafca763f, type: 3}
+--- !u!224 &585824864 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5427846343108958063, guid: 62f2decfece5b7344aeb8e35d7feef4b, type: 3}
+  m_PrefabInstance: {fileID: 1419557172}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &991706874
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,6 +826,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6037993964454304325, guid: 62f2decfece5b7344aeb8e35d7feef4b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62f2decfece5b7344aeb8e35d7feef4b, type: 3}
 --- !u!4 &1419557173 stripped
@@ -887,6 +896,14 @@ PrefabInstance:
       propertyPath: objectInfos.Array.data[0].tfPoolParent
       value: 
       objectReference: {fileID: 991706877}
+    - target: {fileID: 8629250109712494811, guid: b534a6eb4645bcf49b2bba4b2b22acfe, type: 3}
+      propertyPath: objectInfos.Array.data[1].tfPoolParent
+      value: 
+      objectReference: {fileID: 585824864}
+    - target: {fileID: 8629250109712494811, guid: b534a6eb4645bcf49b2bba4b2b22acfe, type: 3}
+      propertyPath: objectInfos.Array.data[2].tfPoolParent
+      value: 
+      objectReference: {fileID: 585824864}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b534a6eb4645bcf49b2bba4b2b22acfe, type: 3}
 --- !u!1 &2008137763

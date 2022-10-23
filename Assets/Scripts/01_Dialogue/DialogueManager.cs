@@ -42,7 +42,6 @@ public class DialogueManager : Singleton<DialogueManager>
     [Header("오브젝트")]
     [SerializeField] GameObject dialogueUIs;
     [SerializeField] Dialogue dialogueBox;
-    [SerializeField] GameObject answer_box;
     [SerializeField] DialogueLog dialogueLog;
     [SerializeField] Background backgroundCanvas;
 
@@ -63,7 +62,7 @@ public class DialogueManager : Singleton<DialogueManager>
         // 배경 찾기
         backgroundCanvas = GameObject.Find("BackgroundCanvas").GetComponentInChildren<Background>();
 
-        //resetDialogueManager(d_file);
+        resetDialogueManager(d_file);
     }
 
 
@@ -112,7 +111,8 @@ public class DialogueManager : Singleton<DialogueManager>
         GameObject[] answer_objs = GameObject.FindGameObjectsWithTag("Answer");
         foreach (GameObject answer in answer_objs)
         {
-            Destroy(answer);
+            answer.SetActive(false);
+            ObjectPool.Instance.AnswerQueue.Enqueue(answer.gameObject);
         }
         
         GameObject[] character_objs = GameObject.FindGameObjectsWithTag("Character");
@@ -315,14 +315,16 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         foreach (Dictionary<string, object> answer in answers)
         {
-            answer_prb.content = answer["Content"].ToString();
-            answer_prb.S1 = int.Parse(answer["S1"].ToString());
-            answer_prb.S2 = int.Parse(answer["S1"].ToString());
+            Answer a = ObjectPool.Instance.AnswerQueue.Dequeue().GetComponent<Answer>();
+
+            a.content = answer["Content"].ToString();
+            a.S1 = int.Parse(answer["S1"].ToString());
+            a.S2 = int.Parse(answer["S1"].ToString());
 
             int answer_offset;
-            answer_prb.offset = int.TryParse(answer["Nextline"].ToString(), out answer_offset)? answer_offset:0;
+            a.offset = int.TryParse(answer["Nextline"].ToString(), out answer_offset) ? answer_offset : 0;
 
-            Instantiate(answer_prb, answer_box.transform);
+            a.gameObject.SetActive(true);
         }
 
     }

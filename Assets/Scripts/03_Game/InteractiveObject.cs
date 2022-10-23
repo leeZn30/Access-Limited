@@ -13,7 +13,7 @@ public class InteractiveObject : MonoBehaviour
 
     void Start()
     {
-        GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
+        //GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
     }
 
     void OnMouseDown()

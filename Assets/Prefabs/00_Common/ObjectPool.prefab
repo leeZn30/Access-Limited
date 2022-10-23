@@ -47,3 +47,6 @@ MonoBehaviour:
   - goPrefab: {fileID: 1557675331806443193, guid: e8693e7deebe5044cbdb10809b99f972, type: 3}
     count: 3
     tfPoolParent: {fileID: 0}
+  - goPrefab: {fileID: 4744292283156411987, guid: 8fcd5923480cdd543b7f396517ed4aa5, type: 3}
+    count: 5
+    tfPoolParent: {fileID: 0}

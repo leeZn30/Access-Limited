@@ -1,5 +1,5 @@
 ﻿Turn,Type,CharacterId,Dialogue,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,AnswerId,LineOffset,FigureId,PrivisoId,DiaryId,Background,EffectSound,BGM
-0,,0,여기가 알약이 떨어진 곳인가?,2,,,0,0,4,0,,,,,,,,
+0,0,0,여기가 알약이 떨어진 곳인가?,2,,,0,0,4,0,,,,,,,,
 1,,4,그래. 종류는 수면제였지.,,,,,,,,,,,,,,,
 2,,,일단 너무 이상해. 곶과 수면제는 너무 동떨어진 관계잖아.,,,,,,,,,,,,,,,
 3,,0,굳이 여기와서 수면제를 먹으려 했다면..,,,,,,,,,,,,,,,
