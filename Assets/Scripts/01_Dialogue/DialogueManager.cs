@@ -62,7 +62,7 @@ public class DialogueManager : Singleton<DialogueManager>
         // 배경 찾기
         backgroundCanvas = GameObject.Find("BackgroundCanvas").GetComponentInChildren<Background>();
 
-        resetDialogueManager(d_file);
+        //resetDialogueManager(d_file);
     }
 
 
