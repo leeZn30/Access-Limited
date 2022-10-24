@@ -62,7 +62,7 @@ public class DialogueManager : Singleton<DialogueManager>
         // 배경 찾기
         backgroundCanvas = GameObject.Find("BackgroundCanvas").GetComponentInChildren<Background>();
 
-        //resetDialogueManager(d_file);
+        resetDialogueManager(d_file);
     }
 
 
@@ -228,11 +228,12 @@ public class DialogueManager : Singleton<DialogueManager>
         switch (characterNum)
         {
             case 1:
+
                 if (line["MCharacter"].ToString() != "")
                     ids[1] = int.Parse(line["MCharacter"].ToString());
                 if (line["MCIllust"].ToString() != "")
                     illusts[1] = int.Parse(line["MCIllust"].ToString());
-
+                
                 Character m = ObjectPool.Instance.CharacterQueue.Dequeue().GetComponent<Character>();
                 m.setCharacter(ids[1], getCharacterName(ids[1]), getCharacterIllustNum(ids[1]), illusts[1], new Vector3(0, 1));
                 m.gameObject.SetActive(true);

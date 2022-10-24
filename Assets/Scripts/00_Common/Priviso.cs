@@ -33,7 +33,7 @@ public class Priviso
     {
         this.id = id;
         this.name = name;
-        image = Resources.Load<Sprite>("Images/Objects/" + GameData.Instance.chapter + "/" + id);
+        image = Resources.Load<Sprite>("Images/Privisos/" + GameData.Instance.chapter + "/" + id);
 
         addContent(content);
     }

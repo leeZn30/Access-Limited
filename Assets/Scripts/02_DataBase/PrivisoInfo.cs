@@ -12,6 +12,7 @@ public class PrivisoInfo : MonoBehaviour
     void Start()
     {
         GetComponent<Button>().onClick.AddListener(pickPriviso);
+        GetComponentInChildren<Image>().sprite = priviso.image;
     }
 
     public void setProviso(Priviso priviso)

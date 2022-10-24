@@ -51,9 +51,13 @@ public class Character : MonoBehaviour
         GetComponentInChildren<SpriteRenderer>().sprite = illusts[now_illust];
     }
 
+    public void fadeIn()
+    {
+        StartCoroutine(fadeInCo());
+    }
 
     // 등장 애니메이션
-    IEnumerator fadeIn()
+    IEnumerator fadeInCo()
     {
         Color color = GetComponentInChildren<SpriteRenderer>().color;
         color.a = 0;
@@ -68,7 +72,7 @@ public class Character : MonoBehaviour
     }
 
     // 퇴장 애니메이션
-    IEnumerator fadeOut()
+    IEnumerator fadeOutCo()
     {
         Color color = GetComponentInChildren<SpriteRenderer>().color;
         color.a = 1f;

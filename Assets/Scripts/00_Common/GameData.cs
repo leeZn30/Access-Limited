@@ -83,6 +83,7 @@ public class GameData : Singleton<GameData>
             priviso = new Priviso(element["Id"].ToString(), element["Name"].ToString(), element["Content"].ToString());
 
             privisos.Add(priviso);
+
         }
         // 있으면 내용 추가
         else
@@ -90,5 +91,6 @@ public class GameData : Singleton<GameData>
             string newContent = csv.Where(e => e["Id"].ToString() == privisoId).ToList()[priviso.updatedInfo]["Content"].ToString();
             priviso.addContent(newContent);
         }
+        Debug.Log("Priviso Add 완료");
     }
 }
