@@ -9,4 +9,9 @@ public static class SceneChanger
     {
         SceneManager.LoadScene(scene);
     }
+
+    public static void goScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
 }

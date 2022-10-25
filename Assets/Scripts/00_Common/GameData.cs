@@ -24,11 +24,11 @@ public class GameData : Singleton<GameData>
 
     [Header("챕터별 인물")]
     [SerializeField] TextAsset figureCSV;
-    public List<Figure> figures = new List<Figure>();
+    public InfoList figures = new InfoList();
 
     [Header("챕터별 단서")]
     [SerializeField] TextAsset privisoCSV;
-    public List<Priviso> privisos = new List<Priviso>();
+    public InfoList privisos = new InfoList();
 
     [Header("챕터별 갱신 일기")]
     public int[] saveDiaryData = new int[6];
@@ -47,9 +47,10 @@ public class GameData : Singleton<GameData>
     public void addFigures(string figureId)
     {
         List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Figurefiles/" + figureCSV.name);
-        
+
         // figure  찾기
-        var figure = figures.Find(f => f.id == figureId);
+        var figure = figures.Find(figureId);
+        //var figure = figures.Find(f => f.id == figureId);
 
         // 없으면 새로 추가
         if (figure == null)
@@ -63,7 +64,8 @@ public class GameData : Singleton<GameData>
         else
         {
             string newContent = csv.Where(e => e["Id"].ToString() == figureId).ToList()[figure.updatedInfo]["Content"].ToString();
-            figure.addContents(newContent);
+            figure.addContent(newContent);
+
         }
 
     }
@@ -74,7 +76,8 @@ public class GameData : Singleton<GameData>
         List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Privisofiles/" + privisoCSV.name);
 
         // figure  찾기
-        var priviso = privisos.Find(p => p.id == privisoId);
+        var priviso = privisos.Find(privisoId);
+        //var priviso = privisos.Find(p => p.id == privisoId);
 
         // 없으면 새로 추가
         if (priviso == null)

@@ -62,7 +62,9 @@ public class DialogueManager : Singleton<DialogueManager>
         // 배경 찾기
         backgroundCanvas = GameObject.Find("BackgroundCanvas").GetComponentInChildren<Background>();
 
-        resetDialogueManager(d_file);
+        // 다이얼로그 씬일땐 바로 들어가야 함
+        if (d_file != null)
+            resetDialogueManager(d_file);
     }
 
 
@@ -132,6 +134,7 @@ public class DialogueManager : Singleton<DialogueManager>
         try
         {
             line = lines.Where(turn => turn["Turn"].ToString() == now_turn.ToString()).ToList()[chosen_line]; // 왜 int.Parse 안됨
+            //Debug.Log("[" + now_turn + "]" + line["Dialogue"].ToString());
 
             int.TryParse(line["Type"].ToString(), out type);
 
