@@ -888,7 +888,7 @@ PrefabInstance:
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: lineCSV
       value: 
-      objectReference: {fileID: 4900000, guid: 5fb0738b1656db64f96e9ae45d3393ed, type: 3}
+      objectReference: {fileID: 4900000, guid: 5e0ffc3bc99b0c240820c646fed91657, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
 --- !u!224 &645506667 stripped
@@ -1273,6 +1273,10 @@ PrefabInstance:
       propertyPath: isNextEnable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5264694305274903084, guid: 62f2decfece5b7344aeb8e35d7feef4b, type: 3}
+      propertyPath: ids.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5264694305274903085, guid: 62f2decfece5b7344aeb8e35d7feef4b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1320,6 +1324,14 @@ PrefabInstance:
     - target: {fileID: 5264694305274903087, guid: 62f2decfece5b7344aeb8e35d7feef4b, type: 3}
       propertyPath: m_Name
       value: DialogueManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5427846343244845557, guid: 62f2decfece5b7344aeb8e35d7feef4b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f11e422ec4ce0ed43a1a6b78c145960d, type: 2}
+    - target: {fileID: 5427846343244845557, guid: 62f2decfece5b7344aeb8e35d7feef4b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62f2decfece5b7344aeb8e35d7feef4b, type: 3}
@@ -1723,6 +1735,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: lineCSV
+      value: 
+      objectReference: {fileID: 4900000, guid: d1d82fb05cb740842bf58f6fa3896a25, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
 --- !u!4 &2112408615 stripped

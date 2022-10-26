@@ -54,7 +54,10 @@ MonoBehaviour:
   isLineEnd: 0
   speakingC: 0
   characterNum: 0
-  ids: ffffffffffffffffffffffff
+  ids:
+  - 
+  - 
+  - 
   illusts: ffffffffffffffffffffffff
   characters:
   - {fileID: 0}
@@ -65,11 +68,9 @@ MonoBehaviour:
   a_file: {fileID: 4900000, guid: 520af013f0ffd524490d888feed725c9, type: 3}
   dialogueUIs: {fileID: 6037993964454304325}
   dialogueBox: {fileID: 5427846343484947818}
-  answer_box: {fileID: 5427846343108958064}
   dialogueLog: {fileID: 5427846344284167832}
   backgroundCanvas: {fileID: 0}
   answer_prb: {fileID: 5808427731944876406, guid: 8fcd5923480cdd543b7f396517ed4aa5, type: 3}
-  character_prb: {fileID: 3675280021743624330, guid: e8693e7deebe5044cbdb10809b99f972, type: 3}
 --- !u!1 &5427846342236468469
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +551,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f61629bfa3634d4a9b1f42cfb55c4fe, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f11e422ec4ce0ed43a1a6b78c145960d, type: 2}
   m_sharedMaterial: {fileID: -2739736935706639561, guid: 8f61629bfa3634d4a9b1f42cfb55c4fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -614,7 +615,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5427846343404582306

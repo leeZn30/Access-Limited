@@ -10,6 +10,7 @@ TagManager:
   - DiaryBlank
   - DialogueUI
   - PlaceBtn
+  - Object
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class GameData : Singleton<GameData>
 {
@@ -52,48 +53,63 @@ public class GameData : Singleton<GameData>
         var figure = figures.Find(figureId);
         //var figure = figures.Find(f => f.id == figureId);
 
-        // 없으면 새로 추가
-        if (figure == null)
+        try
         {
-            Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == figureId).ToList()[0];
-            figure = new Figure(element["Id"].ToString(), element["Name"].ToString(), int.Parse(element["Age"].ToString()), element["Gender"].ToString(), element["Content"].ToString());
+            // 없으면 새로 추가
+            if (figure == null)
+            {
+                Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == figureId).ToList()[0];
+                figure = new Figure(element["Id"].ToString(), element["Name"].ToString(), int.Parse(element["Age"].ToString()), element["Gender"].ToString(), element["Content"].ToString());
 
-            figures.Add(figure);
+                figures.Add(figure);
+            }
+            // 있으면 내용 추가
+            else
+            {
+                string newContent = csv.Where(e => e["Id"].ToString() == figureId).ToList()[figure.updatedInfo]["Content"].ToString();
+                figure.addContent(newContent);
+
+            }
+
         }
-        // 있으면 내용 추가
-        else
+        catch (Exception error)
         {
-            string newContent = csv.Where(e => e["Id"].ToString() == figureId).ToList()[figure.updatedInfo]["Content"].ToString();
-            figure.addContent(newContent);
-
+            Debug.Log("[Figure Add 에러 발생]: " + error);
         }
-
     }
 
     public void addPriviso(string privisoId)
     {
 
-        List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Privisofiles/" + privisoCSV.name);
-
-        // figure  찾기
-        var priviso = privisos.Find(privisoId);
-        //var priviso = privisos.Find(p => p.id == privisoId);
-
-        // 없으면 새로 추가
-        if (priviso == null)
+        try
         {
-            Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == privisoId).ToList()[0];
-            priviso = new Priviso(element["Id"].ToString(), element["Name"].ToString(), element["Content"].ToString());
+            List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Privisofiles/" + privisoCSV.name);
 
-            privisos.Add(priviso);
+            // figure  찾기
+            var priviso = privisos.Find(privisoId);
+            //var priviso = privisos.Find(p => p.id == privisoId);
+
+            // 없으면 새로 추가
+            if (priviso == null)
+            {
+                Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == privisoId).ToList()[0];
+                priviso = new Priviso(element["Id"].ToString(), element["Name"].ToString(), element["Content"].ToString());
+
+                privisos.Add(priviso);
+
+            }
+            // 있으면 내용 추가
+            else
+            {
+                string newContent = csv.Where(e => e["Id"].ToString() == privisoId).ToList()[priviso.updatedInfo]["Content"].ToString();
+                priviso.addContent(newContent);
+            }
 
         }
-        // 있으면 내용 추가
-        else
+        catch (Exception error)
         {
-            string newContent = csv.Where(e => e["Id"].ToString() == privisoId).ToList()[priviso.updatedInfo]["Content"].ToString();
-            priviso.addContent(newContent);
+            Debug.Log("Priviso Add 에러 발생]: " + error);
         }
-        Debug.Log("Priviso Add 완료");
+
     }
 }

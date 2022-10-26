@@ -23,9 +23,9 @@ public class DialogueManager : Singleton<DialogueManager>
     public bool isLineEnd = false;
 
     [Header("등장 캐릭터")]
-    [SerializeField] int speakingC;
+    [SerializeField] string speakingC;
     [SerializeField] int characterNum;
-    [SerializeField] int[] ids = new int[3] {-1, -1, -1};
+    [SerializeField] string[] ids = new string[3] {"", "", ""};
     [SerializeField] int[] illusts = new int[3] { -1, -1, -1 };
     [SerializeField] Character[] characters = new Character[3] {null, null, null};
 
@@ -143,7 +143,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
             // 캐릭터 관련 전달 값
             if (line["CharacterId"].ToString() != "")
-                speakingC = int.Parse(line["CharacterId"].ToString());
+                speakingC = line["CharacterId"].ToString();
 
             if (line["CharacterNum"].ToString() != "")
                 characterNum = int.Parse(line["CharacterNum"].ToString());
@@ -233,7 +233,7 @@ public class DialogueManager : Singleton<DialogueManager>
             case 1:
 
                 if (line["MCharacter"].ToString() != "")
-                    ids[1] = int.Parse(line["MCharacter"].ToString());
+                    ids[1] = line["MCharacter"].ToString();
                 if (line["MCIllust"].ToString() != "")
                     illusts[1] = int.Parse(line["MCIllust"].ToString());
                 
@@ -263,7 +263,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
             case 2:
                 if (line["LCharacter"].ToString() != "")
-                    ids[0] = int.Parse(line["LCharacter"].ToString());
+                    ids[0] = line["LCharacter"].ToString();
                 if (line["LCIllust"].ToString() != "")
                     illusts[0] = int.Parse(line["LCIllust"].ToString());
 
@@ -273,7 +273,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
 
                 if (line["RCharacter"].ToString() != "")
-                    ids[2] = int.Parse(line["RCharacter"].ToString());
+                    ids[2] = line["RCharacter"].ToString();
                 if (line["RCIllust"].ToString() != "")
                     illusts[2] = int.Parse(line["RCIllust"].ToString());
 
@@ -282,7 +282,7 @@ public class DialogueManager : Singleton<DialogueManager>
                 r.gameObject.SetActive(true);
 
                 // 말안하면 색상 낮추기
-                if (l.id != speakingC)
+                if (!l.id.Equals(speakingC))
                 {
                     l.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
                 }
@@ -345,13 +345,13 @@ public class DialogueManager : Singleton<DialogueManager>
         }
     }
 
-    string getCharacterName(int id)
+    string getCharacterName(string id)
     {
         CharacterData element = CharacterTable.cTable[id] as CharacterData;
         return element.name;
     }
 
-    int getCharacterIllustNum(int id)
+    int getCharacterIllustNum(string id)
     {
         CharacterData element = CharacterTable.cTable[id] as CharacterData;
         return element.illustNum;

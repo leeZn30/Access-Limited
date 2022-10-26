@@ -5,7 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [Header("캐릭터 정보")]
-    public int id;
+    public string id;
     public string c_name; // Object.name과 구분
     /**
      * illust index
@@ -32,7 +32,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void setCharacter(int id, string name, int illustNum, int illust, Vector3 position)
+    public void setCharacter(string id, string name, int illustNum, int illust, Vector3 position)
     {
         this.id = id;
         c_name = name;

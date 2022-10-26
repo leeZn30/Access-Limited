@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterData
 {
-    public int id;
+    public string id;
     public string name;
     public int illustNum;
 }
@@ -25,11 +25,11 @@ public static class CharacterTable
         foreach (Dictionary<string, object> c in characters)
         {
             CharacterData element = new CharacterData();
-            element.id = int.Parse(c["CharacterId"].ToString());
+            element.id = c["CharacterId"].ToString();
             element.name = c["Name"].ToString();
             element.illustNum = int.Parse(c["IllustNum"].ToString());
 
-            cTable.Add(int.Parse(c["CharacterId"].ToString()), element);
+            cTable.Add(c["CharacterId"].ToString(), element);
             //cTable.Add(int.Parse(c["CharacterId"].ToString()), c["Name"].ToString());
         }
 
