@@ -15,6 +15,9 @@ public class MapManager : Singleton<MapManager>
     [Header("오브젝트")]
     [SerializeField] GameObject map;
 
+    [Header("코루틴")]
+    [SerializeField] Coroutine currCo;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -49,8 +52,10 @@ public class MapManager : Singleton<MapManager>
     {
         if (nowMapIdx < mapCount - 1)
         {
+            if (currCo != null)
+                StopCoroutine(currCo);
             nowMapIdx++;
-            StartCoroutine(moveBackgroundCo(mapPos[nowMapIdx]));
+            currCo = StartCoroutine(moveBackgroundCo(mapPos[nowMapIdx]));
         }
     }
 
@@ -58,8 +63,11 @@ public class MapManager : Singleton<MapManager>
     {
         if (nowMapIdx > 0)
         {
+            if (currCo != null)
+                StopCoroutine(currCo);
+
             nowMapIdx--;
-            StartCoroutine(moveBackgroundCo(mapPos[nowMapIdx]));
+            currCo = StartCoroutine(moveBackgroundCo(mapPos[nowMapIdx]));
         }
 
     }
@@ -76,6 +84,7 @@ public class MapManager : Singleton<MapManager>
         }
         map.transform.position = targetPos;
 
+        currCo = null;
         yield return null;
 
     }
