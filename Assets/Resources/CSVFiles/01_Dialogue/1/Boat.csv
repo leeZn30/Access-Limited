@@ -1,5 +1,5 @@
 ﻿Turn,Type,CharacterId,Dialogue,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,AnswerId,LineOffset,FigureId,PrivisoId,DiaryId,Background,EffectSound,BGM
-0,0,M4,이 배는..?,2,,,M0,0,M4,0,,,,,,,,
+0,0,M4,이 배는?,2,,,M0,0,M4,0,,,,,,,,
 1,,M0,선착장에 있는 배 중 하나 아닐까.,,,,,,,,,,,,,,,
 2,,M4,호수 위에는 이 배 하나밖에 없어.,,,,,,,,,,,,,,,
 3,,,그리고 봐봐. 선착장에 안에 있는 배들과는 전혀 달라.,,,,,,,,,,,,,,,

@@ -55,13 +55,12 @@ public class DialogueManager : Singleton<DialogueManager>
         // 캐릭터 해시테이블 (후에는 게임 최초 실행시로 변경)
         CharacterTable.setTable();
 
-        // 현재 출력되는 턴과 해당 라인
-        now_turn = 0;
-        chosen_line = 0;
-
         // 배경 찾기
         backgroundCanvas = GameObject.Find("BackgroundCanvas").GetComponentInChildren<Background>();
+    }
 
+    void Start()
+    {
         // 다이얼로그 씬일땐 바로 들어가야 함
         if (d_file != null)
             resetDialogueManager(d_file);
@@ -89,6 +88,7 @@ public class DialogueManager : Singleton<DialogueManager>
     public void resetDialogueManager(TextAsset d_file)
     {
         now_turn = 0;
+        chosen_line = 0;
 
         // CSV파일 읽기
         this.d_file = d_file;

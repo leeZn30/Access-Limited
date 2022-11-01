@@ -19,7 +19,7 @@ public class ObjectPool : Singleton<ObjectPool>
     [CanBeNull] public Queue<GameObject> PlaceQueue = new Queue<GameObject>();
     [CanBeNull] public Queue<GameObject> AnswerQueue = new Queue<GameObject>();
 
-    void Start()
+    void Awake()
     {
         CharacterQueue = InsertQueue(objectInfos[0]);
         AnswerQueue = InsertQueue(objectInfos[1]);
