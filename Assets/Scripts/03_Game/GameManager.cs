@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    [Header("현재 모드")]
+    /*
+     * 0: game
+     * 1: dialogue
+     * 2: database
+     */
+    public int mode;
 
     void Awake()
     {

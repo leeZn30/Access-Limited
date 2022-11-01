@@ -73,15 +73,27 @@ public class DatabaseManager : Singleton<DatabaseManager>
         {
             popup.SetActive(true);
             isPopupOpen = true;
+
+            if (!DialogueManager.Instance.isEnable)
+                MapManager.Instance.offInteractiveObject();
+
+            /**
             if (DialogueManager.Instance != null)
                 DialogueManager.Instance.isEnable = false;
+            **/
         }
         else
         {
             popup.SetActive(false);
             isPopupOpen = false;
+
+            if (!DialogueManager.Instance.isEnable)
+                MapManager.Instance.onInteractiveObject();
+
+            /**
             if (DialogueManager.Instance != null)
                 DialogueManager.Instance.isEnable = true;
+            **/
         }
     }
 

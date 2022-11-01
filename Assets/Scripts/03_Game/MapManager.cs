@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapManager : MonoBehaviour
+public class MapManager : Singleton<MapManager>
 {
     [Header("맵 정보")]
     [SerializeField] int nowMapIdx;
     [SerializeField] int mapCount;
     [SerializeField] List<Vector3> mapPos = new List<Vector3>();
+
+    [Header("오브젝트 상호작용")]
+    public bool isInteractiveEnable = true;
 
     [Header("오브젝트")]
     [SerializeField] GameObject map;
@@ -22,6 +25,22 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             goLeft();
+        }
+    }
+
+    public void onInteractiveObject()
+    {
+        if (!isInteractiveEnable)
+        {
+            isInteractiveEnable = true;
+        }
+    }
+
+    public void offInteractiveObject()
+    {
+        if (isInteractiveEnable)
+        {
+            isInteractiveEnable = false;
         }
     }
 

@@ -94,6 +94,13 @@ public class DialogueManager : Singleton<DialogueManager>
         this.d_file = d_file;
         lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
 
+        // 캐릭터 초기화
+        speakingC = null;
+        characterNum = 0;
+        ids = new string[3] { "", "", "" };
+        illusts = new int[3] { -1, -1, -1 };
+        characters = new Character[3] { null, null, null };
+
         openCloseDialogue();
 
         readlines();
@@ -364,11 +371,15 @@ public class DialogueManager : Singleton<DialogueManager>
         {
             dialogueUIs.SetActive(true);
             isEnable = true;
+
+            MapManager.Instance.offInteractiveObject();
         }
         else
         {
             dialogueUIs.SetActive(false);
             isEnable = false;
+
+            MapManager.Instance.onInteractiveObject();
         }
     }
 

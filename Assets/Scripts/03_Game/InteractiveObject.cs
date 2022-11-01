@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InteractiveObject : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class InteractiveObject : MonoBehaviour
     public bool isChecked = false;
     [SerializeField] TextAsset lineCSV;
     [SerializeField] TextAsset defaultCSV;
-    bool isMouseOver = false;
 
 
     void Start()
@@ -19,62 +19,48 @@ public class InteractiveObject : MonoBehaviour
 
     void Update()
     {
+        /**
         if (Input.GetMouseButtonDown(0))
-        {
             objectClick();
-        }
+        **/
     }
 
     void objectClick()
     {
-        Vector3 positon = Input.mousePosition;
-
-        Ray cast = Camera.main.ScreenPointToRay(positon);
-
+        Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // Mouse의 포지션을 Ray cast 로 변환
-        RaycastHit hit;
+        RaycastHit2D[] hit = Physics2D.RaycastAll(position, transform.forward, 1f);
+        //RaycastHit2D hit = Physics2D.Raycast(position, transform.forward, 1f);
 
-        if (Physics.Raycast(cast, out hit))
+        for(int i = 0; i < hit.Length; i++)
         {
-            if (hit.collider.tag == "Object")
+            RaycastHit2D r = hit[i];
+            Debug.Log("[Tag "+ i + "]: " + r.collider.tag + " [Name]: " + r.collider.gameObject.name);
+        }
+
+        /**
+        if (hit[0].collider.tag == "Object" && hit[0].collider.gameObject == gameObject)
+        {
+            Debug.Log("[Tag]: " + hit[0].collider.tag + " [Name]: " + hit[0].collider.gameObject.name);
+
+            if (!isChecked)
             {
-
-                if (!isChecked)
-                {
-                    DialogueManager.Instance.resetDialogueManager(lineCSV);
-                    isChecked = true;
-                }
-                else
-                {
-                    DialogueManager.Instance.resetDialogueManager(defaultCSV);
-                }
-
+                DialogueManager.Instance.resetDialogueManager(lineCSV);
+                isChecked = true;
+            }
+            else
+            {
+                DialogueManager.Instance.resetDialogueManager(defaultCSV);
             }
 
         }
-    }
-
-    /**
-    void OnMouseEnter()
-    {
-        if (!isMouseOver)
-        {
-            isMouseOver = true;
-        }
-    }
-
-    void OnMouseExit()
-    {
-        if (isMouseOver)
-        {
-            isMouseOver = false;
-        }
+        **/
     }
 
     void OnMouseDown()
     {
-        if (isMouseOver)
+        if (MapManager.Instance.isInteractiveEnable)
         {
             if (!isChecked)
             {
@@ -88,5 +74,4 @@ public class InteractiveObject : MonoBehaviour
 
         }
     }
-    **/
 }
