@@ -24,7 +24,7 @@ public class GameManager : Singleton<GameManager>
         // 데이터베이스 단축키
         if (Input.GetKeyDown(KeyCode.D))
         {
-            DatabaseManager.Instance.openPopup();
+            DatabaseManager.Instance.openClosePopup();
         }
 
 

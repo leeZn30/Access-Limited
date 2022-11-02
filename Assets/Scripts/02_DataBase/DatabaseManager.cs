@@ -30,7 +30,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
     [SerializeField] LinkedList<int>[] pageLinks = new LinkedList<int>[rayoutNum];
 
     [Header("ÆË¾÷Ã¢")]
-    [SerializeField] bool isPopupOpen = false;
+    public bool isPopupOpen = false;
     [SerializeField] GameObject popup;
 
 
@@ -67,7 +67,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
         }
     }
 
-    public void openPopup()
+    public void openClosePopup()
     {
         if (!isPopupOpen)
         {
@@ -97,16 +97,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
         }
     }
 
-    public void closePopup()
-    {
-        if (isPopupOpen)
-        {
-            popup.SetActive(false);
-            isPopupOpen = false;
-            DialogueManager.Instance.isEnable = true;
-        }
-    }
-
     public List<Dictionary<string, object>> getCSV(int mode)
     {
         switch (mode)
@@ -125,7 +115,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
         goPage(0);
 
         //ÆË¾÷Ã¢ ´Ý±â
-        closePopup();
+        openClosePopup();
 
     }
 
