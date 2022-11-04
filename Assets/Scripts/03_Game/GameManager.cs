@@ -6,13 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    [Header("현재 모드")]
-    /*
-     * 0: game
-     * 1: dialogue
-     * 2: database
-     */
-    public int mode;
+    [Header("Day")]
+    [SerializeField] int day;
+
+    /**
+    [Header("Day에서 얻어야 하는 모든 증언")]
+    [Header("Day에서 얻어야 하는 모든 단서")]
+    [Header("Day에서 얻어야 하는 모든 인물정보")]
+    **/
+
 
     void Awake()
     {

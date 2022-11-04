@@ -23,7 +23,7 @@ public class TextSizeFilter : MonoBehaviour
 
     void Update()
     {
-        //sizeFiltering();
+        sizeFiltering();
     }
 
 

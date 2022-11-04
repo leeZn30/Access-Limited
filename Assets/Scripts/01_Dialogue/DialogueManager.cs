@@ -192,13 +192,17 @@ public class DialogueManager : Singleton<DialogueManager>
         if (line["PrivisoId"].ToString() != "")
         {
             string privisoId = line["PrivisoId"].ToString();
-            GameData.Instance.addPriviso(privisoId);
+            int idx= int.Parse(line["PrivisoIdx"].ToString());
+            GameData.Instance.addPriviso(privisoId, idx);
+
+            //GameObject.Find("Info").GetComponentInChildren<TextMeshProUGUI>().text = "단서 <color=blue>" + GameData.Instance.getPriviso(privisoId).name + "</color> 데이터베이스 갱신";
         }
 
         if(line["FigureId"].ToString() != "")
         {
             string figureId = line["FigureId"].ToString();
-            GameData.Instance.addFigures(figureId);
+            int idx = int.Parse(line["FigureIdx"].ToString());
+            GameData.Instance.addFigures(figureId, idx);
         }
     }
 

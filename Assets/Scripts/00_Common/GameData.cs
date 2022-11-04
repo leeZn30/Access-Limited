@@ -45,7 +45,7 @@ public class GameData : Singleton<GameData>
        
     }
 
-    public void addFigures(string figureId)
+    public void addFigures(string figureId, int idx)
     {
         List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Figurefiles/" + figureCSV.name);
 
@@ -58,17 +58,26 @@ public class GameData : Singleton<GameData>
             // 없으면 새로 추가
             if (figure == null)
             {
-                Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == figureId).ToList()[0];
-                figure = new Figure(element["Id"].ToString(), element["Name"].ToString(), int.Parse(element["Age"].ToString()), element["Gender"].ToString(), element["Content"].ToString());
+                // 개복잡 실화냐
+                Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == figureId).ToList()
+                                                     .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0];
+
+                figure = new Figure(element["Id"].ToString(), 
+                                    element["Name"].ToString(), 
+                                    int.Parse(element["Age"].ToString()), 
+                                    element["Gender"].ToString(), 
+                                    element["Content"].ToString(), 
+                                    idx);
 
                 figures.Add(figure);
             }
             // 있으면 내용 추가
             else
             {
-                string newContent = csv.Where(e => e["Id"].ToString() == figureId).ToList()[figure.updatedInfo]["Content"].ToString();
-                figure.addContent(newContent);
+                string newContent = csv.Where(e => e["Id"].ToString() == figureId).ToList()
+                    .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0]["Content"].ToString();
 
+                figure.addContent(newContent, idx);
             }
 
         }
@@ -78,7 +87,7 @@ public class GameData : Singleton<GameData>
         }
     }
 
-    public void addPriviso(string privisoId)
+    public void addPriviso(string privisoId, int idx)
     {
 
         try
@@ -92,8 +101,10 @@ public class GameData : Singleton<GameData>
             // 없으면 새로 추가
             if (priviso == null)
             {
-                Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == privisoId).ToList()[0];
-                priviso = new Priviso(element["Id"].ToString(), element["Name"].ToString(), element["Content"].ToString());
+                Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == privisoId).ToList()
+                                                     .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0];
+
+                priviso = new Priviso(element["Id"].ToString(), element["Name"].ToString(), element["Content"].ToString(), idx);
 
                 privisos.Add(priviso);
 
@@ -101,8 +112,10 @@ public class GameData : Singleton<GameData>
             // 있으면 내용 추가
             else
             {
-                string newContent = csv.Where(e => e["Id"].ToString() == privisoId).ToList()[priviso.updatedInfo]["Content"].ToString();
-                priviso.addContent(newContent);
+                string newContent = csv.Where(e => e["Id"].ToString() == privisoId).ToList()
+                                    .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0]["Content"].ToString();
+
+                priviso.addContent(newContent, idx);
             }
 
         }
@@ -110,6 +123,13 @@ public class GameData : Singleton<GameData>
         {
             Debug.Log("Priviso Add 에러 발생]: " + error);
         }
-
     }
+
+    public Priviso getPriviso(string id)
+    {
+        var priviso = (Priviso)privisos.Find(id);
+
+        return priviso;
+    }
+
 }

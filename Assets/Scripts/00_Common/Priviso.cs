@@ -13,13 +13,13 @@ public class Priviso : Info
     }
 
     // »ý¼ºÀÚ
-    public Priviso(string id, string name, string content)
+    public Priviso(string id, string name, string content, int idx)
     {
         this.id = id;
         this.name = name;
         image = Resources.Load<Sprite>("Images/Privisos/" + GameData.Instance.chapter + "/" + id);
 
-        addContent(content);
+        addContent(content, idx);
     }
 
 

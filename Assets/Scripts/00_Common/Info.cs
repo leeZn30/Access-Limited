@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 abstract public class Info
 {
@@ -19,16 +20,20 @@ abstract public class Info
         set { _name = value; }
     }
 
-    List<string> contents = new List<string>();
+    //List<string> contents = new List<string>();
+    Dictionary<int, string> contents = new Dictionary<int, string>();
     public int updatedInfo = 0;
 
-    public void addContent(string content)
+    public void addContent(string content, int idx)
     {
-        contents.Add(content);
+        //contents.Insert(idx, content);
+        //contents.Add(content);
+        contents[idx] = content;
+
         updatedInfo++;
     }
 
-    public List<string> getContents()
+    public Dictionary<int, string> getContents()
     {
         return contents;
     }
@@ -37,9 +42,9 @@ abstract public class Info
     {
         string txt = "";
 
-        foreach (string c in contents)
+        foreach (var c in contents.OrderBy(k => k.Key))
         {
-            txt += c + "\n";
+            txt += c.Value + "\n";
         }
 
         return txt;

@@ -18,14 +18,14 @@ public class Figure : Info
 
 
     // »ı¼ºÀÚ
-    public Figure(string id, string name, int age, string gender, string content)
+    public Figure(string id, string name, int age, string gender, string content, int c_idx)
     {
         this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
 
-        addContent(content);
+        addContent(content, c_idx);
     }
 
 

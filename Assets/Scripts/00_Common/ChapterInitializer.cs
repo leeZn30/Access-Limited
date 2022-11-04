@@ -40,7 +40,8 @@ public class ChapterInitializer : Singleton<ChapterInitializer>
                                        figureInfo["Name"].ToString(), 
                                        int.Parse(figureInfo["Age"].ToString()),
                                        figureInfo["Gender"].ToString(),
-                                       figureInfo["Content"].ToString());
+                                       figureInfo["Content"].ToString(),
+                                       0);
 
             GameData.Instance.figures.Add(figure);
         }
