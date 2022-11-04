@@ -75,6 +75,8 @@ public class DialogueManager : Singleton<DialogueManager>
                 nextDialogue();
             else if (!isLineEnd)
                 dialogueBox.callStopTyping();
+            else if (mission != 0)
+                doMission(type);
         }
 
         if (Input.GetKeyDown(KeyCode.L) && isEnable)
@@ -173,7 +175,8 @@ public class DialogueManager : Singleton<DialogueManager>
                 backgroundCanvas.setBackground(chapter, BGid);
 
             // 미션
-            doMission(type);
+            mission = type;
+            //doMission(type);
 
         }
         catch (ArgumentException e)
@@ -204,11 +207,10 @@ public class DialogueManager : Singleton<DialogueManager>
         switch (type)
         {
             case 1:
-                Instance.getAnswers();
+                getAnswers();
                 break;
 
             case 2:
-                mission = 2;
                 GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "D를 눌러 통신 연결을 확인하세요.";
                 if (Input.GetKeyDown(KeyCode.D))
                 {
@@ -218,7 +220,6 @@ public class DialogueManager : Singleton<DialogueManager>
                 break;
 
             case 3:
-                mission = 3;
                 GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "D를 눌러 통신 연결을 확인하세요.";
                 // databaseManager.rayouts[2].isEnable
                 if (true)
@@ -329,8 +330,10 @@ public class DialogueManager : Singleton<DialogueManager>
             Answer a = ObjectPool.Instance.AnswerQueue.Dequeue().GetComponent<Answer>();
 
             a.content = answer["Content"].ToString();
+            /**
             a.S1 = int.Parse(answer["S1"].ToString());
             a.S2 = int.Parse(answer["S1"].ToString());
+            **/
 
             int answer_offset;
             a.offset = int.TryParse(answer["Nextline"].ToString(), out answer_offset) ? answer_offset : 0;
@@ -345,7 +348,6 @@ public class DialogueManager : Singleton<DialogueManager>
         if (a_file != null)
         {
             string answerId = line["AnswerId"].ToString();
-            Instance.mission = 1;
 
             answers = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
             createAnswer();
