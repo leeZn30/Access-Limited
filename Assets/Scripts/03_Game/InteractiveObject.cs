@@ -5,58 +5,49 @@ using UnityEngine.EventSystems;
 
 public class InteractiveObject : MonoBehaviour
 {
-    [Header("오브젝트 정보")]
-    public string objectId;
-    public bool isChecked = false;
+    [Header("나타나는 대화")]
+    [SerializeField] List<TextAsset> csvs = new List<TextAsset>();
     [SerializeField] TextAsset lineCSV;
     [SerializeField] TextAsset defaultCSV;
+
+    [Header("오브젝트를 통해 본 대화")]
+    public int[] dialogues;
+    //public bool[] completeDs;
+
+    [Header("연계되는 대화")]
+    public int[] previousDs;
+
+    [Header("오브젝트 정보")]
+    public string objectId;
+    public int nowDialogue = 0;
+    public bool isChecked = false;
 
 
     void Start()
     {
-        //GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
     }
 
     void Update()
     {
-        /**
-        if (Input.GetMouseButtonDown(0))
-            objectClick();
-        **/
     }
 
-    void objectClick()
+    /**
+    public void updateDialogues()
     {
-        Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // Mouse의 포지션을 Ray cast 로 변환
-        RaycastHit2D[] hit = Physics2D.RaycastAll(position, transform.forward, 1f);
-        //RaycastHit2D hit = Physics2D.Raycast(position, transform.forward, 1f);
-
-        for(int i = 0; i < hit.Length; i++)
+        if (previousDs != null)
         {
-            RaycastHit2D r = hit[i];
-            Debug.Log("[Tag "+ i + "]: " + r.collider.tag + " [Name]: " + r.collider.gameObject.name);
-        }
-
-        /**
-        if (hit[0].collider.tag == "Object" && hit[0].collider.gameObject == gameObject)
-        {
-            Debug.Log("[Tag]: " + hit[0].collider.tag + " [Name]: " + hit[0].collider.gameObject.name);
-
-            if (!isChecked)
+            // 개복잡 실화냐
+            // 선행되어야 하는 대화가 완료되었다면
+            if (DayManager.Instance.d_completes[previousDs[nowDialogue]])
             {
-                DialogueManager.Instance.resetDialogueManager(lineCSV);
-                isChecked = true;
+                nowDialogue++;
+                lineCSV = csvs[nowDialogue];
             }
-            else
-            {
-                DialogueManager.Instance.resetDialogueManager(defaultCSV);
-            }
-
         }
-        **/
     }
+    **/
+
 
     void OnMouseDown()
     {
@@ -64,8 +55,15 @@ public class InteractiveObject : MonoBehaviour
         {
             if (!isChecked)
             {
+                lineCSV = DayManager.Instance.dialogues[dialogues[nowDialogue]];
                 DialogueManager.Instance.resetDialogueManager(lineCSV);
+                
                 isChecked = true;
+                /**
+                // 여기가 맞을까...
+                DayManager.Instance.d_completes[dialogues[nowDialogue]] = true;
+                updateDialogues();
+                **/
             }
             else
             {

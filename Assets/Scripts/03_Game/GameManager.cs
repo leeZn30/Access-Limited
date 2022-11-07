@@ -9,12 +9,6 @@ public class GameManager : Singleton<GameManager>
     [Header("Day")]
     [SerializeField] int day;
 
-    /**
-    [Header("Day에서 얻어야 하는 모든 증언")]
-    [Header("Day에서 얻어야 하는 모든 단서")]
-    [Header("Day에서 얻어야 하는 모든 인물정보")]
-    **/
-
 
     void Awake()
     {
