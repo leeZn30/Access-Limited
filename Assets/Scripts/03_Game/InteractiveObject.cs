@@ -8,16 +8,12 @@ public class InteractiveObject : MonoBehaviour
     [Header("오브젝트 정보")]
     public string o_name;
     public ObjectData objectData;
+    public bool isChecked = false;
 
     [Header("나타나는 대화")]
     [SerializeField] List<TextAsset> csvs = new List<TextAsset>();
     [SerializeField] TextAsset lineCSV;
     [SerializeField] TextAsset defaultCSV;
-
-    [Header("오브젝트 정보")]
-    public string objectId;
-    public int nowDialogue = 0;
-    public bool isChecked = false;
 
     void Awake()
     {

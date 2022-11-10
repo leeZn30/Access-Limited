@@ -6,9 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    [Header("Day")]
-    [SerializeField] int day;
-
     void Awake()
     {
         DontDestroyOnLoad(gameObject);

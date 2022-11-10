@@ -60,6 +60,8 @@ public class GameData : Singleton<GameData>
                 Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == figureId).ToList()
                                                      .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0];
 
+                //Debug.Log(element.Values);
+
                 figure = new Figure(element["Id"].ToString(), 
                                     element["Name"].ToString(), 
                                     int.Parse(element["Age"].ToString()), 
@@ -68,6 +70,8 @@ public class GameData : Singleton<GameData>
                                     idx);
 
                 figures.Add(figure);
+
+                Debug.Log("[New Figure 추가]: " + figure.id);
             }
             // 있으면 내용 추가
             else
@@ -76,6 +80,8 @@ public class GameData : Singleton<GameData>
                     .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0]["Content"].ToString();
 
                 figure.addContent(newContent, idx);
+
+                Debug.Log("[Figure 내용 갱신]: " + figure.id);
             }
 
         }

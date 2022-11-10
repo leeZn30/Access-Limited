@@ -31,7 +31,6 @@ public class DialogueManager : Singleton<DialogueManager>
 
     [Header("CSV 파일")]
     [SerializeField] TextAsset d_file;
-    [SerializeField] TextAsset p_file;
     [SerializeField] TextAsset a_file; // GameManager에 넣는게 나을 수도
 
     [Header("CSV 출력")]
@@ -44,9 +43,7 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] Dialogue dialogueBox;
     [SerializeField] DialogueLog dialogueLog;
     [SerializeField] Background backgroundCanvas;
-
-    [Header("사용 프리팹")]
-    [SerializeField] Answer answer_prb;
+    [SerializeField] TextMeshProUGUI info;
 
     void Awake()
     {
@@ -218,22 +215,26 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         switch (type)
         {
-            case 1:
+            case 1: // 선택지
                 getAnswers();
                 break;
 
-            case 2:
-                GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "D를 눌러 통신 연결을 확인하세요.";
-                if (Input.GetKeyDown(KeyCode.D))
-                {
-                    mission = 0;
-                }
-                GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "";
+            case 2: // 증거 제출
                 break;
 
             case 3:
-                GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "D를 눌러 통신 연결을 확인하세요.";
-                // databaseManager.rayouts[2].isEnable
+                Debug.Log("!!!");
+                info.transform.parent.gameObject.SetActive(true);
+                info.text = "D를 눌러 통신 연결을 확인하세요.";
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    mission = 0;
+                    info.transform.parent.gameObject.SetActive(false);
+                }
+                break;
+
+            case 4:
+                info.GetComponentInChildren<TextMeshProUGUI>().text = "D를 눌러 통신 연결을 확인하세요.";
                 if (true)
                 {
                     mission = 0;
@@ -386,14 +387,16 @@ public class DialogueManager : Singleton<DialogueManager>
             dialogueUIs.SetActive(true);
             isEnable = true;
 
-            MapManager.Instance.offInteractiveObject();
+            if (MapManager.Instance != null)
+                MapManager.Instance.offInteractiveObject();
         }
         else
         {
             dialogueUIs.SetActive(false);
             isEnable = false;
 
-            MapManager.Instance.onInteractiveObject();
+            if (MapManager.Instance != null)
+                MapManager.Instance.onInteractiveObject();
         }
     }
 
