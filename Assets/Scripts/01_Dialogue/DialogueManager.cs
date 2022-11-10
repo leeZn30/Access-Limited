@@ -162,9 +162,9 @@ public class DialogueManager : Singleton<DialogueManager>
             dialogueBox.showline();
 
             // 대답에 따른 반응이 연속된다면
-            int lineoffset;
-            if (int.TryParse(line["LineOffset"].ToString(), out lineoffset))
-                chosen_line = lineoffset;
+            int lineoffset = 0;
+            int.TryParse(line["LineOffset"].ToString(), out lineoffset);
+            chosen_line = lineoffset;
 
             // 배경 있다면 전달
             int BGid;
