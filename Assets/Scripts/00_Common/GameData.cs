@@ -23,6 +23,9 @@ public class GameData : Singleton<GameData>
         set { _chapter = value; }
     }
 
+    [Header("Day 정보")]
+    public int day;
+
     [Header("챕터별 인물")]
     [SerializeField] TextAsset figureCSV;
     public InfoList figures = new InfoList();
@@ -37,11 +40,6 @@ public class GameData : Singleton<GameData>
 
     void Start()
     {
-        // 임시로 단서 넣어두기
-        //setTmpPriviso();
-
-        // 임시로 챕터별 일기 갱신 라인 넣어두기
-        //saveDiaryData[1] = 5;
        
     }
 

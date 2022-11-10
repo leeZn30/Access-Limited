@@ -591,9 +591,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: o_name
+      value: Boat
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: lineCSV
       value: 
+      objectReference: {fileID: 4900000, guid: d69ce793f81fed245aeb9d1d85500a32, type: 3}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSV
+      value: 
       objectReference: {fileID: 4900000, guid: 2c5638fd96390b749a49f94c891c762c, type: 3}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: d69ce793f81fed245aeb9d1d85500a32, type: 3}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: dialogues.Array.size
       value: 1
@@ -924,6 +940,10 @@ PrefabInstance:
     - target: {fileID: 7903892719671072653, guid: 68105ac1471b80241a2c98cdafca763f, type: 3}
       propertyPath: m_Name
       value: GameData
+      objectReference: {fileID: 0}
+    - target: {fileID: 7903892719671072654, guid: 68105ac1471b80241a2c98cdafca763f, type: 3}
+      propertyPath: day
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903892719671072654, guid: 68105ac1471b80241a2c98cdafca763f, type: 3}
       propertyPath: figureCSV
@@ -1666,6 +1686,10 @@ PrefabInstance:
     - target: {fileID: 8312497255577458891, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: o_name
+      value: "\uBC15\uC885\uC6B0"
       objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: lineCSV

@@ -178,6 +178,14 @@ public class DialogueManager : Singleton<DialogueManager>
             mission = type;
             //doMission(type);
 
+            // 연쇄 오브젝트 대화
+            string chaining = line["TriggerObject"].ToString();
+            if (chaining != "")
+            {
+                ObjectData objectdata = ObjectTable.oTable[chaining] as ObjectData;
+                objectdata.openDialogue(line["OpenDialogue"].ToString());
+            }
+
         }
         catch (ArgumentException e)
         {
