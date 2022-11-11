@@ -15,9 +15,8 @@ public class DialogueManager : Singleton<DialogueManager>
 
     [Header("Dialogue 정보")]
     public int mission = 0;
-    [SerializeField] int now_turn;
     [SerializeField] int type = 0;
-    public int chosen_line;
+    public int lineoffset;
 
     [Header("대사 출력")]
     public bool isLineEnd = false;
@@ -37,6 +36,8 @@ public class DialogueManager : Singleton<DialogueManager>
     public List<Dictionary<string, object>> lines;
     public Dictionary<string, object> line;
     public List<Dictionary<string, object>> answers;
+    Queue<Dictionary<string, object>> lineQueue = new Queue<Dictionary<string, object>>();
+    public int nowLine;
 
     [Header("오브젝트")]
     [SerializeField] GameObject dialogueUIs;
@@ -83,16 +84,41 @@ public class DialogueManager : Singleton<DialogueManager>
 
     }
 
+    void getLineQueue()
+    {
+        lineQueue.Clear();
+
+        foreach(Dictionary<string, object> line in lines)
+        {
+            lineQueue.Enqueue(line);
+        }
+
+    }
+
+    // 구현중에만 쓸 기능
+    public void goLine(int startIdx)
+    {
+        lineQueue.Clear();
+
+        for (int i = startIdx; i < lines.Count; i++)
+        {
+            lineQueue.Enqueue(lines[i]);
+        }
+
+        readlines();
+    }
+
     // 다이얼로그 매니저 설정
     public void resetDialogueManager(TextAsset d_file)
     {
-        now_turn = 0;
-        chosen_line = 0;
+        lineoffset = 0;
 
         // CSV파일 읽기
         this.d_file = d_file;
-        //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
-        lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
+        lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
+        //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
+
+        getLineQueue();
 
         // 캐릭터 초기화
         speakingC = null;
@@ -110,7 +136,7 @@ public class DialogueManager : Singleton<DialogueManager>
     public void nextDialogue()
     {
         destroyObjects();
-        now_turn++;
+        nowLine++;
         readlines();
     }
 
@@ -140,8 +166,11 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         try
         {
-            line = lines.Where(turn => turn["Turn"].ToString() == now_turn.ToString()).ToList()[chosen_line]; // 왜 int.Parse 안됨
+            //line = lines.Where(turn => turn["Turn"].ToString() == now_turn.ToString()).ToList()[chosen_line]; // 왜 int.Parse 안됨
             //Debug.Log("[" + now_turn + "]" + line["Dialogue"].ToString());
+
+            for (int i = 0; i < lineoffset + 1; i++)
+                line = lineQueue.Dequeue();
 
             int.TryParse(line["Type"].ToString(), out type);
 
@@ -163,9 +192,9 @@ public class DialogueManager : Singleton<DialogueManager>
             dialogueBox.showline();
 
             // 대답에 따른 반응이 연속된다면
-            int lineoffset = 0;
-            int.TryParse(line["LineOffset"].ToString(), out lineoffset);
-            chosen_line = lineoffset;
+            int tmpLineOffset = 0;
+            int.TryParse(line["LineOffset"].ToString(), out tmpLineOffset);
+            lineoffset = tmpLineOffset;
 
             // 배경 있다면 전달
             int BGid;
@@ -363,8 +392,8 @@ public class DialogueManager : Singleton<DialogueManager>
         {
             string answerId = line["AnswerId"].ToString();
 
-            //answers = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
-            answers = CSVReader.Read("CSVfiles/01_Dialogue/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
+            answers = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
+            //answers = CSVReader.Read("CSVfiles/01_Dialogue/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
             createAnswer();
         }
     }
