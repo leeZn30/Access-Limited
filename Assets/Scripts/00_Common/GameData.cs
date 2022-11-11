@@ -37,12 +37,6 @@ public class GameData : Singleton<GameData>
     [Header("챕터별 갱신 일기")]
     public int[] saveDiaryData = new int[6];
 
-
-    void Start()
-    {
-       
-    }
-
     public void addFigures(string figureId, int idx)
     {
         List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Figurefiles/" + figureCSV.name);
@@ -84,6 +78,9 @@ public class GameData : Singleton<GameData>
                 Debug.Log("[Figure 내용 갱신]: " + figure.id);
             }
 
+            string text = "인물 <color=#FF00F5>" + figure.name + "</color> 정보 갱신";
+            DialogueManager.Instance.showInfo(text);
+
         }
         catch (Exception error)
         {
@@ -93,12 +90,11 @@ public class GameData : Singleton<GameData>
 
     public void addPriviso(string privisoId, int idx)
     {
-
         try
         {
             List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Privisofiles/" + privisoCSV.name);
 
-            // figure  찾기
+            // priviso  찾기
             var priviso = privisos.Find(privisoId);
             //var priviso = privisos.Find(p => p.id == privisoId);
 
@@ -122,6 +118,9 @@ public class GameData : Singleton<GameData>
                 priviso.addContent(newContent, idx);
             }
 
+            string text = "단서 <color=#FF00F5>" + priviso.name + "</color> 정보 갱신";
+            DialogueManager.Instance.showInfo(text);
+
         }
         catch (Exception error)
         {
@@ -131,7 +130,7 @@ public class GameData : Singleton<GameData>
 
     public Priviso getPriviso(string id)
     {
-        var priviso = (Priviso)privisos.Find(id);
+        Priviso priviso = privisos.Find(id) as Priviso;
 
         return priviso;
     }

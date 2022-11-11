@@ -49,4 +49,5 @@ public class TextSizeFilter : MonoBehaviour
             collider.size = rect.sizeDelta;
         }
     }
+
 }

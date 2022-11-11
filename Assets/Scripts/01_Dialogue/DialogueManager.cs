@@ -44,7 +44,7 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] Dialogue dialogueBox;
     [SerializeField] DialogueLog dialogueLog;
     [SerializeField] Background backgroundCanvas;
-    [SerializeField] TextMeshProUGUI info;
+    [SerializeField] PushEffect push;
 
     void Awake()
     {
@@ -203,7 +203,6 @@ public class DialogueManager : Singleton<DialogueManager>
 
             // 미션
             mission = type;
-            //doMission(type);
 
             // 연쇄 오브젝트 대화
             string chaining = line["TriggerObject"].ToString();
@@ -241,6 +240,12 @@ public class DialogueManager : Singleton<DialogueManager>
         }
     }
 
+    public void showInfo(string text)
+    {
+        push.setText(text);
+        push.appearInfo();
+    }
+
     void doMission(int type)
     {
         switch (type)
@@ -253,22 +258,27 @@ public class DialogueManager : Singleton<DialogueManager>
                 break;
 
             case 3:
-                Debug.Log("!!!");
-                info.transform.parent.gameObject.SetActive(true);
-                info.text = "D를 눌러 통신 연결을 확인하세요.";
+                push.transform.parent.gameObject.SetActive(true);
+                push.setText("D를 눌러 통신 연결을 확인하세요.");
                 if (Input.GetKeyDown(KeyCode.D))
                 {
                     mission = 0;
-                    info.transform.parent.gameObject.SetActive(false);
+                    push.transform.parent.gameObject.SetActive(false);
                 }
                 break;
 
             case 4:
-                info.GetComponentInChildren<TextMeshProUGUI>().text = "D를 눌러 통신 연결을 확인하세요.";
-                if (true)
+                push.transform.parent.gameObject.SetActive(true);
+                push.setText("D를 눌러 데이터베이스를 여세요.");
+                if (Input.GetKeyDown(KeyCode.D))
                 {
-                    mission = 0;
-                    GameObject.Find("Info").GetComponent<TextMeshProUGUI>().text = "";
+
+                    // 임시
+                    if (Input.GetKeyDown(KeyCode.D))
+                    {
+                        mission = 0;
+                        push.transform.parent.gameObject.SetActive(false);
+                    }
                 }
                 break;
 

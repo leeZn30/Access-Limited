@@ -43,7 +43,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
     void Start()
     {
         // 버튼 리스너
-        exitBtn.onClick.AddListener(exit);
+        exitBtn.onClick.AddListener(openClosePopup);
         backBtn.onClick.AddListener(backPage);
 
         // 레이아웃 링크 설정
@@ -84,6 +84,8 @@ public class DatabaseManager : Singleton<DatabaseManager>
         }
         else
         {
+            goPage(0);
+
             popup.SetActive(false);
             isPopupOpen = false;
 
@@ -107,16 +109,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
             default:
                 return null;
         }
-    }
-
-    void exit()
-    {
-        // 초기화(DB레이아웃 활성화) 필요
-        goPage(0);
-
-        //팝업창 닫기
-        openClosePopup();
-
     }
 
     void backPage()
