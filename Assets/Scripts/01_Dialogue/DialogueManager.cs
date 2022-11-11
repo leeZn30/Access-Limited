@@ -91,7 +91,8 @@ public class DialogueManager : Singleton<DialogueManager>
 
         // CSV파일 읽기
         this.d_file = d_file;
-        lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
+        //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
+        lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
 
         // 캐릭터 초기화
         speakingC = null;
@@ -362,7 +363,8 @@ public class DialogueManager : Singleton<DialogueManager>
         {
             string answerId = line["AnswerId"].ToString();
 
-            answers = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
+            //answers = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
+            answers = CSVReader.Read("CSVfiles/01_Dialogue/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
             createAnswer();
         }
     }
