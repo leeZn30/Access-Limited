@@ -15,16 +15,23 @@ public class ObjectPool : Singleton<ObjectPool>
 {
     [SerializeField] private ObjectInfo[] objectInfos = null;
 
+    // ÇÊ¼ö
     [CanBeNull] public Queue<GameObject> CharacterQueue = new Queue<GameObject>();
-    [CanBeNull] public Queue<GameObject> PlaceQueue = new Queue<GameObject>();
     [CanBeNull] public Queue<GameObject> AnswerQueue = new Queue<GameObject>();
+    [CanBeNull] public Queue<GameObject> figureQueue = new Queue<GameObject>();
+    [CanBeNull] public Queue<GameObject> privisoQueue = new Queue<GameObject>();
+
+    // ¸Ê ¾ÀÀÏ¶§
+    [CanBeNull] public Queue<GameObject> PlaceQueue = new Queue<GameObject>();
 
     void Awake()
     {
         CharacterQueue = InsertQueue(objectInfos[0]);
         AnswerQueue = InsertQueue(objectInfos[1]);
+        figureQueue = InsertQueue(objectInfos[2]);
+        privisoQueue = InsertQueue(objectInfos[3]);
 
-        if (objectInfos.Length > 2)
+        if (objectInfos.Length > 4)
         {
             PlaceQueue = InsertQueue(objectInfos[2]);
         }

@@ -78,6 +78,8 @@ public class GameData : Singleton<GameData>
                 Debug.Log("[Figure 내용 갱신]: " + figure.id);
             }
 
+            Debug.Log("[Figures Count]: " + figures.Count);
+
             string text = "인물 <color=#FF00F5>" + figure.name + "</color> 정보 갱신";
             DialogueManager.Instance.showInfo(text);
 
@@ -118,6 +120,7 @@ public class GameData : Singleton<GameData>
                 priviso.addContent(newContent, idx);
             }
 
+            Debug.Log("[Privisos Count]: " + privisos.Count);
             string text = "단서 <color=#FF00F5>" + priviso.name + "</color> 정보 갱신";
             DialogueManager.Instance.showInfo(text);
 

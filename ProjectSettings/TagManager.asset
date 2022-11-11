@@ -11,6 +11,8 @@ TagManager:
   - DialogueUI
   - PlaceBtn
   - Object
+  - FigureList
+  - PrivisoList
   layers:
   - Default
   - TransparentFX

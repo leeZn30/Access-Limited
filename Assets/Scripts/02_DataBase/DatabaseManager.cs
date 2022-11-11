@@ -124,8 +124,6 @@ public class DatabaseManager : Singleton<DatabaseManager>
         rayouts[pageIdx].SetActive(true);
 
         now_rayout = pageIdx;
-
-
     }
 
     public void pickFigure(Figure figure)
