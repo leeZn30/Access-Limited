@@ -40,6 +40,10 @@ public class PushEffect : MonoBehaviour
 
     public void stayInfo()
     {
+        if (co != null)
+            StopCoroutine(co);
 
+        gameObject.SetActive(true);
     }
+
 }

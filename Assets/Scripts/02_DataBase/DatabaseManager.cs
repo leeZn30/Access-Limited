@@ -18,7 +18,13 @@ public class DatabaseManager : Singleton<DatabaseManager>
     [SerializeField] TextAsset ef; //eventfiles
 
     [Header("현재 레이아웃 정보")]
-    [SerializeField] int now_rayout;
+    [SerializeField] int _now_rayout;
+    public int now_rayout
+    {
+        get { return _now_rayout; }
+        set { now_rayout = _now_rayout; }
+    }
+    
 
     [Header("버튼")]
     [SerializeField] Button exitBtn;
@@ -139,5 +145,10 @@ public class DatabaseManager : Singleton<DatabaseManager>
         DiaryDescRayout ddrayout = rayouts[6].GetComponent<DiaryDescRayout>();
 
         ddrayout.selectedC = chapter;
+    }
+
+    public int getNowRayout()
+    {
+        return now_rayout;
     }
 }

@@ -246,7 +246,7 @@ public class DialogueManager : Singleton<DialogueManager>
         push.appearInfo();
     }
 
-    void doMission(int type)
+    protected virtual void doMission(int type)
     {
         switch (type)
         {
@@ -255,31 +255,6 @@ public class DialogueManager : Singleton<DialogueManager>
                 break;
 
             case 2: // 증거 제출
-                break;
-
-            case 3:
-                push.transform.parent.gameObject.SetActive(true);
-                push.setText("D를 눌러 통신 연결을 확인하세요.");
-                if (Input.GetKeyDown(KeyCode.D))
-                {
-                    mission = 0;
-                    push.transform.parent.gameObject.SetActive(false);
-                }
-                break;
-
-            case 4:
-                push.transform.parent.gameObject.SetActive(true);
-                push.setText("D를 눌러 데이터베이스를 여세요.");
-                if (Input.GetKeyDown(KeyCode.D))
-                {
-
-                    // 임시
-                    if (Input.GetKeyDown(KeyCode.D))
-                    {
-                        mission = 0;
-                        push.transform.parent.gameObject.SetActive(false);
-                    }
-                }
                 break;
 
             default:
