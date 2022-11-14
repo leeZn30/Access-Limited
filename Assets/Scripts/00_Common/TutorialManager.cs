@@ -62,6 +62,8 @@ public class TutorialManager : Singleton<TutorialManager>
     {
         push.setText("D를 눌러 데이터베이스를 켜주세요");
         push.stayInfo();
+
+        StartCoroutine(figureTutoCo());
     }
 
     IEnumerator figureTutoCo()
@@ -76,17 +78,57 @@ public class TutorialManager : Singleton<TutorialManager>
                     isTutorialRunning = true;
                     push.setText("사건 파일을 클릭하세요.");
 
-                    GameObject eventfile = GameObject.Find("사건 파일 이미지");
+                    GameObject eventfile = GameObject.Find("사건 파일 버튼");
 
                     go = Instantiate(outline, eventfile.transform);
                     go.GetComponent<RectTransform>().sizeDelta = new Vector2(500, 500);
+
+                    bool tmp = false;
+
+                    // 너무 이상해
+                    while (true)
+                    {
+                        if (DatabaseManager.Instance.now_rayout == 1)
+                        {
+                            if (!tmp)
+                            {
+                                push.setText("인물 파일을 클릭하세요.");
+                                tmp = true;
+                                go.transform.parent = GameObject.Find("인물파일 버튼").transform;
+                                go.GetComponent<RectTransform>().sizeDelta = new Vector2(500, 300);
+
+                                bool tmp2 = false;
+                                while (true)
+                                {
+                                    if (DatabaseManager.Instance.now_rayout == 2)
+                                    {
+                                        if (!tmp2)
+                                        {
+                                            tmp2 = true;
+                                            push.setText("인물 리스트를 클릭해서 정보를 확인하세요.");
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+
+                            }
+                            else
+                                break;
+
+                        }
+                        yield return null;
+                    }
 
 
                 }
                 else
                 {
                     push.dissapearInfo();
-                    Destroy(go);
+                    if (go != null)
+                        Destroy(go);
                     break;
                 }
             }

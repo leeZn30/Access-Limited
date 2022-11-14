@@ -16,6 +16,7 @@ public class TutorialDialogueManager : DialogueManager
                 break;
 
             case 4:
+                tutoManager.startFigureTuto();
                 break;
 
             default:

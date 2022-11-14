@@ -166,9 +166,6 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         try
         {
-            //line = lines.Where(turn => turn["Turn"].ToString() == now_turn.ToString()).ToList()[chosen_line]; // ¿Ö int.Parse ¾ÈµÊ
-            //Debug.Log("[" + now_turn + "]" + line["Dialogue"].ToString());
-
             for (int i = 0; i < lineoffset + 1; i++)
                 line = lineQueue.Dequeue();
 

@@ -22,7 +22,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
     public int now_rayout
     {
         get { return _now_rayout; }
-        set { now_rayout = _now_rayout; }
+        set { _now_rayout = value; }
     }
     
 
