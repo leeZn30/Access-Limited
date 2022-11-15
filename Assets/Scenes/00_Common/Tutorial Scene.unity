@@ -155,6 +155,7 @@ MonoBehaviour:
   isTutorialRunning: 0
   push: {fileID: 1800521650}
   outline: {fileID: 31052985214669072, guid: 3cdcb742a4d171d429943c167b94cf2e, type: 3}
+  exitbtn: {fileID: 4534995665370253878}
 --- !u!4 &60759415
 Transform:
   m_ObjectHideFlags: 0

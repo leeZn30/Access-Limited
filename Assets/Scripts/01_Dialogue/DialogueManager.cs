@@ -212,7 +212,11 @@ public class DialogueManager : Singleton<DialogueManager>
         }
         catch (ArgumentException e)
         {
-            Debug.Log("+++++++csv 종료+++++++++");
+            Debug.Log("[Argument Error]:" + e);
+        }
+        catch (InvalidOperationException e)
+        {
+            Debug.Log("======CSV 종료=======");
             destroyObjects();
             openCloseDialogue();
         }

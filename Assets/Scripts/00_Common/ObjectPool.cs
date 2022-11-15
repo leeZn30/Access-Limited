@@ -33,7 +33,7 @@ public class ObjectPool : Singleton<ObjectPool>
 
         if (objectInfos.Length > 4)
         {
-            PlaceQueue = InsertQueue(objectInfos[2]);
+            PlaceQueue = InsertQueue(objectInfos[4]);
         }
     }
 
