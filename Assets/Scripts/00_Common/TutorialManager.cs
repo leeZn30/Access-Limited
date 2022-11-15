@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialManager : Singleton<TutorialManager>
 {
     [Header("튜토리얼 진행중")]
     [SerializeField] bool isTutorialRunning = false;
+    Coroutine nowCo = null;
 
     [Header("푸시 알림")]
     [SerializeField] PushEffect push;
@@ -13,17 +15,33 @@ public class TutorialManager : Singleton<TutorialManager>
     [Header("프리팹")]
     [SerializeField] GameObject outline;
 
+    [Header("Exit")]
+    [SerializeField] Button exitbtn;
+    GameObject go = null;
+
+    void Start()
+    {
+        exitbtn.onClick.AddListener(delegate {
+            if (nowCo != null)
+                StopCoroutine(nowCo);
+            isTutorialRunning = false;
+            if (go != null)
+                Destroy(go);
+            push.dissapearInfo();
+            TutorialDialogueManager.Instance.mission = 0;
+        });
+    }
+
     public void startConnectTuto()
     {
         push.setText("D키를 눌러 데이터베이스를 켜주세요.");
         push.stayInfo();
 
-        StartCoroutine(connectTutoCo());
+        nowCo = StartCoroutine(connectTutoCo());
     }
 
     IEnumerator connectTutoCo()
     {
-        GameObject go = null;
         while (true)
         {
             if (Input.GetKeyDown(KeyCode.D))
@@ -31,7 +49,7 @@ public class TutorialManager : Singleton<TutorialManager>
                 if (!isTutorialRunning)
                 {
                     isTutorialRunning = true;
-                    push.setText("통신 연결을 확인하세요.");
+                    push.setText("통신 연결을 확인하세요. 통신이 잘 이루어지고 있습니다.");
 
                     GameObject connectInfo = GameObject.Find("통신 연결 이미지");
 
@@ -63,12 +81,16 @@ public class TutorialManager : Singleton<TutorialManager>
         push.setText("D를 눌러 데이터베이스를 켜주세요");
         push.stayInfo();
 
-        StartCoroutine(figureTutoCo());
+        nowCo = StartCoroutine(figureTutoCo());
     }
 
     IEnumerator figureTutoCo()
     {
         GameObject go = null;
+
+        bool figureCheck = false;
+        bool privisoCheck = false;
+
         while (true)
         {
             if (Input.GetKeyDown(KeyCode.D))
@@ -83,46 +105,48 @@ public class TutorialManager : Singleton<TutorialManager>
                     go = Instantiate(outline, eventfile.transform);
                     go.GetComponent<RectTransform>().sizeDelta = new Vector2(500, 500);
 
-                    bool tmp = false;
-
                     // 너무 이상해
                     while (true)
                     {
                         if (DatabaseManager.Instance.now_rayout == 1)
                         {
-                            if (!tmp)
+                            Destroy(go);
+                            if (!figureCheck || !privisoCheck)
                             {
-                                push.setText("인물 파일을 클릭하세요.");
-                                tmp = true;
-                                go.transform.parent = GameObject.Find("인물파일 버튼").transform;
-                                go.GetComponent<RectTransform>().sizeDelta = new Vector2(500, 300);
+                                push.setText("인물 파일이나 단서를 클릭하세요.");
 
-                                bool tmp2 = false;
                                 while (true)
                                 {
                                     if (DatabaseManager.Instance.now_rayout == 2)
                                     {
-                                        if (!tmp2)
+                                        if (!figureCheck)
                                         {
-                                            tmp2 = true;
+                                            figureCheck = true;
                                             push.setText("인물 리스트를 클릭해서 정보를 확인하세요.");
                                         }
-                                        else
-                                        {
-                                            break;
-                                        }
+                                        else break;
                                     }
+                                    else if (DatabaseManager.Instance.now_rayout == 4)
+                                    {
+                                        if (!privisoCheck)
+                                        {
+                                            privisoCheck = true;
+                                            push.setText("단서를 클릭해서 정보를 확인하세요.");
+                                        }
+                                        else break;
+                                    }
+                                    yield return null;
                                 }
-
                             }
                             else
+                            {
+                                push.setText("데이터는 상시 갱신됩니다.");
                                 break;
+                            }
 
                         }
                         yield return null;
                     }
-
-
                 }
                 else
                 {
@@ -140,4 +164,5 @@ public class TutorialManager : Singleton<TutorialManager>
         TutorialDialogueManager.Instance.mission = 0;
         yield return null;
     }
+
 }
