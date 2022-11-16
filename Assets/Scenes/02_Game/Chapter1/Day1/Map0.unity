@@ -2361,10 +2361,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1488880869}
     m_Modifications:
-    - target: {fileID: 5267378887928737398, guid: 41507105d1c27be4baf312a6c8d40942, type: 3}
-      propertyPath: places.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5688045308232861266, guid: 41507105d1c27be4baf312a6c8d40942, type: 3}
       propertyPath: m_Pivot.x
       value: 1

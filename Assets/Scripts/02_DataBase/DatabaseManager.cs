@@ -81,12 +81,11 @@ public class DatabaseManager : Singleton<DatabaseManager>
             isPopupOpen = true;
 
             if (!DialogueManager.Instance.isEnable)
+            {
+                MapManager.Instance.offPlaceTranslator();
                 MapManager.Instance.offInteractiveObject();
+            }
 
-            /**
-            if (DialogueManager.Instance != null)
-                DialogueManager.Instance.isEnable = false;
-            **/
         }
         else
         {
@@ -96,12 +95,11 @@ public class DatabaseManager : Singleton<DatabaseManager>
             isPopupOpen = false;
 
             if (!DialogueManager.Instance.isEnable)
+            {
+                MapManager.Instance.onPlaceTranslator();
                 MapManager.Instance.onInteractiveObject();
+            }
 
-            /**
-            if (DialogueManager.Instance != null)
-                DialogueManager.Instance.isEnable = true;
-            **/
         }
     }
 

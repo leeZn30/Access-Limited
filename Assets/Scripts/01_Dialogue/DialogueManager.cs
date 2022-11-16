@@ -405,7 +405,10 @@ public class DialogueManager : Singleton<DialogueManager>
             isEnable = true;
 
             if (MapManager.Instance != null)
+            {
                 MapManager.Instance.offInteractiveObject();
+                MapManager.Instance.offPlaceTranslator();
+            }
         }
         else
         {
@@ -413,7 +416,10 @@ public class DialogueManager : Singleton<DialogueManager>
             isEnable = false;
 
             if (MapManager.Instance != null)
+            {
                 MapManager.Instance.onInteractiveObject();
+                MapManager.Instance.onPlaceTranslator();
+            }
         }
     }
 

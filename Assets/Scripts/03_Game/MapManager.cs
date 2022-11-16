@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MapManager : Singleton<MapManager>
 {
@@ -8,6 +10,14 @@ public class MapManager : Singleton<MapManager>
     [SerializeField] int nowMapIdx;
     [SerializeField] int mapCount;
     [SerializeField] List<Vector3> mapPos = new List<Vector3>();
+
+    [Header("맵 전환 버튼")]
+    [SerializeField] Button placeBtn;
+    [SerializeField] bool isEnable = true;
+    [SerializeField] bool isClicked = false;
+
+    [Header("장소 리스트")]
+    [SerializeField] List<Scene> places = new List<Scene>();
 
     [Header("오브젝트 상호작용")]
     public bool isInteractiveEnable = true;
@@ -22,6 +32,7 @@ public class MapManager : Singleton<MapManager>
 
     void Awake()
     {
+        placeBtn = GameObject.Find("이동버튼").GetComponent<Button>();
         mapLeft = GameObject.Find("mapLeft");
         mapRight = GameObject.Find("mapRight");
     }
@@ -29,6 +40,7 @@ public class MapManager : Singleton<MapManager>
     void Start()
     {
         checkMapIdx();
+        placeBtn.onClick.AddListener(openClosePlaces);
     }
 
     void Update()
@@ -116,6 +128,47 @@ public class MapManager : Singleton<MapManager>
         currCo = null;
         yield return null;
 
+    }
+
+    // 맵 트랜스레이트
+    public void onPlaceTranslator()
+    {
+        placeBtn.gameObject.SetActive(true);
+        isEnable = true;
+    }
+
+    public void offPlaceTranslator()
+    {
+        placeBtn.gameObject.SetActive(false);
+        isEnable = false;
+    }
+
+    void openClosePlaces()
+    {
+        if (!isClicked && isEnable)
+        {
+
+            foreach (Scene p in places)
+            {
+                Button btn = ObjectPool.Instance.PlaceQueue.Dequeue().GetComponent<Button>();
+                btn.gameObject.SetActive(true);
+                // 아직 아님
+                btn.onClick.AddListener(delegate { SceneManager.LoadScene(p.name); });
+            }
+            isClicked = true;
+
+        }
+        else
+        {
+            GameObject[] places = GameObject.FindGameObjectsWithTag("PlaceBtn");
+            foreach (GameObject b in places)
+            {
+                b.SetActive(false);
+                ObjectPool.Instance.PlaceQueue.Enqueue(b);
+            }
+            isClicked = false;
+
+        }
     }
 
 }
