@@ -7,13 +7,19 @@ using UnityEngine.SceneManagement;
 public class MapManager : Singleton<MapManager>
 {
     [Header("맵 정보")]
-    [SerializeField] int nowMapIdx;
+    [SerializeField] int _nowMapIdx;
     [SerializeField] int mapCount;
     [SerializeField] List<Vector3> mapPos = new List<Vector3>();
 
+    public int nowMapIdx
+    {
+        get { return _nowMapIdx; }
+        set { _nowMapIdx = value; }
+    }
+
     [Header("맵 전환 버튼")]
     [SerializeField] Button placeBtn;
-    [SerializeField] bool isEnable = true;
+    [SerializeField] bool isTranslateEnable = true;
     [SerializeField] bool isClicked = false;
 
     [Header("장소 리스트")]
@@ -22,7 +28,8 @@ public class MapManager : Singleton<MapManager>
     [Header("오브젝트 상호작용")]
     public bool isInteractiveEnable = true;
 
-    [Header("오브젝트")]
+    [Header("맵 슬라이딩")]
+    public bool isSlidingEnable = true;
     [SerializeField] GameObject map;
     [SerializeField] GameObject mapLeft;
     [SerializeField] GameObject mapRight;
@@ -45,12 +52,12 @@ public class MapManager : Singleton<MapManager>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) && isSlidingEnable)
         {
             goRight();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && isSlidingEnable)
         {
             goLeft();
         }
@@ -86,7 +93,7 @@ public class MapManager : Singleton<MapManager>
     }
 
 
-    void goRight()
+    public void goRight()
     {
         if (nowMapIdx < mapCount - 1)
         {
@@ -99,7 +106,7 @@ public class MapManager : Singleton<MapManager>
         }
     }
 
-    void goLeft()
+    public void goLeft()
     {
         if (nowMapIdx > 0)
         {
@@ -134,18 +141,18 @@ public class MapManager : Singleton<MapManager>
     public void onPlaceTranslator()
     {
         placeBtn.gameObject.SetActive(true);
-        isEnable = true;
+        isTranslateEnable = true;
     }
 
     public void offPlaceTranslator()
     {
         placeBtn.gameObject.SetActive(false);
-        isEnable = false;
+        isTranslateEnable = false;
     }
 
     void openClosePlaces()
     {
-        if (!isClicked && isEnable)
+        if (!isClicked && isTranslateEnable)
         {
 
             foreach (Scene p in places)

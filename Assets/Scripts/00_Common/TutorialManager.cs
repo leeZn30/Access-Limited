@@ -165,4 +165,37 @@ public class TutorialManager : Singleton<TutorialManager>
         yield return null;
     }
 
+    public void startMapSliding()
+    {
+        push.setText("슬라이딩 가능한 방향에 표시가 납니다. 화살키를 눌러 이동합니다.");
+        push.stayInfo();
+
+        GameObject go = null;
+        GameObject moveRight = GameObject.Find("mapRight");
+        go = Instantiate(outline, moveRight.transform);
+        go.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+
+        nowCo = StartCoroutine(mapSliding());
+    }
+
+    IEnumerator mapSliding()
+    {
+        isTutorialRunning = true;
+
+        yield return new WaitForSeconds(1f);
+
+        MapManager.Instance.goRight();
+
+        yield return new WaitForSeconds(3f);
+        go.transform.parent = GameObject.Find("mapLeft").transform;
+
+        MapManager.Instance.goLeft();
+
+        yield return new WaitForSeconds(2f);
+
+        isTutorialRunning = false;
+        push.dissapearInfo();
+        TutorialDialogueManager.Instance.mission = 0;
+    }
+
 }

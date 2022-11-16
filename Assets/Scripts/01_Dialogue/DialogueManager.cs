@@ -38,6 +38,7 @@ public class DialogueManager : Singleton<DialogueManager>
     public List<Dictionary<string, object>> answers;
     Queue<Dictionary<string, object>> lineQueue = new Queue<Dictionary<string, object>>();
     public int nowLine;
+    [SerializeField] bool skipD = false; // tmp
 
     [Header("오브젝트")]
     [SerializeField] GameObject dialogueUIs;
@@ -60,7 +61,7 @@ public class DialogueManager : Singleton<DialogueManager>
     void Start()
     {
         // 다이얼로그 씬일땐 바로 들어가야 함
-        if (d_file != null)
+        if (d_file != null && !skipD)
             resetDialogueManager(d_file);
     }
 
@@ -117,6 +118,8 @@ public class DialogueManager : Singleton<DialogueManager>
         this.d_file = d_file;
         lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
         //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
+
+        Debug.Log("[lines Count]: " + lines.Count);
 
         getLineQueue();
 
@@ -219,6 +222,8 @@ public class DialogueManager : Singleton<DialogueManager>
             Debug.Log("======CSV 종료=======");
             destroyObjects();
             openCloseDialogue();
+            
+            // 로그 지우기
         }
     }
 
@@ -372,7 +377,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     }
 
-    void getAnswers()
+    protected void getAnswers()
     {
         if (a_file != null)
         {
@@ -408,6 +413,7 @@ public class DialogueManager : Singleton<DialogueManager>
             {
                 MapManager.Instance.offInteractiveObject();
                 MapManager.Instance.offPlaceTranslator();
+                MapManager.Instance.isSlidingEnable = false;
             }
         }
         else
@@ -419,6 +425,7 @@ public class DialogueManager : Singleton<DialogueManager>
             {
                 MapManager.Instance.onInteractiveObject();
                 MapManager.Instance.onPlaceTranslator();
+                MapManager.Instance.isSlidingEnable = true;
             }
         }
     }

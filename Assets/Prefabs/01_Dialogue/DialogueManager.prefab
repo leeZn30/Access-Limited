@@ -48,9 +48,8 @@ MonoBehaviour:
   isEnable: 0
   isDLogOpen: 0
   mission: 0
-  now_turn: 0
   type: 0
-  chosen_line: 0
+  lineoffset: 0
   isLineEnd: 0
   speakingC: 0
   characterNum: 0
@@ -64,13 +63,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   d_file: {fileID: 0}
-  p_file: {fileID: 0}
   a_file: {fileID: 4900000, guid: 520af013f0ffd524490d888feed725c9, type: 3}
+  nowLine: 0
   dialogueUIs: {fileID: 6037993964454304325}
   dialogueBox: {fileID: 5427846343484947818}
   dialogueLog: {fileID: 5427846344284167832}
   backgroundCanvas: {fileID: 0}
-  answer_prb: {fileID: 5808427731944876406, guid: 8fcd5923480cdd543b7f396517ed4aa5, type: 3}
+  push: {fileID: 0}
 --- !u!1 &5427846342236468469
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +550,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f11e422ec4ce0ed43a1a6b78c145960d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4399b6457abd9764c943d398e1f373e9, type: 2}
   m_sharedMaterial: {fileID: -2739736935706639561, guid: 8f61629bfa3634d4a9b1f42cfb55c4fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -576,8 +575,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 43
+  m_fontSizeBase: 43
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
