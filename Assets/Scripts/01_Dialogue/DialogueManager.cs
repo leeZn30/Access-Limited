@@ -183,7 +183,7 @@ public class DialogueManager : Singleton<DialogueManager>
             operateCharacter();
 
             // 대사 및 이름 전달
-            dialogueBox.line = line["Dialogue"].ToString();
+            dialogueBox.line = line["Dialogue"].ToString().Replace("|", "\n");
             dialogueBox.c_name = getCharacterName(speakingC);
             dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
             dialogueBox.showline();
