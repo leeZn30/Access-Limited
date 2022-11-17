@@ -837,9 +837,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: dialogues.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: ba54df0b32761a94682389367f320171, type: 3}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
@@ -1302,6 +1310,26 @@ PrefabInstance:
       propertyPath: csvs.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 5539b442875eada4fbb465b92da26481, type: 3}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.data[1]
+      value: 
+      objectReference: {fileID: 4900000, guid: 5e0ffc3bc99b0c240820c646fed91657, type: 3}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 2c5638fd96390b749a49f94c891c762c, type: 3}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.data[1]
+      value: 
+      objectReference: {fileID: 4900000, guid: ba54df0b32761a94682389367f320171, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
 --- !u!4 &815000100 stripped
@@ -1880,6 +1908,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: dialogues.Array.data[1]
       value: 1
       objectReference: {fileID: 0}
@@ -1887,6 +1919,14 @@ PrefabInstance:
       propertyPath: previousDs.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.data[1]
+      value: 
+      objectReference: {fileID: 4900000, guid: ba54df0b32761a94682389367f320171, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
 --- !u!1 &1861350698
@@ -2039,6 +2079,14 @@ PrefabInstance:
       propertyPath: csvs.Array.data[0]
       value: 
       objectReference: {fileID: 4900000, guid: 448a6f091d40f3c4c87dabbf6c79708b, type: 3}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultCSVs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: ba54df0b32761a94682389367f320171, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
 --- !u!4 &1946786937 stripped

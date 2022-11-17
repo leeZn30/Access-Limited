@@ -14,6 +14,8 @@ public class ObjectData
 
     public int nowDialogue = 0;
 
+    public bool isChecked = false;
+
     // »ý¼ºÀÚ
     public ObjectData(string name)
     {
@@ -48,9 +50,13 @@ public class ObjectData
             if (openDialouges[i] && !completeDialogues[i])
             {
                 nowDialogue = i;
-                break;
+                isChecked = false;
+                Debug.Log(name + " isChecked: " + isChecked);
+                return;
             }
         }
+        isChecked = true;
+        Debug.Log(name + " isChecked: " + isChecked);
     }
 }
 

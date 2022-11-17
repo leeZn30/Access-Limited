@@ -12,25 +12,31 @@ public class InteractiveObject : MonoBehaviour
 
     [Header("나타나는 대화")]
     [SerializeField] List<TextAsset> csvs = new List<TextAsset>();
+    [SerializeField] List<TextAsset> defaultCSVs = new List<TextAsset>();
     [SerializeField] TextAsset lineCSV;
-    [SerializeField] TextAsset defaultCSV;
 
     void Start()
     {
         objectData = ObjectTable.oTable[o_name] as ObjectData;
 
-        Debug.Log("[Object] " + objectData.name + "\n" + "nowDialogue: " + objectData.nowDialogue + "\ndialogueCount: " + objectData.dialogueList.Count);
+        //Debug.Log("[Object] " + objectData.name + "\n" + "nowDialogue: " + objectData.nowDialogue + "\ndialogueCount: " + objectData.dialogueList.Count);
     }
 
-    void Update()
+    /**
+    void checkAllDialogue()
     {
+        if (objectData.completeDialogues[objectData.dialogueList.Count - 1])
+        {
+            isAllDsChecked = true;
+        }
     }
+    **/
 
     void OnMouseDown()
     {
         if (MapManager.Instance.isInteractiveEnable)
         {
-            if (!isChecked)
+            if (!objectData.isChecked)
             {
                 objectData.completeDialogue();
 
@@ -42,7 +48,8 @@ public class InteractiveObject : MonoBehaviour
             }
             else
             {
-                DialogueManager.Instance.resetDialogueManager(defaultCSV);
+                lineCSV = defaultCSVs[objectData.nowDialogue];
+                DialogueManager.Instance.resetDialogueManager(lineCSV);
             }
 
         }

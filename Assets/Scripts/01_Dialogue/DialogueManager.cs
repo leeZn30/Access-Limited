@@ -120,7 +120,7 @@ public class DialogueManager : Singleton<DialogueManager>
         lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
         //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
 
-        Debug.Log("[lines Count]: " + lines.Count);
+        //Debug.Log("[lines Count]: " + lines.Count);
 
         getLineQueue();
 
