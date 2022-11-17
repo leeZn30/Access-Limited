@@ -15,6 +15,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     [Header("Dialogue 정보")]
     public int mission = 0;
+    public bool missionRunning = false;
     [SerializeField] int type = 0;
     public int lineoffset;
 
@@ -74,7 +75,7 @@ public class DialogueManager : Singleton<DialogueManager>
                 nextDialogue();
             else if (!isLineEnd)
                 dialogueBox.callStopTyping();
-            else if (mission != 0)
+            else if (mission != 0 && !missionRunning)
                 doMission(type);
         }
 
@@ -254,6 +255,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     protected virtual void doMission(int type)
     {
+        missionRunning = true;
         switch (type)
         {
             case 1: // 선택지

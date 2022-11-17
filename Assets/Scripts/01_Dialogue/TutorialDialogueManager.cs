@@ -9,6 +9,7 @@ public class TutorialDialogueManager : DialogueManager
 
     protected override void doMission(int type)
     {
+        missionRunning = true;
         switch (type)
         {
             case 1: // º±≈√¡ˆ

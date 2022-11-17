@@ -73,6 +73,7 @@ public class TutorialManager : Singleton<TutorialManager>
 
         isTutorialRunning = false;
         TutorialDialogueManager.Instance.mission = 0;
+        TutorialDialogueManager.Instance.missionRunning = false;
         yield return null;
     }
 
@@ -162,6 +163,7 @@ public class TutorialManager : Singleton<TutorialManager>
 
         isTutorialRunning = false;
         TutorialDialogueManager.Instance.mission = 0;
+        TutorialDialogueManager.Instance.missionRunning = false;
         yield return null;
     }
 
@@ -173,7 +175,7 @@ public class TutorialManager : Singleton<TutorialManager>
         GameObject go = null;
         GameObject moveRight = GameObject.Find("mapRight");
         go = Instantiate(outline, moveRight.transform);
-        go.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+        go.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 150);
 
         nowCo = StartCoroutine(mapSliding());
     }
@@ -182,20 +184,22 @@ public class TutorialManager : Singleton<TutorialManager>
     {
         isTutorialRunning = true;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         MapManager.Instance.goRight();
 
         yield return new WaitForSeconds(3f);
-        go.transform.parent = GameObject.Find("mapLeft").transform;
 
+        go.transform.parent = GameObject.Find("mapLeft").transform;
         MapManager.Instance.goLeft();
 
-        yield return new WaitForSeconds(2f);
+        //yield return new WaitForSeconds(1f);
 
+        Destroy(go);
         isTutorialRunning = false;
         push.dissapearInfo();
         TutorialDialogueManager.Instance.mission = 0;
+        TutorialDialogueManager.Instance.missionRunning = false;
     }
 
 }

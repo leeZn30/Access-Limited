@@ -86,6 +86,7 @@ public class Answer : MonoBehaviour
 
         setPlayerStatus();
 
+        DialogueManager.Instance.missionRunning = false;
         DialogueManager.Instance.lineoffset = offset;
         DialogueManager.Instance.nextDialogue();
     }
