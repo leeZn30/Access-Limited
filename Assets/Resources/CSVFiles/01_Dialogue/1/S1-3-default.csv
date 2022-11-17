@@ -1,0 +1,4 @@
+﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,LineOffset,FigureId,FigureIdx,PrivisoId,PrivisoIdx,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
+0,M4,박종우씨는 참견을 좋아하는 것 같아,,2,M0,0,M4,0,,,,,,,,,,,,,,,,
+0,M0,… 솔직히 말해서 내가 별로 안좋아하는 성격이야,,,,,,,,,,,,,,,,,,,,,,
+0,M4,어어???? 나랑 비슷하다고 말하려고 했는데!,,,,,,,,,,,,,,,,,,,,,,

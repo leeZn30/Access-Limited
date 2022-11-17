@@ -12,7 +12,8 @@ public class InteractiveObject : MonoBehaviour
 
     [Header("나타나는 대화")]
     [SerializeField] List<TextAsset> csvs = new List<TextAsset>();
-    [SerializeField] List<TextAsset> defaultCSVs = new List<TextAsset>();
+    //[SerializeField] List<TextAsset> defaultCSVs = new List<TextAsset>();
+    [SerializeField] TextAsset defaultcsv;
     [SerializeField] TextAsset lineCSV;
 
     void Start()
@@ -48,8 +49,11 @@ public class InteractiveObject : MonoBehaviour
             }
             else
             {
+                /**
                 lineCSV = defaultCSVs[objectData.nowDialogue];
                 DialogueManager.Instance.resetDialogueManager(lineCSV);
+                **/
+                DialogueManager.Instance.resetDialogueManager(defaultcsv);
             }
 
         }

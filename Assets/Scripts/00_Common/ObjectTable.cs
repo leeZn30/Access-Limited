@@ -100,7 +100,7 @@ public static class ObjectTable
             objectData.openDialouges[0] = true;
 
             oTable.Add(objectData.name, objectData);
-            Debug.Log("[" + objectData.name + "] 오브젝트 추가");
+            //Debug.Log("[" + objectData.name + "] 오브젝트 추가");
         }
 
     }
