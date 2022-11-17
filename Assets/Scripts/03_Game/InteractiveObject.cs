@@ -15,16 +15,11 @@ public class InteractiveObject : MonoBehaviour
     [SerializeField] TextAsset lineCSV;
     [SerializeField] TextAsset defaultCSV;
 
-    void Awake()
-    {
-    }
-
-
     void Start()
     {
         objectData = ObjectTable.oTable[o_name] as ObjectData;
 
-        //Debug.Log("[Object] " + objectData.name + "\n" + "nowDialogue: " + objectData.nowDialogue + "\ndialogueCount: " + objectData.dialogueList.Count);
+        Debug.Log("[Object] " + objectData.name + "\n" + "nowDialogue: " + objectData.nowDialogue + "\ndialogueCount: " + objectData.dialogueList.Count);
     }
 
     void Update()

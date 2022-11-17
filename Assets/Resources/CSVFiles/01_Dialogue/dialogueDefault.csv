@@ -1,13 +1,13 @@
-﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,LineOffset,FigureId,FigureIdx,PrivisoId,PrivisoIdx,DiaryId,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
+﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,LineOffset,FigureId,FigureIdx,PrivisoId,PrivisoIdx,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
 0,M0,"대사1
 엔터
-엔터",,1,M0,0,,,,,,,,,,,,,,,,,,,
-1,,선택지 등장,,,,,,,,,,Atest1,,,,,,,,,,,,,
-0,,선택지1 선택,,,,,,,,,,,1,,,,,,,,,,,,
-0,,선택지2 선택,,,,,,,,,,,1,,,,,,,,,,,,
-0,,선택지1 연속1,,,,,,,,,,,1,,,,,,,,,,,,
-0,,선택지2 연속1,,,,,,,,,,,1,,,,,,,,,,,,
-0,,선택지1 연속2,,,,,,,,,,,1,,,,,,,,,,,,
-0,,선택지2 연속2,,,,,,,,,,,1,,,,,,,,,,,,
-0,,선택지1 연속3,,,,,,,,,,,,,,,,,,,,,,,
-0,,공통 대사,,,,,,,,,,,,,,,,,,,,,,,
+엔터",,1,M0,0,,,,,,,,,,,,,,,,,,
+1,,선택지 등장,,,,,,,,,,Atest1,,,,,,,,,,,,
+0,,선택지1 선택,,,,,,,,,,,1,,,,,,,,,,,
+0,,선택지2 선택,,,,,,,,,,,1,,,,,,,,,,,
+0,,선택지1 연속1,,,,,,,,,,,1,,,,,,,,,,,
+0,,선택지2 연속1,,,,,,,,,,,1,,,,,,,,,,,
+0,,선택지1 연속2,,,,,,,,,,,1,,,,,,,,,,,
+0,,선택지2 연속2,,,,,,,,,,,1,,,,,,,,,,,
+0,,선택지1 연속3,,,,,,,,,,,,,,,,,,,,,,
+0,,공통 대사,,,,,,,,,,,,,,,,,,,,,,

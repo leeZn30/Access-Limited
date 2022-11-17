@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class ObjectData
 {
@@ -21,8 +22,15 @@ public class ObjectData
 
     public void openDialogue(string dName)
     {
-        int idx = dialogueList.FindIndex(e => e == dName);
-        openDialouges[idx] = true;
+        try
+        {
+            int idx = dialogueList.FindIndex(e => e == dName);
+            openDialouges[idx] = true;
+        }
+        catch (ArgumentException e)
+        {
+            Debug.Log("연쇄 대화 열지 못함!");
+        }
 
         updateDialoge();
     }
@@ -86,7 +94,7 @@ public static class ObjectTable
             objectData.openDialouges[0] = true;
 
             oTable.Add(objectData.name, objectData);
-
+            Debug.Log("[" + objectData.name + "] 오브젝트 추가");
         }
 
     }

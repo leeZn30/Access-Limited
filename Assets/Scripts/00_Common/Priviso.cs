@@ -17,7 +17,14 @@ public class Priviso : Info
     {
         this.id = id;
         this.name = name;
-        image = Resources.Load<Sprite>("Images/Privisos/" + GameData.Instance.chapter + "/" + id);
+        try
+        {
+            image = Resources.Load<Sprite>("Images/Privisos/" + GameData.Instance.chapter + "/" + id);
+        }
+        catch
+        {
+            image = Resources.Load<Sprite>("Images/Privisos/default");
+        }
 
         addContent(content, idx);
     }

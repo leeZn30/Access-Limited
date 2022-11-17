@@ -172,7 +172,6 @@ public class TutorialManager : Singleton<TutorialManager>
         push.setText("슬라이딩 가능한 방향에 표시가 납니다. 화살키를 눌러 이동합니다.");
         push.stayInfo();
 
-        GameObject go = null;
         GameObject moveRight = GameObject.Find("mapRight");
         go = Instantiate(outline, moveRight.transform);
         go.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 150);
@@ -187,13 +186,11 @@ public class TutorialManager : Singleton<TutorialManager>
         yield return new WaitForSeconds(2f);
 
         MapManager.Instance.goRight();
+        //go.transform.parent = GameObject.Find("mapLeft").transform;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
 
-        go.transform.parent = GameObject.Find("mapLeft").transform;
         MapManager.Instance.goLeft();
-
-        //yield return new WaitForSeconds(1f);
 
         Destroy(go);
         isTutorialRunning = false;
