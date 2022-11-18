@@ -48,6 +48,7 @@ MonoBehaviour:
   isEnable: 0
   isDLogOpen: 0
   mission: 0
+  missionRunning: 0
   type: 0
   lineoffset: 0
   isLineEnd: 0
@@ -65,6 +66,7 @@ MonoBehaviour:
   d_file: {fileID: 0}
   a_file: {fileID: 4900000, guid: 520af013f0ffd524490d888feed725c9, type: 3}
   nowLine: 0
+  skipD: 0
   dialogueUIs: {fileID: 6037993964454304325}
   dialogueBox: {fileID: 5427846343484947818}
   dialogueLog: {fileID: 5427846344284167832}
@@ -551,7 +553,7 @@ MonoBehaviour:
   m_text: Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4399b6457abd9764c943d398e1f373e9, type: 2}
-  m_sharedMaterial: {fileID: -2739736935706639561, guid: 8f61629bfa3634d4a9b1f42cfb55c4fe, type: 2}
+  m_sharedMaterial: {fileID: 7366563206180791797, guid: 4399b6457abd9764c943d398e1f373e9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -614,7 +616,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5427846343404582306

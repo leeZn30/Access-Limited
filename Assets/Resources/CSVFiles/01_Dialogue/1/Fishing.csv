@@ -1,4 +1,4 @@
 ﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,LineOffset,FigureId,FigureIdx,PrivisoId,PrivisoIdx,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
-0,M4,엄청 작고 초라한 낚시터야,,2,,,M0,0,M4,0,,,,,,,,,,,,,,
+0,M0,엄청 작고 초라한 낚시터야,,2,,,M0,0,M4,0,,,,,,,,,,,,,,
 0,,박종우씨는 여기에 낚시를 하러 왔다가 시신을 발견했어,,,,,,,,,,,,,,,,,,,,,,
-0,M0,만약 박종우씨가 오지 않았다면.. |더 뒤에 발견됐을 수도 있겠어,,,,,,,,,,,,,,,,,,,,,,
+0,M4,만약 박종우씨가 오지 않았다면.. |더 뒤에 발견됐을 수도 있겠어,,,,,,,,,,,,,,,,,,,,,,

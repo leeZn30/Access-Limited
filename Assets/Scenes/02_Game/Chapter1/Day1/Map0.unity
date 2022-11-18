@@ -2563,6 +2563,14 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 118127186}
+    - target: {fileID: 5096692360097257136, guid: a1a5d74a67a32a24fb43579eb9c5e818, type: 3}
+      propertyPath: isSlidingEnable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5096692360097257136, guid: a1a5d74a67a32a24fb43579eb9c5e818, type: 3}
+      propertyPath: isInteractiveEnable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5096692360097257138, guid: a1a5d74a67a32a24fb43579eb9c5e818, type: 3}
       propertyPath: m_Name
       value: MapManager
