@@ -1,0 +1,3 @@
+﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,LineOffset,FigureId,FigureIdx,PrivisoId,PrivisoIdx,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
+0,M4,숲에서 발견한 CCTV말이야. 아무래도 남지혜씨가 관리하겠지?,,2,,,M4,0,M0,0,,,,,,,,,,,,,,
+0,,CCTV를 확인해야겠어 |일단 현장조사팀에게 CCTV를 확인하라고 알려둘게,,,,,,,,,,,,,,,,,,,,,,
