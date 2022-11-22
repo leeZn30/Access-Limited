@@ -6742,6 +6742,7 @@ MonoBehaviour:
   isEnable: 0
   isDLogOpen: 0
   mission: 0
+  missionRunning: 0
   type: 0
   lineoffset: 0
   isLineEnd: 0
@@ -6756,7 +6757,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  d_file: {fileID: 4900000, guid: f8254b4988e19f0468e6c05c85e924a6, type: 3}
+  d_file: {fileID: 4900000, guid: c0cf2db9d2140674994359b0abb2bdd6, type: 3}
   a_file: {fileID: 4900000, guid: 520af013f0ffd524490d888feed725c9, type: 3}
   nowLine: 0
   skipD: 0
