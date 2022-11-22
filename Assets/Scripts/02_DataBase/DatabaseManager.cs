@@ -117,9 +117,15 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
     void backPage()
     {
-        rayouts[now_rayout].SetActive(false);
-        rayouts[pageLinks[now_rayout].Find(now_rayout).Previous.Value].SetActive(true);
-        now_rayout = pageLinks[now_rayout].Find(now_rayout).Previous.Value;
+        if (pageLinks[now_rayout] != null)
+        {
+            rayouts[now_rayout].SetActive(false);
+            rayouts[pageLinks[now_rayout].Find(now_rayout).Previous.Value].SetActive(true);
+            now_rayout = pageLinks[now_rayout].Find(now_rayout).Previous.Value;
+        }
+        else
+            Debug.Log("No Previous Database Page!");
+
     }
 
     public void goPage(int pageIdx)
