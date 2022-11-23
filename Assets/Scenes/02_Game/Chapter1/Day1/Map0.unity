@@ -1325,7 +1325,7 @@ PrefabInstance:
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: csvs.Array.data[1]
       value: 
-      objectReference: {fileID: 4900000, guid: f9bf9e8b4712f9b42a7caf8de041b9b3, type: 3}
+      objectReference: {fileID: 4900000, guid: fc88a91c0daff50469cbd259bf99653f, type: 3}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: defaultCSVs.Array.size
       value: 2
