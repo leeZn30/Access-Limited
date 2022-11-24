@@ -175,7 +175,7 @@ public class DialogueManagerTest : Singleton<DialogueManagerTest>
             int.TryParse(line["Type"].ToString(), out type);
 
             // 대화에 나타난 단서/인물
-            checkInfos();
+            //checkInfos();
 
             // 캐릭터 관련 전달 값
             operateCharacter();
@@ -222,6 +222,7 @@ public class DialogueManagerTest : Singleton<DialogueManagerTest>
         }
     }
 
+    /**
     void checkInfos()
     {
         if (line["PrivisoId"].ToString() != "")
@@ -240,6 +241,7 @@ public class DialogueManagerTest : Singleton<DialogueManagerTest>
             GameData.Instance.addFigures(figureId, idx);
         }
     }
+    **/
 
     public void showInfo(string text)
     {

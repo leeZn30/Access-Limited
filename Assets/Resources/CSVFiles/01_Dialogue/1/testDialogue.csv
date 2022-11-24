@@ -1,0 +1,6 @@
+﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,NextTurn,InfoId,InfoIdx,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
+0,M0,dfasfsadf,,1,M0,0,,,,,,,,P0,1,,,,,,,
+0,,dfasfsadf,,,,,,,,,,,,P0,0,,,,,,,
+0,,dfasfsadf,,,,,,,,,,,,F1,0,,,,,,,
+0,,dfasfsadf,,,,,,,,,,,,F0,0,,,,,,,
+0,,dfasfsadf,,,,,,,,,,,,F0,1,,,,,,,

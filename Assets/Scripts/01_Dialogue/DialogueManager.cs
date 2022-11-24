@@ -140,7 +140,6 @@ public class DialogueManager : Singleton<DialogueManager>
     public void nextDialogue()
     {
         destroyObjects();
-        nowLine++;
         readlines();
     }
 
@@ -171,7 +170,10 @@ public class DialogueManager : Singleton<DialogueManager>
         try
         {
             for (int i = 0; i < lineoffset + 1; i++)
+            {
                 line = lineQueue.Dequeue();
+                nowLine++;
+            }
 
             int.TryParse(line["Type"].ToString(), out type);
 
@@ -194,7 +196,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
             // 대답에 따른 반응이 연속된다면
             int tmpLineOffset = 0;
-            int.TryParse(line["LineOffset"].ToString(), out tmpLineOffset);
+            int.TryParse(line["NextTurn"].ToString(), out tmpLineOffset);
             lineoffset = tmpLineOffset;
 
             // 배경 있다면 전달
@@ -230,21 +232,13 @@ public class DialogueManager : Singleton<DialogueManager>
 
     void checkInfos()
     {
-        if (line["PrivisoId"].ToString() != "")
+        if (line["InfoId"].ToString() != "")
         {
-            string privisoId = line["PrivisoId"].ToString();
-            int idx= int.Parse(line["PrivisoIdx"].ToString());
-            GameData.Instance.addPriviso(privisoId, idx);
-
-            //GameObject.Find("Info").GetComponentInChildren<TextMeshProUGUI>().text = "단서 <color=blue>" + GameData.Instance.getPriviso(privisoId).name + "</color> 데이터베이스 갱신";
+            string privisoId = line["InfoId"].ToString();
+            int idx = int.Parse(line["InfoIdx"].ToString());
+            GameData.Instance.addInfo(privisoId, idx);
         }
 
-        if(line["FigureId"].ToString() != "")
-        {
-            string figureId = line["FigureId"].ToString();
-            int idx = int.Parse(line["FigureIdx"].ToString());
-            GameData.Instance.addFigures(figureId, idx);
-        }
     }
 
     public void showInfo(string text)

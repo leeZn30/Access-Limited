@@ -1,0 +1,11 @@
+﻿Id,Type,Name,Age,Gender,Content,Idx
+F0,0,최정아,83,여성,F0 content0,0
+F0,0,최정아,83,여성,F0 content1,1
+F1,0,김인우,79,남성,F1 content0,0
+F2,0,이세영,59,여성,F2 content0,0
+,,,,,,
+P0,1,단서0,,,P0 content0,0
+P0,1,단서0,,,P0 content1,1
+P1,1,단서1,,,P1 content0,0
+P2,1,단서2,,,P2 content0,0
+,,,,,,

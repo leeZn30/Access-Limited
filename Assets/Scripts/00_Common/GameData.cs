@@ -34,100 +34,80 @@ public class GameData : Singleton<GameData>
     [SerializeField] TextAsset privisoCSV;
     public InfoList privisos = new InfoList();
 
+    [Header("챕터별 정보")]
+    [SerializeField] TextAsset infoCSV;
+    public InfoList infos = new InfoList();
+
     [Header("챕터별 갱신 일기")]
     public int[] saveDiaryData = new int[6];
 
-    public void addFigures(string figureId, int idx)
+    public void addInfo(string id, int idx)
     {
-        List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Figurefiles/" + figureCSV.name);
+        List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Infofiles/" + infoCSV.name);
 
-        // figure  찾기
-        var figure = figures.Find(figureId);
-        //var figure = figures.Find(f => f.id == figureId);
+        var figure = figures.Find(id);
+        var priviso = privisos.Find(id);
+
+        string text = "";
 
         try
         {
-            // 없으면 새로 추가
-            if (figure == null)
+            if (figure == null && priviso == null)
             {
                 // 개복잡 실화냐
-                Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == figureId).ToList()
+                Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == id).ToList()
                                                      .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0];
 
-                //Debug.Log(element.Values);
+                if (int.Parse(element["Type"].ToString()) == 0)
+                {
+                    figure = new Figure(element["Id"].ToString(),
+                                        element["Name"].ToString(),
+                                        int.Parse(element["Age"].ToString()),
+                                        element["Gender"].ToString(),
+                                        element["Content"].ToString(),
+                                        idx);
 
-                figure = new Figure(element["Id"].ToString(), 
-                                    element["Name"].ToString(), 
-                                    int.Parse(element["Age"].ToString()), 
-                                    element["Gender"].ToString(), 
-                                    element["Content"].ToString(), 
-                                    idx);
+                    figures.Add(figure);
+                    Debug.Log("[New Figure 추가]: " + figure.id);
+                    text = "인물 <color=#FF00F5>" + figure.name + "</color> 정보 갱신";
+                }
+                else
+                {
+                    priviso = new Priviso(element["Id"].ToString(), 
+                                          element["Name"].ToString(), 
+                                          element["Content"].ToString(), 
+                                          idx);
 
-                figures.Add(figure);
-
-                Debug.Log("[New Figure 추가]: " + figure.id);
+                    privisos.Add(priviso);
+                    Debug.Log("[New Priviso 추가]: " + priviso.id);
+                    text = "단서 <color=#FF00F5>" + priviso.name + "</color> 정보 갱신";
+                }
             }
-            // 있으면 내용 추가
-            else
+            else if (figure != null)
             {
-                string newContent = csv.Where(e => e["Id"].ToString() == figureId).ToList()
+                string newContent = csv.Where(e => e["Id"].ToString() == id).ToList()
                     .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0]["Content"].ToString();
 
                 figure.addContent(newContent, idx);
 
                 Debug.Log("[Figure 내용 갱신]: " + figure.id);
+                text = "인물 <color=#FF00F5>" + figure.name + "</color> 정보 갱신";
             }
-
-            Debug.Log("[Figures Count]: " + figures.Count);
-
-            string text = "인물 <color=#FF00F5>" + figure.name + "</color> 정보 갱신";
-            DialogueManager.Instance.showInfo(text);
-
-        }
-        catch (Exception error)
-        {
-            Debug.Log("[Figure Add 에러 발생]: " + error);
-        }
-    }
-
-    public void addPriviso(string privisoId, int idx)
-    {
-        try
-        {
-            List<Dictionary<string, object>> csv = CSVReader.Read("CSVfiles/02_Database/Privisofiles/" + privisoCSV.name);
-
-            // priviso  찾기
-            var priviso = privisos.Find(privisoId);
-            //var priviso = privisos.Find(p => p.id == privisoId);
-
-            // 없으면 새로 추가
-            if (priviso == null)
-            {
-                Dictionary<string, object> element = csv.Where(e => e["Id"].ToString() == privisoId).ToList()
-                                                     .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0];
-
-                priviso = new Priviso(element["Id"].ToString(), element["Name"].ToString(), element["Content"].ToString(), idx);
-
-                privisos.Add(priviso);
-
-            }
-            // 있으면 내용 추가
             else
             {
-                string newContent = csv.Where(e => e["Id"].ToString() == privisoId).ToList()
+                string newContent = csv.Where(e => e["Id"].ToString() == id).ToList()
                                     .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0]["Content"].ToString();
 
                 priviso.addContent(newContent, idx);
+                Debug.Log("[Priviso 내용 갱신]: " + priviso.id);
+                text = "단서 <color=#FF00F5>" + priviso.name + "</color> 정보 갱신";
             }
 
-            Debug.Log("[Privisos Count]: " + privisos.Count);
-            string text = "단서 <color=#FF00F5>" + priviso.name + "</color> 정보 갱신";
             DialogueManager.Instance.showInfo(text);
-
         }
         catch (Exception error)
         {
-            Debug.Log("Priviso Add 에러 발생]: " + error);
+            Debug.Log("[Info Add 에러 발생]: " + error);
         }
     }
 
