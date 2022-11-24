@@ -5,6 +5,24 @@ using System.Linq;
 using System;
 using TMPro;
 
+struct PosPair
+{
+    public int pos;
+    public Character character;
+
+    public PosPair(int p, Character c)
+    {
+        pos = p;
+        character = c;
+    }
+
+    public void setPos(int p)
+    {
+        pos = p;
+    }
+
+}
+
 public class DialogueManager : Singleton<DialogueManager>
 {
     [Header("씬 정보")]
@@ -14,7 +32,7 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] bool isDLogOpen = false;
 
     [Header("대화 정보")]
-    public int nowTurn;
+    public int nowTurn; // 구현할때만 public
     [SerializeField] int nextTurn;
     [SerializeField] int type = 0;
     public int mission = 0;
@@ -23,10 +41,13 @@ public class DialogueManager : Singleton<DialogueManager>
 
     [Header("등장 캐릭터")]
     [SerializeField] string speakingC;
+    [SerializeField] List<PosPair> Cposes = new List<PosPair>();
+    /**
     [SerializeField] int characterNum;
     [SerializeField] string[] ids = new string[3] {"", "", ""};
     [SerializeField] int[] illusts = new int[3] { -1, -1, -1 };
     [SerializeField] Character[] characters = new Character[3] {null, null, null};
+    **/
 
     [Header("CSV 파일")]
     [SerializeField] TextAsset d_file;
@@ -94,10 +115,12 @@ public class DialogueManager : Singleton<DialogueManager>
 
         // 캐릭터 초기화
         speakingC = null;
+        /**
         characterNum = 0;
         ids = new string[3] { "", "", "" };
         illusts = new int[3] { -1, -1, -1 };
         characters = new Character[3] { null, null, null };
+        **/
 
         openCloseDialogue();
 
@@ -129,6 +152,7 @@ public class DialogueManager : Singleton<DialogueManager>
             ObjectPool.Instance.AnswerQueue.Enqueue(answer.gameObject);
         }
         
+        /**
         GameObject[] character_objs = GameObject.FindGameObjectsWithTag("Character");
         foreach (GameObject character in character_objs)
         {
@@ -136,8 +160,8 @@ public class DialogueManager : Singleton<DialogueManager>
             character.SetActive(false);
             ObjectPool.Instance.CharacterQueue.Enqueue(character);
         }
+        **/
 
-        mission = 0;
     }
 
     // 특정 턴으로 이동
@@ -160,7 +184,7 @@ public class DialogueManager : Singleton<DialogueManager>
         // 더 이상 행이 없음
         if (turnLines.Count == 0)
         {
-            Debug.Log("======대사 종료=======");
+            //Debug.Log("======대사 종료=======");
             destroyObjects();
             openCloseDialogue();
             nowTurn = 0;
@@ -172,15 +196,12 @@ public class DialogueManager : Singleton<DialogueManager>
             lineQueue.Enqueue(element);
         }
 
-        // 캐릭터 처리
-
         readlines();
     }
 
     // 라인 읽기
     void readlines()
     {
-
         line = lineQueue.Dequeue();
 
         int.TryParse(line["Type"].ToString(), out type); // default = 0
@@ -195,15 +216,15 @@ public class DialogueManager : Singleton<DialogueManager>
         dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
         dialogueBox.showline();
 
+        // 대화에 나타난 단서/인물
+        checkInfos();
+
         // nextTurn
         int tmpNext;
         nextTurn = int.TryParse(line["NextTurn"].ToString(), out tmpNext) ? tmpNext : nextTurn;
 
-        // 대화에 나타난 단서/인물
-        checkInfos();
-
-        // 캐릭터 관련 전달 값
-
+        // 캐릭터 관련 전달 값 - 위치는 턴마다 나옴
+        characterOperator();
 
         // 배경 있다면 전달
         int BGid;
@@ -257,93 +278,139 @@ public class DialogueManager : Singleton<DialogueManager>
         }
     }
 
-    void operateCharacter()
+    void printPospair()
     {
-        switch (characterNum)
+        Debug.Log("=================Character Poses=====================");
+        foreach(PosPair item in Cposes)
         {
-            case 1:
-
-                if (line["MCharacter"].ToString() != "")
-                    ids[1] = line["MCharacter"].ToString();
-                if (line["MCIllust"].ToString() != "")
-                    illusts[1] = int.Parse(line["MCIllust"].ToString());
-                
-                Character m = ObjectPool.Instance.CharacterQueue.Dequeue().GetComponent<Character>();
-                m.setCharacter(ids[1], getCharacterName(ids[1]), getCharacterIllustNum(ids[1]), illusts[1], new Vector3(0, 1));
-                m.gameObject.SetActive(true);
-
-                if (characters[0] != null || characters[2] != null)
-                {
-                    if (m.id == characters[0].id)
-                    {
-                        m.transform.position = new Vector3(-4, 1);
-                        m.moveMiddle();
-                    }
-                    else if (m.id == characters[2].id)
-                    {
-                        m.transform.position = new Vector3(4, 1);
-                        m.moveMiddle();
-                    }
-
-                }
-
-                characters[1] = m;
-                characters[0] = null;
-                characters[2] = null;
-                break;
-
-            case 2:
-                if (line["LCharacter"].ToString() != "")
-                    ids[0] = line["LCharacter"].ToString();
-                if (line["LCIllust"].ToString() != "")
-                    illusts[0] = int.Parse(line["LCIllust"].ToString());
-
-                Character l = ObjectPool.Instance.CharacterQueue.Dequeue().GetComponent<Character>();
-                l.setCharacter(ids[0], getCharacterName(ids[0]), getCharacterIllustNum(ids[0]), illusts[0], new Vector3(-4, 1));
-                l.gameObject.SetActive(true);
-
-
-                if (line["RCharacter"].ToString() != "")
-                    ids[2] = line["RCharacter"].ToString();
-                if (line["RCIllust"].ToString() != "")
-                    illusts[2] = int.Parse(line["RCIllust"].ToString());
-
-                Character r = ObjectPool.Instance.CharacterQueue.Dequeue().GetComponent<Character>();
-                r.setCharacter(ids[2], getCharacterName(ids[2]), getCharacterIllustNum(ids[2]), illusts[2], new Vector3(4, 1));
-                r.gameObject.SetActive(true);
-
-                // 말안하면 색상 낮추기
-                if (!l.id.Equals(speakingC))
-                {
-                    l.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
-                }
-                else if (r.id != speakingC)
-                {
-                    r.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
-                }
-
-                if (characters[1] != null)
-                {
-                    if (l.id == characters[1].id)
-                    {
-                        l.transform.position = new Vector3(0, 1);
-                        l.moveLeft();
-                    }
-                    else if (r.id == characters[1].id)
-                    {
-                        r.transform.position = new Vector3(0, 1);
-                        r.moveRight();
-                    }
-                }
-
-                characters[1] = null;
-                characters[0] = l;
-                characters[2] = r;
-                break;
-
-            default:
-                break;
+            Debug.Log("[Pos]: " + item.pos + " [Character]: " + item.character.id);
         }
+    }
+
+    void characterOperator()
+    {
+        bool multiPeople = false;
+
+        // C1과 C2가 있으면 턴의 첫 시작임
+        if(line["C2"].ToString() != "")
+        {
+            PosPair posC2 = Cposes.Find(e => e.character.id == line["C2"].ToString());
+            Character c2 = null;
+
+            if (posC2.character == null)
+            {
+                c2 = createCharacter();
+                c2.setCharacter(
+                                line["C2"].ToString(),
+                                getCharacterName(line["C2"].ToString()),
+                                0// 일단
+                                ) ;
+                c2.setPosition(new Vector3(4, 1));
+
+                PosPair tmp = new PosPair(2, c2);
+                Cposes.Add(tmp);
+            }
+            else
+            {
+                if (posC2.pos != 2)
+                {
+                    c2 = posC2.character;
+                    c2.moveRight();
+                    posC2.pos = 2; // 이게 안바뀜 -> 구조체는 안됨 살려줘
+
+                    Debug.Log("!!!!!");
+                    printPospair();
+                }
+            }
+            
+            multiPeople = true;
+        }
+
+        if (line["C1"].ToString() != "")
+        {
+            PosPair posC1 = Cposes.Find(e => e.character.id == line["C1"].ToString());
+            Character c1 = null;
+
+            if (posC1.character == null)
+            {
+                c1 = createCharacter();
+                c1.setCharacter(
+                                line["C1"].ToString(),
+                                getCharacterName(line["C1"].ToString()),
+                                0 // 일단
+                                );
+
+                PosPair tmp;
+                if (multiPeople)
+                {
+                    tmp = new PosPair(0, c1);
+                    c1.setPosition(new Vector3(-4, 1));
+                }
+                else
+                {
+                    tmp = new PosPair(1, c1);
+                    c1.setPosition(new Vector3(-4, 1));
+                }
+                Cposes.Add(tmp);
+            }
+            else
+            {
+                c1 = posC1.character;
+
+                if (multiPeople)
+                {
+                    if (posC1.pos != 0)
+                    {
+                        c1.moveLeft();
+                        posC1.pos = 0;
+                    }
+                }
+                else
+                {
+                    if (posC1.pos != 1)
+                    {
+                        c1.moveMiddle();
+                        posC1.pos = 1;
+                    }
+                }
+            }
+        }
+
+        printPospair();
+        destroyCharacter();
+    }
+
+
+    Character createCharacter()
+    {
+        Character c = ObjectPool.Instance.CharacterQueue.Dequeue().GetComponent<Character>();
+        c.gameObject.SetActive(true);
+
+        return c;
+    }
+
+    void destroyCharacter()
+    {
+        // 새로 들어왔다면 뒤에 추가됨
+        int count0 = Cposes.FindAll(e => e.pos == 0).Count;
+        if (count0 > 1)
+        {
+            Cposes.RemoveAt(Cposes.FindIndex(e => e.pos == 0));
+        }
+
+        int count1 = Cposes.FindAll(e => e.pos == 1).Count;
+        if (count1 > 1)
+        {
+            Cposes.RemoveAt(Cposes.FindIndex(e => e.pos == 1));
+        }
+
+        int count2 = Cposes.FindAll(e => e.pos == 2).Count;
+        if (count2 > 1)
+        {
+            Cposes.RemoveAt(Cposes.FindIndex(e => e.pos == 2));
+        }
+
+
     }
 
     protected void getAnswers()

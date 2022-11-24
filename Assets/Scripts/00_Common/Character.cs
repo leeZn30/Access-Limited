@@ -22,33 +22,27 @@ public class Character : MonoBehaviour
     public int illust_num;
     public int now_illust = 0;
 
-    void setIllustSet()
-    {
-        string path = "Images/Characters/" + id + "/";
-
-        for (int i = 0; i < illust_num; i++)
-        {
-            illusts[i] = Resources.Load<Sprite>(path + i);
-        }
-    }
-
-    public void setCharacter(string id, string name, int illustNum, int illust, Vector3 position)
+    public void setCharacter(string id, string name, int illust)
     {
         this.id = id;
         c_name = name;
-        illust_num = illustNum;
 
-        setIllustSet();
+        //setIllustSet();
         setIllust(illust);
 
-        transform.position = position;
     }
 
-    void setIllust(int illust)
+    public void setIllust(int illust)
     {
         now_illust = illust;
+        string path = "Images/Characters/" + id + "/";
 
-        GetComponentInChildren<SpriteRenderer>().sprite = illusts[now_illust];
+        GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>(path + now_illust);
+    }
+
+    public void setPosition(Vector3 position)
+    {
+        transform.position = position;
     }
 
     public void fadeIn()
