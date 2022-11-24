@@ -96,11 +96,5 @@ public class Answer : MonoBehaviour
         // status 변경
     }
 
-    void OnDestroy()
-    {
-        // 다른 Answer도 찾아서 삭제 > 연쇄적
-        Destroy(GameObject.FindGameObjectWithTag("Answer"));
-    }
-
 
 }

@@ -15,10 +15,10 @@ public class DialogueManager : Singleton<DialogueManager>
 
     [Header("대화 정보")]
     public int nowTurn;
-    public int lineOfTurn;
+    [SerializeField] int nextTurn;
+    [SerializeField] int type = 0;
     public int mission = 0;
     public bool missionRunning = false;
-    [SerializeField] int type = 0;
     public bool isLineEnd = false;
 
     [Header("등장 캐릭터")]
@@ -84,19 +84,9 @@ public class DialogueManager : Singleton<DialogueManager>
 
     }
 
-    // 구현중에만 쓸 기능
-    public void goTurn(int startTurn)
-    {
-        nowTurn = startTurn;
-
-        readTrun();
-    }
-
     // 다이얼로그 매니저 설정
     public void resetDialogueManager(TextAsset d_file)
     {
-        nowTurn = 0;
-
         // CSV파일 읽기
         this.d_file = d_file;
         lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
@@ -111,13 +101,20 @@ public class DialogueManager : Singleton<DialogueManager>
 
         openCloseDialogue();
 
-        readTrun();
-        //readlines();
+        nowTurn = 0;
+        goTurn(nowTurn);
     }
 
     // 다음 대사로 가는 메서드
     public void nextDialogue()
     {
+        // lineQueue가 비었으면 다음 턴으로
+        if (lineQueue.Count == 0)
+        {
+            goTurn(nextTurn);
+            return;
+        }
+
         destroyObjects();
         readlines();
     }
@@ -143,12 +140,24 @@ public class DialogueManager : Singleton<DialogueManager>
         mission = 0;
     }
 
-    void readTrun()
+    // 특정 턴으로 이동
+    public void goTurn(int startTurn)
+    {
+        destroyObjects();
+        nowTurn = startTurn;
+        nextTurn = nowTurn + 1;
+        readTurn();
+    }
+
+
+    // 해당 턴의 모든 라인 불러오기
+    void readTurn()
     {
         lineQueue.Clear();
         List<Dictionary<string, object>> turnLines =
             lines.Where(e => int.Parse(e["Turn"].ToString()) == nowTurn).ToList();
 
+        // 더 이상 행이 없음
         if (turnLines.Count == 0)
         {
             Debug.Log("======대사 종료=======");
@@ -171,12 +180,6 @@ public class DialogueManager : Singleton<DialogueManager>
     // 라인 읽기
     void readlines()
     {
-        if (lineQueue.Count == 0)
-        {
-            nowTurn++;
-            readTrun();
-            return;
-        }
 
         line = lineQueue.Dequeue();
 
@@ -193,9 +196,8 @@ public class DialogueManager : Singleton<DialogueManager>
         dialogueBox.showline();
 
         // nextTurn
-        int nextTurn = 0;
-        if (int.TryParse(line["NextTurn"].ToString(), out nextTurn))
-            goTurn(nextTurn);
+        int tmpNext;
+        nextTurn = int.TryParse(line["NextTurn"].ToString(), out tmpNext) ? tmpNext : nextTurn;
 
         // 대화에 나타난 단서/인물
         checkInfos();
@@ -344,6 +346,18 @@ public class DialogueManager : Singleton<DialogueManager>
         }
     }
 
+    protected void getAnswers()
+    {
+        if (a_file != null)
+        {
+            string answerId = line["AnswerId"].ToString();
+
+            answers = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
+            //answers = CSVReader.Read("CSVfiles/01_Dialogue/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
+            createAnswer();
+        }
+    }
+
     void createAnswer()
     {
         foreach (Dictionary<string, object> answer in answers)
@@ -356,24 +370,12 @@ public class DialogueManager : Singleton<DialogueManager>
             a.S2 = int.Parse(answer["S1"].ToString());
             **/
 
-            int answer_offset;
-            a.nextTurn = int.TryParse(answer["NextTurn"].ToString(), out answer_offset) ? nowTurn + 1 : 0;
+            int tmpNext;
+            a.nextTurn = int.TryParse(answer["NextTurn"].ToString(), out tmpNext) ? tmpNext : nextTurn;
 
             a.gameObject.SetActive(true);
         }
 
-    }
-
-    protected void getAnswers()
-    {
-        if (a_file != null)
-        {
-            string answerId = line["AnswerId"].ToString();
-
-            answers = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
-            //answers = CSVReader.Read("CSVfiles/01_Dialogue/" + a_file.name).Where(answer => answer["Id"].ToString() == answerId).ToList();
-            createAnswer();
-        }
     }
 
     string getCharacterName(string id)
