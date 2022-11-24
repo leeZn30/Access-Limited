@@ -48,6 +48,12 @@ public class MapManager : Singleton<MapManager>
     {
         checkMapIdx();
         placeBtn.onClick.AddListener(openClosePlaces);
+
+        if (mapCount == 2)
+        {
+            mapPos.Add(new Vector3(8.5f, 0));
+            mapPos.Add(new Vector3(-8.5f, 0));
+        }
     }
 
     void Update()

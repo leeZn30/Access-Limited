@@ -51,12 +51,10 @@ public class ObjectData
             {
                 nowDialogue = i;
                 isChecked = false;
-                Debug.Log(name + " isChecked: " + isChecked);
                 return;
             }
         }
         isChecked = true;
-        Debug.Log(name + " isChecked: " + isChecked);
     }
 }
 

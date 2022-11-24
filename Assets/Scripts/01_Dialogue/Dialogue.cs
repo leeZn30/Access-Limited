@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
-using System.Threading.Tasks;
-using System.Threading;
 
 public class Dialogue : MonoBehaviour
 {
@@ -28,19 +26,11 @@ public class Dialogue : MonoBehaviour
 
     public void showline()
     {
-        // 문단 여러개일때 엔터 적용해야함
+        // 문단 여러개일때 엔터 적용해야함 -> 보류
 
         DialogueManager.Instance.isLineEnd = false;
         name_b.text = c_name;
-        //typing = StartCoroutine(Typing(line, 0.07f));
-        typing = dotTyping(line.Length * 0.1f).SetEase(Ease.Linear);
-
-        /**
-        // Dotween 버전
-        line_b.text = line;
-        line_b.maxVisibleCharacters = 0;
-        DOTween.To(x => line_b.maxVisibleCharacters = (int)x, 0f, line_b.text.Length, 1f);
-        **/
+        typing = dotTyping(line.Length * 0.1f).SetEase(Ease.Linear);    
     }
 
     Sequence dotTyping(float speed)
@@ -63,19 +53,6 @@ public class Dialogue : MonoBehaviour
     }
 
     // 칸 스크롤링 - 추후 필요하면 개발
-
-    IEnumerator Typing(string message, float speed)
-    {
-        // 색상, 볼드체 등 처리
-
-        for (int i = 0; i < message.Length; i++)
-        {
-            line_b.text = message.Substring(0, i + 1);
-            yield return new WaitForSeconds(speed);
-        }
-
-        DialogueManager.Instance.isLineEnd = true;
-    }
 
     public void showAllLine()
     {
