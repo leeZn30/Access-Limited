@@ -15,7 +15,7 @@ public class Answer : MonoBehaviour
     [SerializeField] int _S5;
     [SerializeField] int _S6;
     [SerializeField] int _S7;
-    [SerializeField] int _offset;
+    [SerializeField] int _nextTurn;
 
     [Header("Objects")]
     [SerializeField] TextMeshProUGUI content_b;
@@ -67,10 +67,10 @@ public class Answer : MonoBehaviour
         set { _S7 = value; }   // value 키워드 사용
     }
 
-    public int offset
+    public int nextTurn
     {
-        get { return _offset; }
-        set { _offset = value; }
+        get { return _nextTurn; }
+        set { _nextTurn = value; }
     }
 
 
@@ -87,8 +87,7 @@ public class Answer : MonoBehaviour
         setPlayerStatus();
 
         DialogueManager.Instance.missionRunning = false;
-        DialogueManager.Instance.lineoffset = offset;
-        DialogueManager.Instance.nextDialogue();
+        DialogueManager.Instance.goTurn(nextTurn);
     }
 
 

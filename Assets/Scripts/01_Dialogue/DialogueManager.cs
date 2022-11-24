@@ -13,13 +13,12 @@ public class DialogueManager : Singleton<DialogueManager>
     public bool isEnable = false;
     [SerializeField] bool isDLogOpen = false;
 
-    [Header("Dialogue 정보")]
+    [Header("대화 정보")]
+    public int nowTurn;
+    public int lineOfTurn;
     public int mission = 0;
     public bool missionRunning = false;
     [SerializeField] int type = 0;
-    public int lineoffset;
-
-    [Header("대사 출력")]
     public bool isLineEnd = false;
 
     [Header("등장 캐릭터")]
@@ -38,7 +37,6 @@ public class DialogueManager : Singleton<DialogueManager>
     public Dictionary<string, object> line;
     public List<Dictionary<string, object>> answers;
     Queue<Dictionary<string, object>> lineQueue = new Queue<Dictionary<string, object>>();
-    public int nowLine;
     [SerializeField] bool skipD = false; // tmp
 
     [Header("오브젝트")]
@@ -86,43 +84,23 @@ public class DialogueManager : Singleton<DialogueManager>
 
     }
 
-    void getLineQueue()
-    {
-        lineQueue.Clear();
-
-        foreach(Dictionary<string, object> line in lines)
-        {
-            lineQueue.Enqueue(line);
-        }
-
-    }
-
     // 구현중에만 쓸 기능
-    public void goLine(int startIdx)
+    public void goTurn(int startTurn)
     {
-        lineQueue.Clear();
+        nowTurn = startTurn;
 
-        for (int i = startIdx; i < lines.Count; i++)
-        {
-            lineQueue.Enqueue(lines[i]);
-        }
-
-        readlines();
+        readTrun();
     }
 
     // 다이얼로그 매니저 설정
     public void resetDialogueManager(TextAsset d_file)
     {
-        lineoffset = 0;
+        nowTurn = 0;
 
         // CSV파일 읽기
         this.d_file = d_file;
         lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
         //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
-
-        //Debug.Log("[lines Count]: " + lines.Count);
-
-        getLineQueue();
 
         // 캐릭터 초기화
         speakingC = null;
@@ -133,7 +111,8 @@ public class DialogueManager : Singleton<DialogueManager>
 
         openCloseDialogue();
 
-        readlines();
+        readTrun();
+        //readlines();
     }
 
     // 다음 대사로 가는 메서드
@@ -164,70 +143,82 @@ public class DialogueManager : Singleton<DialogueManager>
         mission = 0;
     }
 
+    void readTrun()
+    {
+        lineQueue.Clear();
+        List<Dictionary<string, object>> turnLines =
+            lines.Where(e => int.Parse(e["Turn"].ToString()) == nowTurn).ToList();
+
+        if (turnLines.Count == 0)
+        {
+            Debug.Log("======대사 종료=======");
+            destroyObjects();
+            openCloseDialogue();
+            nowTurn = 0;
+            return;
+        }
+
+        foreach(Dictionary<string, object> element in turnLines)
+        {
+            lineQueue.Enqueue(element);
+        }
+
+        // 캐릭터 처리
+
+        readlines();
+    }
+
     // 라인 읽기
     void readlines()
     {
-        try
+        if (lineQueue.Count == 0)
         {
-            for (int i = 0; i < lineoffset + 1; i++)
-            {
-                line = lineQueue.Dequeue();
-                nowLine++;
-            }
-
-            int.TryParse(line["Type"].ToString(), out type);
-
-            // 대화에 나타난 단서/인물
-            checkInfos();
-
-            // 캐릭터 관련 전달 값
-            if (line["CharacterId"].ToString() != "")
-                speakingC = line["CharacterId"].ToString();
-
-            if (line["CharacterNum"].ToString() != "")
-                characterNum = int.Parse(line["CharacterNum"].ToString());
-            operateCharacter();
-
-            // 대사 및 이름 전달
-            dialogueBox.line = line["Dialogue"].ToString().Replace("|", "\n");
-            dialogueBox.c_name = getCharacterName(speakingC);
-            dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
-            dialogueBox.showline();
-
-            // 대답에 따른 반응이 연속된다면
-            int tmpLineOffset = 0;
-            int.TryParse(line["NextTurn"].ToString(), out tmpLineOffset);
-            lineoffset = tmpLineOffset;
-
-            // 배경 있다면 전달
-            int BGid;
-            if (int.TryParse(line["Background"].ToString(), out BGid))
-                backgroundCanvas.setBackground(chapter, BGid);
-
-            // 미션
-            mission = type;
-
-            // 연쇄 오브젝트 대화
-            string chaining = line["TriggerObject"].ToString();
-            if (chaining != "")
-            {
-                ObjectData objectdata = ObjectTable.oTable[chaining] as ObjectData;
-                objectdata.openDialogue(line["OpenDialogue"].ToString());
-            }
-
+            nowTurn++;
+            readTrun();
+            return;
         }
-        catch (ArgumentException e)
+
+        line = lineQueue.Dequeue();
+
+        int.TryParse(line["Type"].ToString(), out type); // default = 0
+
+        // SpeakingId
+        if (line["SpeakingId"].ToString() != "")
+            speakingC = line["SpeakingId"].ToString();
+
+        // Dialogue
+        dialogueBox.line = line["Dialogue"].ToString().Replace("|", "\n");
+        dialogueBox.c_name = getCharacterName(speakingC);
+        dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
+        dialogueBox.showline();
+
+        // nextTurn
+        int nextTurn = 0;
+        if (int.TryParse(line["NextTurn"].ToString(), out nextTurn))
+            goTurn(nextTurn);
+
+        // 대화에 나타난 단서/인물
+        checkInfos();
+
+        // 캐릭터 관련 전달 값
+
+
+        // 배경 있다면 전달
+        int BGid;
+        if (int.TryParse(line["Background"].ToString(), out BGid))
+            backgroundCanvas.setBackground(chapter, BGid);
+
+        // 미션
+        mission = type;
+
+        // 연쇄 오브젝트 대화
+        string chaining = line["TriggerObject"].ToString();
+        if (chaining != "")
         {
-            Debug.Log("[Argument Error]:" + e);
+            ObjectData objectdata = ObjectTable.oTable[chaining] as ObjectData;
+            objectdata.openDialogue(line["OpenDialogue"].ToString());
         }
-        catch (InvalidOperationException e)
-        {
-            Debug.Log("======CSV 종료=======");
-            destroyObjects();
-            openCloseDialogue();
-            
-            // 로그 지우기
-        }
+
     }
 
     void checkInfos()
@@ -366,7 +357,7 @@ public class DialogueManager : Singleton<DialogueManager>
             **/
 
             int answer_offset;
-            a.offset = int.TryParse(answer["Nextline"].ToString(), out answer_offset) ? answer_offset : 0;
+            a.nextTurn = int.TryParse(answer["NextTurn"].ToString(), out answer_offset) ? nowTurn + 1 : 0;
 
             a.gameObject.SetActive(true);
         }

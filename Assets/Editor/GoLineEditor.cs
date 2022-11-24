@@ -16,7 +16,7 @@ public class GoLineEditor : Editor
 
         if (GUILayout.Button("goLine"))
         {
-            generator.goLine(DialogueManager.Instance.nowLine);
+            generator.goTurn(DialogueManager.Instance.nowTurn);
         }
     }
 }

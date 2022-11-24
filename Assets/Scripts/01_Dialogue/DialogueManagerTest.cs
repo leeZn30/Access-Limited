@@ -485,7 +485,7 @@ public class DialogueManagerTest : Singleton<DialogueManagerTest>
             **/
 
             int answer_offset;
-            a.offset = int.TryParse(answer["Nextline"].ToString(), out answer_offset) ? answer_offset : 0;
+            a.nextTurn = int.TryParse(answer["Nextline"].ToString(), out answer_offset) ? answer_offset : 0;
 
             a.gameObject.SetActive(true);
         }
