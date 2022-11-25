@@ -68,7 +68,6 @@ public class GameData : Singleton<GameData>
                                         idx);
 
                     figures.Add(figure);
-                    Debug.Log("[New Figure 추가]: " + figure.id);
                     text = "인물 <color=#FF00F5>" + figure.name + "</color> 정보 갱신";
                 }
                 else
@@ -79,7 +78,6 @@ public class GameData : Singleton<GameData>
                                           idx);
 
                     privisos.Add(priviso);
-                    Debug.Log("[New Priviso 추가]: " + priviso.id);
                     text = "단서 <color=#FF00F5>" + priviso.name + "</color> 정보 갱신";
                 }
             }
@@ -90,7 +88,6 @@ public class GameData : Singleton<GameData>
 
                 figure.addContent(newContent, idx);
 
-                Debug.Log("[Figure 내용 갱신]: " + figure.id);
                 text = "인물 <color=#FF00F5>" + figure.name + "</color> 정보 갱신";
             }
             else
@@ -99,7 +96,6 @@ public class GameData : Singleton<GameData>
                                     .Where(e => e["Idx"].ToString() == idx.ToString()).ToList()[0]["Content"].ToString();
 
                 priviso.addContent(newContent, idx);
-                Debug.Log("[Priviso 내용 갱신]: " + priviso.id);
                 text = "단서 <color=#FF00F5>" + priviso.name + "</color> 정보 갱신";
             }
 

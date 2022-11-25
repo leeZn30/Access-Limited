@@ -16,11 +16,6 @@ struct PosPair
         character = c;
     }
 
-    public void setPos(int p)
-    {
-        pos = p;
-    }
-
 }
 
 public class DialogueManager : Singleton<DialogueManager>
@@ -42,6 +37,7 @@ public class DialogueManager : Singleton<DialogueManager>
     [Header("등장 캐릭터")]
     [SerializeField] string speakingC;
     [SerializeField] List<PosPair> Cposes = new List<PosPair>();
+    [SerializeField] List<Character> characters = new List<Character>();
     /**
     [SerializeField] int characterNum;
     [SerializeField] string[] ids = new string[3] {"", "", ""};
@@ -66,6 +62,7 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] DialogueLog dialogueLog;
     [SerializeField] Background backgroundCanvas;
     [SerializeField] PushEffect push;
+    [SerializeField] Character characterPrb;
 
     void Awake()
     {
@@ -197,6 +194,10 @@ public class DialogueManager : Singleton<DialogueManager>
         }
 
         readlines();
+
+        // 방법1) 여기서 캐릭터 오퍼레이터 -> 턴마다 캐릭터 고정 + 일러스트만 바꾸기 (따로 함수) => readline마다
+        //characterMoving();
+        testCharacter();
     }
 
     // 라인 읽기
@@ -223,8 +224,8 @@ public class DialogueManager : Singleton<DialogueManager>
         int tmpNext;
         nextTurn = int.TryParse(line["NextTurn"].ToString(), out tmpNext) ? tmpNext : nextTurn;
 
-        // 캐릭터 관련 전달 값 - 위치는 턴마다 나옴
-        characterOperator();
+        //방법2) 캐릭터 매 라인마다 체크하기
+        //characterOperator();
 
         // 배경 있다면 전달
         int BGid;
@@ -287,8 +288,117 @@ public class DialogueManager : Singleton<DialogueManager>
         }
     }
 
+    void testCharacter()
+    {
+        int idx1 = -1;
+        int idx2 = -1;
+
+        List<int> deletes = new List<int>(3) { 0, 1, 2 };
+        if (line["C1"].ToString() != "")
+        {
+            idx1 = characters.FindIndex(e => e.id == line["C1"].ToString());
+
+            if (idx1 != -1)
+                deletes.Remove(idx1);
+        }
+
+        if (line["C2"].ToString() != "")
+        {
+            idx2 = characters.FindIndex(e => e.id == line["C2"].ToString());
+
+            if (idx2 != -1)
+                deletes.Remove(idx2);
+        }
+
+        Debug.Log("[idx1]: " + idx1 + " [idx2]: " + idx2);
+
+        // 필요없는 캐릭터 오브젝트 먼저 지우기
+        foreach (int i in deletes)
+        {
+            Debug.Log("[Delete]: " + i);
+            destroyCharacter(i);
+        }
+
+        Character c1 = null;
+        Character c2 = null;
+        // characters 바꾸면서 이동 및 추가
+        if (line["C2"].ToString() != "")
+        {
+            if (idx1 != -1)
+                characters[idx1].moveLeft();
+            else
+            {
+                c1 = createCharacter();
+                c1.setCharacter(line["C1"].ToString(), getCharacterName(line["C1"].ToString()), 0);
+                c1.setPosition(0);
+            }
+            
+            if (idx2 != -1)
+                characters[idx2].moveRight();
+            else
+            {
+                c2 = createCharacter();
+                c2.setCharacter(line["C2"].ToString(), getCharacterName(line["C2"].ToString()), 0);
+                c2.setPosition(2);
+            }
+
+            if (idx1 != -1)
+                characters[0] = characters[idx1];
+            else
+                characters[0] = c1;
+
+            if (idx2 != -1)
+                characters[2] = characters[idx2];
+            else
+                characters[0] = c1;
+
+            characters[1] = characterPrb;
+        }
+        else
+        {
+            if (idx1 != -1)
+                characters[idx1].moveMiddle();
+            else
+            {
+                c1 = createCharacter();
+                c1.setCharacter(line["C1"].ToString(), getCharacterName(line["C1"].ToString()), 0);
+                c1.setPosition(1);
+            }
+
+            if (idx1 != -1)
+                characters[1] = characters[idx1];
+            else
+                characters[1] = c1;
+        }
+
+    }
+
     void characterOperator()
     {
+        int characterNum;
+        if (int.TryParse(line["Cnum"].ToString(), out characterNum))
+        {
+            switch (characterNum)
+            {
+                case 0:
+                    Cposes.Clear();
+                    break;
+
+                default:
+                    characterMoving();
+                    break;
+            }
+        }
+        else // 그대로
+        {
+            characterMoving();
+        }
+    }
+
+    void characterMoving()
+    {
+        List<PosPair> pairs = Cposes;
+
         bool multiPeople = false;
 
         // C1과 C2가 있으면 턴의 첫 시작임
@@ -305,24 +415,23 @@ public class DialogueManager : Singleton<DialogueManager>
                                 getCharacterName(line["C2"].ToString()),
                                 0// 일단
                                 ) ;
-                c2.setPosition(new Vector3(4, 1));
+                c2.setPosition(2);
 
                 PosPair tmp = new PosPair(2, c2);
-                Cposes.Add(tmp);
+                pairs.Add(tmp);
             }
             else
             {
                 if (posC2.pos != 2)
                 {
+                    // 자기 자리
+                    int idx = Cposes.FindIndex(e => e.Equals(posC2));
+
                     c2 = posC2.character;
                     c2.moveRight();
-                    posC2.pos = 2; // 이게 안바뀜 -> 구조체는 안됨 살려줘
-
-                    Debug.Log("!!!!!");
-                    printPospair();
+                    pairs[idx] = new PosPair(2, c2);
                 }
             }
-            
             multiPeople = true;
         }
 
@@ -344,14 +453,14 @@ public class DialogueManager : Singleton<DialogueManager>
                 if (multiPeople)
                 {
                     tmp = new PosPair(0, c1);
-                    c1.setPosition(new Vector3(-4, 1));
+                    c1.setPosition(0);
                 }
                 else
                 {
                     tmp = new PosPair(1, c1);
-                    c1.setPosition(new Vector3(-4, 1));
+                    c1.setPosition(1);
                 }
-                Cposes.Add(tmp);
+                pairs.Add(tmp);
             }
             else
             {
@@ -361,25 +470,29 @@ public class DialogueManager : Singleton<DialogueManager>
                 {
                     if (posC1.pos != 0)
                     {
+                        // 자기 자리
+                        int idx = Cposes.FindIndex(e => e.Equals(posC1));
                         c1.moveLeft();
-                        posC1.pos = 0;
+                        pairs[idx] = new PosPair(0, c1);
+
                     }
                 }
                 else
                 {
                     if (posC1.pos != 1)
                     {
+                        int idx = Cposes.FindIndex(e => e.Equals(posC1));
                         c1.moveMiddle();
-                        posC1.pos = 1;
+                        pairs[idx] = new PosPair(1, c1);
+
                     }
                 }
             }
         }
 
+        Cposes = pairs;
         printPospair();
-        destroyCharacter();
     }
-
 
     Character createCharacter()
     {
@@ -389,28 +502,10 @@ public class DialogueManager : Singleton<DialogueManager>
         return c;
     }
 
-    void destroyCharacter()
+    void destroyCharacter(int idx)
     {
-        // 새로 들어왔다면 뒤에 추가됨
-        int count0 = Cposes.FindAll(e => e.pos == 0).Count;
-        if (count0 > 1)
-        {
-            Cposes.RemoveAt(Cposes.FindIndex(e => e.pos == 0));
-        }
-
-        int count1 = Cposes.FindAll(e => e.pos == 1).Count;
-        if (count1 > 1)
-        {
-            Cposes.RemoveAt(Cposes.FindIndex(e => e.pos == 1));
-        }
-
-        int count2 = Cposes.FindAll(e => e.pos == 2).Count;
-        if (count2 > 1)
-        {
-            Cposes.RemoveAt(Cposes.FindIndex(e => e.pos == 2));
-        }
-
-
+        ObjectPool.Instance.CharacterQueue.Enqueue(characters[idx].gameObject);
+        characters[idx].gameObject.SetActive(false);
     }
 
     protected void getAnswers()
@@ -447,8 +542,16 @@ public class DialogueManager : Singleton<DialogueManager>
 
     string getCharacterName(string id)
     {
-        CharacterData element = CharacterTable.cTable[id] as CharacterData;
-        return element.name;
+        try
+        {
+            CharacterData element = CharacterTable.cTable[id] as CharacterData;
+            return element.name;
+        }
+        catch
+        {
+            Debug.LogError("No Such id: " + id);
+            return null;
+        }
     }
 
     int getCharacterIllustNum(string id)

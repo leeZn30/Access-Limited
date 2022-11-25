@@ -40,9 +40,21 @@ public class Character : MonoBehaviour
         GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>(path + now_illust);
     }
 
-    public void setPosition(Vector3 position)
+    public void setPosition(int pos)
     {
-        transform.position = position;
+        switch (pos)
+        {
+            case 0:
+                transform.position = new Vector3(-4, 1);
+                break;
+            case 1:
+                transform.position = new Vector3(0, 1);
+                break;
+            case 2:
+                transform.position = new Vector3(4, 1);
+                break;
+        }
+
     }
 
     public void fadeIn()
