@@ -18,16 +18,15 @@ public class Character : MonoBehaviour
      * 6: Β₯Αυ
      * 
     * */
-    public List<Sprite> illusts;
     public int illust_num;
     public int now_illust = 0;
+
 
     public void setCharacter(string id, string name, int illust)
     {
         this.id = id;
         c_name = name;
 
-        //setIllustSet();
         setIllust(illust);
 
     }
@@ -55,6 +54,11 @@ public class Character : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void stopMovingAndPlace(int pos)
+    {
+        setPosition(pos);
     }
 
     public void fadeIn()
@@ -96,13 +100,17 @@ public class Character : MonoBehaviour
     IEnumerator moveLeftCo()
     {
         Vector3 targetPos = new Vector3(-4, 1, 0);
+        float duration = 0.0f;
 
-        while (gameObject.transform.position != targetPos)
+        while (gameObject.transform.position != targetPos && duration < 1f)
         {
+            duration += Time.deltaTime;
+
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, Time.deltaTime / 0.2f);
             yield return null;
         }
 
+        transform.position = targetPos;
     }
 
     public void moveLeft()
@@ -113,12 +121,17 @@ public class Character : MonoBehaviour
     IEnumerator moveRightCo()
     {
         Vector3 targetPos = new Vector3(4, 1, 0);
+        float duration = 0.0f;
 
-        while (gameObject.transform.position != targetPos)
+        while (gameObject.transform.position != targetPos && duration < 1f)
         {
+            duration += Time.deltaTime;
+
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, Time.deltaTime / 0.2f);
             yield return null;
         }
+
+        transform.position = targetPos;
     }
 
     public void moveRight()
@@ -129,12 +142,17 @@ public class Character : MonoBehaviour
     IEnumerator moveMiddleCo()
     {
         Vector3 targetPos = new Vector3(0, 1, 0);
+        float duration = 0.0f;
 
-        while (gameObject.transform.position != targetPos)
+        while (gameObject.transform.position != targetPos && duration < 1f)
         {
+            duration += Time.deltaTime;
+
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPos, Time.deltaTime / 0.2f);
             yield return null;
         }
+
+        transform.position = targetPos;
     }
 
     public void moveMiddle()
