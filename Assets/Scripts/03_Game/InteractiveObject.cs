@@ -10,6 +10,9 @@ public class InteractiveObject : MonoBehaviour
     public ObjectData objectData;
     public bool isChecked = false;
 
+    [Header("연쇄 오브젝트 정보")]
+    public Dictionary<string, int> chainDs = new Dictionary<string, int>();
+
     [Header("나타나는 대화")]
     [SerializeField] List<TextAsset> csvs = new List<TextAsset>();
     //[SerializeField] List<TextAsset> defaultCSVs = new List<TextAsset>();
@@ -46,6 +49,9 @@ public class InteractiveObject : MonoBehaviour
                 
                 //isChecked = true;
                 objectData.updateDialoge();
+
+                // 일단 여기
+
             }
             else
             {

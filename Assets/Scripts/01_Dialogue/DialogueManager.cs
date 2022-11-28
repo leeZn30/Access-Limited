@@ -7,6 +7,7 @@ public class DialogueManager : Singleton<DialogueManager>
 {
     [Header("씬 정보")]
     [SerializeField] int chapter;
+    [SerializeField] int day;
     // dialogueUI가 열려있는지 > 이게 열려있어야 모든 대화에 관련된 기능 가능
     public bool isEnable = false;
     [SerializeField] bool isDLogOpen = false;
@@ -46,9 +47,7 @@ public class DialogueManager : Singleton<DialogueManager>
     void Awake()
     {
         chapter = GameData.Instance.chapter;
-
-        // 캐릭터 해시테이블 (후에는 게임 최초 실행시로 변경)
-        CharacterTable.setTable();
+        day = GameData.Instance.day;
 
         // 배경 찾기
         backgroundCanvas = GameObject.Find("BackgroundCanvas").GetComponentInChildren<Background>();
@@ -100,7 +99,13 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         // CSV파일 읽기
         this.d_file = d_file;
-        lines = CSVReader.Read("CSVfiles/01_Dialogue/" + chapter + "/" + d_file.name);
+        string path = string.Format("CSVfiles/01_Dialogue/{0}/Day{1}/Map{2}/{3}",
+                                    chapter,
+                                    day,
+                                    GameManager.Instance.map,
+                                    d_file.name
+                                    );
+        lines = CSVReader.Read(path);
         //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
 
         // 캐릭터 초기화
@@ -233,13 +238,6 @@ public class DialogueManager : Singleton<DialogueManager>
         // 미션
         mission = type;
 
-        // 연쇄 오브젝트 대화
-        string chaining = line["TriggerObject"].ToString();
-        if (chaining != "")
-        {
-            ObjectData objectdata = ObjectTable.oTable[chaining] as ObjectData;
-            objectdata.openDialogue(line["OpenDialogue"].ToString());
-        }
 
     }
 

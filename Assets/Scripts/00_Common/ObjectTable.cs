@@ -7,7 +7,8 @@ using System;
 public class ObjectData
 {
     public string name;
-    public List<string> dialogueList = new List<string>();
+    public int dialogueNum;
+    //public List<string> dialogueList = new List<string>();
 
     public List<bool> openDialouges = new List<bool>();
     public List<bool> completeDialogues = new List<bool>();
@@ -22,11 +23,10 @@ public class ObjectData
         this.name = name;
     }
 
-    public void openDialogue(string dName)
+    public void openDialogue(int idx)
     {
         try
         {
-            int idx = dialogueList.FindIndex(e => e == dName);
             openDialouges[idx] = true;
         }
         catch (ArgumentException e)
@@ -45,7 +45,7 @@ public class ObjectData
     public void updateDialoge()
     {
         // open = true고 completet=false인 애들 중에서 제일 index 먼저인 것을 고름
-        for (int i = 0; i < dialogueList.Count; i++)
+        for (int i = 0; i < dialogueNum; i++)
         {
             if (openDialouges[i] && !completeDialogues[i])
             {
@@ -70,27 +70,18 @@ public static class ObjectTable
     {
         oTable.Clear();
 
-        string path = "CSVfiles/03_Objects";
-
-        List<Dictionary<string, object>> objects = CSVReader.Read(path + "/ObjectLists/" 
-                                                                 + GameData.Instance.chapter 
-                                                                 + "/"
-                                                                 + GameData.Instance.day);
-
-        // 이중for문 매우 맘에 안들음
-        foreach (Dictionary<string, object> c in objects)
+        // day별 오브젝트 리스트
+        string path = string.Format("CSVfiles/03_Objects/{0}", GameData.Instance.chapter);
+        List<Dictionary<string, object>> objectLists = CSVReader.Read(path)
+                                                       .Where(e => int.Parse(e["Day"].ToString()) 
+                                                                   == GameData.Instance.day).ToList();
+        
+        foreach (Dictionary<string, object> c in objectLists)
         {
-            List<Dictionary<string, object>> objectDatas = CSVReader.Read(path + "/ObjectDatas/"
-                                                                 + GameData.Instance.chapter
-                                                                 + "/"
-                                                                 + GameData.Instance.day)
-                                                                 .Where(e => e["Name"].ToString() == c["ObjectList"].ToString()).ToList();
-
-            ObjectData objectData = new ObjectData(c["ObjectList"].ToString());
-
-            foreach (Dictionary<string, object> o in objectDatas)
+            ObjectData objectData = new ObjectData(c["Name"].ToString());
+            objectData.dialogueNum = int.Parse(c["DialogueNum"].ToString());
+            for (int i = 0; i < objectData.dialogueNum; i++)
             {
-                objectData.dialogueList.Add(o["DialogueName"].ToString());
                 objectData.openDialouges.Add(false);
                 objectData.completeDialogues.Add(false);
             }

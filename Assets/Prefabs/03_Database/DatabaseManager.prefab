@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chapter: 1
   ef: {fileID: 4900000, guid: f7cbe6db4091e7a41b6f254414591e26, type: 3}
-  now_rayout: 0
+  _now_rayout: 0
   exitBtn: {fileID: 4534995665446768611}
   backBtn: {fileID: 6454174260166925751}
   rayouts:
@@ -193,6 +193,10 @@ PrefabInstance:
     - target: {fileID: 8529950375317984282, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
       propertyPath: m_Name
       value: PopUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529950375317984282, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 097af4ce2b0b6c348b2eeeaef521b872, type: 3}

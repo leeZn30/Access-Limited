@@ -941,6 +941,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6332932712024052397, guid: 46b4a642d41c6fd4cbe377fa53a34c98, type: 3}
+      propertyPath: map
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332932712024052397, guid: 46b4a642d41c6fd4cbe377fa53a34c98, type: 3}
       propertyPath: back
       value: 
       objectReference: {fileID: 118127186}
@@ -1191,6 +1195,14 @@ PrefabInstance:
       propertyPath: o_name
       value: "\uC774\uC138\uC601"
       objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 014cd688f5a5cf043ace8f4abc287171, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
 --- !u!4 &816409086 stripped
@@ -1308,6 +1320,18 @@ PrefabInstance:
       propertyPath: o_name
       value: "\uC774\uC138\uC601\uC9D1"
       objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: defaultcsv
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 041d80a86770ef240b99c6b049edb320, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
 --- !u!4 &1089432852 stripped
@@ -1542,6 +1566,14 @@ PrefabInstance:
       propertyPath: o_name
       value: "\uCD9C\uC785\uD45C\uC2DC\uD310"
       objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: csvs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: d234919ce97d15a4fbb21315749b41a3, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
 --- !u!4 &1192139915 stripped
@@ -1800,10 +1832,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4534995665360552332, guid: 280fd3a76ef7af84abee865f43ec8ff8, type: 3}
-      propertyPath: csvs.Array.data[1]
-      value: 
-      objectReference: {fileID: 4900000, guid: 1189ebb010274da48aff37ba556d7c3c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 280fd3a76ef7af84abee865f43ec8ff8, type: 3}
 --- !u!4 &1635995681 stripped
