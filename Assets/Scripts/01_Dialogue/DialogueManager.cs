@@ -291,6 +291,7 @@ public class DialogueManager : Singleton<DialogueManager>
         int idx1 = -1;
         int idx2 = -1;
 
+        /**
         for(int i = 0; i < characters.Count; i++)
         {
             if (characters[i] != null)
@@ -298,6 +299,7 @@ public class DialogueManager : Singleton<DialogueManager>
             else
                 Debug.LogFormat("[&0]: Null", i);
         }
+        **/
 
         List<int> deletes = new List<int>(3) { 0, 1, 2 };
         if (line["C1"].ToString() != "")

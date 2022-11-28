@@ -13,6 +13,8 @@ public class ObjectData
     public List<bool> openDialouges = new List<bool>();
     public List<bool> completeDialogues = new List<bool>();
 
+    public Dictionary<string, int> chainObjs = new Dictionary<string, int>();
+
     public int nowDialogue = 0;
 
     public bool isChecked = false;
@@ -78,6 +80,13 @@ public static class ObjectTable
         
         foreach (Dictionary<string, object> c in objectLists)
         {
+            if (oTable.ContainsKey(c["Name"].ToString()))
+            {
+                ObjectData existObj = oTable[c["Name"].ToString()] as ObjectData;
+                existObj.chainObjs[c["TriggerObj"].ToString()] = int.Parse(c["TriggerIdx"].ToString());
+                continue;
+            }
+
             ObjectData objectData = new ObjectData(c["Name"].ToString());
             objectData.dialogueNum = int.Parse(c["DialogueNum"].ToString());
             for (int i = 0; i < objectData.dialogueNum; i++)
