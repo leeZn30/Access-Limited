@@ -41,7 +41,16 @@ public class ObjectData
 
     public void completeDialogue()
     {
-        completeDialogues[nowDialogue] = true;
+        try
+        {
+            completeDialogues[nowDialogue] = true;
+
+            updateDialoge();
+        }
+        catch (ArgumentException)
+        {
+            Debug.LogError("Dialogue 완료 못함!");
+        }
     }
 
     public void updateDialoge()
@@ -80,12 +89,6 @@ public static class ObjectTable
         
         foreach (Dictionary<string, object> c in objectLists)
         {
-            if (oTable.ContainsKey(c["Name"].ToString()))
-            {
-                ObjectData existObj = oTable[c["Name"].ToString()] as ObjectData;
-                existObj.chainObjs[c["TriggerObj"].ToString()] = int.Parse(c["TriggerIdx"].ToString());
-                continue;
-            }
 
             ObjectData objectData = new ObjectData(c["Name"].ToString());
             objectData.dialogueNum = int.Parse(c["DialogueNum"].ToString());

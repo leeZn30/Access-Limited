@@ -8,14 +8,20 @@ public class DialogueManager : Singleton<DialogueManager>
     [Header("씬 정보")]
     [SerializeField] int chapter;
     [SerializeField] int day;
+    /*
+     * mode
+     * 0: 기본 대화
+     * 1: 오브젝트 클릭 대화
+     */
+    public int mode;
     // dialogueUI가 열려있는지 > 이게 열려있어야 모든 대화에 관련된 기능 가능
     public bool isEnable = false;
     [SerializeField] bool isDLogOpen = false;
 
     [Header("대화 정보")]
     public int nowTurn; // 구현할때만 public
-    [SerializeField] int lineofTurn = 0;
     [SerializeField] int nextTurn;
+    [SerializeField] int lineofTurn = 0;
     [SerializeField] int type = 0;
     public int mission = 0;
     public bool missionRunning = false;
@@ -42,7 +48,6 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] DialogueLog dialogueLog;
     [SerializeField] Background backgroundCanvas;
     [SerializeField] PushEffect push;
-    [SerializeField] Character characterPrb;
 
     void Awake()
     {
@@ -95,8 +100,10 @@ public class DialogueManager : Singleton<DialogueManager>
     }
 
     // 다이얼로그 매니저 설정
-    public void resetDialogueManager(TextAsset d_file)
+    public void resetDialogueManager(TextAsset d_file, int mode = 0)
     {
+        this.mode = mode;
+
         // CSV파일 읽기
         this.d_file = d_file;
         string path = string.Format("CSVfiles/01_Dialogue/{0}/Day{1}/Map{2}/{3}",
@@ -108,14 +115,8 @@ public class DialogueManager : Singleton<DialogueManager>
         lines = CSVReader.Read(path);
         //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
 
-        // 캐릭터 초기화
         speakingC = null;
-        /**
-        characterNum = 0;
-        ids = new string[3] { "", "", "" };
-        illusts = new int[3] { -1, -1, -1 };
-        characters = new Character[3] { null, null, null };
-        **/
+        characters = new List<Character>{ null, null, null};
 
         openCloseDialogue();
 
@@ -133,12 +134,14 @@ public class DialogueManager : Singleton<DialogueManager>
             return;
         }
 
-        destroyObjects();
+        if (type == 1)
+            destroyAnswers();
+
         readlines();
     }
 
     // 대화가 넘어갈때 지우거나 초기화하는 것들
-    void destroyObjects()
+    void destroyAnswers()
     {
         GameObject[] answer_objs = GameObject.FindGameObjectsWithTag("Answer");
         foreach (GameObject answer in answer_objs)
@@ -146,23 +149,22 @@ public class DialogueManager : Singleton<DialogueManager>
             answer.SetActive(false);
             ObjectPool.Instance.AnswerQueue.Enqueue(answer.gameObject);
         }
-        
-        /**
+    }
+   
+    void destroyCharacters()
+    {
         GameObject[] character_objs = GameObject.FindGameObjectsWithTag("Character");
         foreach (GameObject character in character_objs)
         {
-            character.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.white;
             character.SetActive(false);
-            ObjectPool.Instance.CharacterQueue.Enqueue(character);
+            ObjectPool.Instance.CharacterQueue.Enqueue(character.gameObject);
         }
-        **/
-
     }
 
     // 특정 턴으로 이동
     public void goTurn(int startTurn)
     {
-        destroyObjects();
+        destroyAnswers();
         nowTurn = startTurn;
         nextTurn = nowTurn + 1;
         readTurn();
@@ -179,10 +181,7 @@ public class DialogueManager : Singleton<DialogueManager>
         // 더 이상 행이 없음
         if (turnLines.Count == 0)
         {
-            //Debug.Log("======대사 종료=======");
-            destroyObjects();
-            openCloseDialogue();
-            nowTurn = 0;
+            finishDialogue();
             return;
         }
 
@@ -199,7 +198,7 @@ public class DialogueManager : Singleton<DialogueManager>
         setcharacterGray();
     }
 
-    // 라인 읽기
+    // 턴의 라인 읽기
     void readlines()
     {
         lineofTurn++;
@@ -238,7 +237,6 @@ public class DialogueManager : Singleton<DialogueManager>
         // 미션
         mission = type;
 
-
     }
 
     void checkInfos()
@@ -250,6 +248,23 @@ public class DialogueManager : Singleton<DialogueManager>
             GameData.Instance.addInfo(privisoId, idx);
         }
 
+    }
+
+    // 다이얼로그 종료
+    void finishDialogue()
+    {
+        //Debug.Log("======대사 종료=======");
+        destroyCharacters();
+        openCloseDialogue();
+        nowTurn = 0;
+
+        if (mode == 1)
+        {
+            GameManager.Instance.clickedObj.afterDialogueUpdate();
+            GameManager.Instance.clickedObj = null;
+        }
+
+        mode = 0;
     }
 
     public void showInfo(string text)
@@ -275,6 +290,7 @@ public class DialogueManager : Singleton<DialogueManager>
         }
     }
 
+    // list에 null이 들어가면 Find가 안되서 해줌
     int existCharacter(string id)
     {
         for(int i = 0; i < characters.Count; i++)
@@ -317,8 +333,6 @@ public class DialogueManager : Singleton<DialogueManager>
             if (idx2 != -1)
                 deletes.Remove(idx2);
         }
-
-        Debug.Log("[idx1]: " + idx1 + " [idx2]: " + idx2);
 
         // 필요없는 캐릭터 오브젝트 먼저 지우기
         foreach (int i in deletes)
@@ -378,7 +392,6 @@ public class DialogueManager : Singleton<DialogueManager>
             characters[0] = null;
             characters[2] = null;
         }
-        Debug.Log("==================================");
     }
 
     void setcharacterGray()
@@ -419,6 +432,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         if (characters[idx] != null)
         {
+            //Debug.LogFormat("Destroy Character: {0}", characters[idx].c_name);
             ObjectPool.Instance.CharacterQueue.Enqueue(characters[idx].gameObject);
             characters[idx].gameObject.SetActive(false);
         }

@@ -8,6 +8,9 @@ public class GameManager : Singleton<GameManager>
 {
     public int map;
 
+    [Header("상호작용 오브젝트")]
+    public InteractiveObject clickedObj = null;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
