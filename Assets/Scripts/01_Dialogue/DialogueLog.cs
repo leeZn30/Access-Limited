@@ -12,17 +12,6 @@ public class DialogueLog : MonoBehaviour
     [Header("로그 오브젝트")]
     [SerializeField] GameObject dialogue;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void addLog(string name, string line)
     {
         GameObject newLog = Instantiate(dialogue, content.transform);
@@ -30,6 +19,8 @@ public class DialogueLog : MonoBehaviour
         TextMeshProUGUI[] texts = newLog.GetComponentsInChildren<TextMeshProUGUI>();
         texts[0].text = name;
         texts[1].text = line;
+
+        Debug.Log("한글 깨짐 보기");
 
     }
 
