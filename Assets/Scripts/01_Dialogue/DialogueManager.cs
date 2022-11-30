@@ -116,7 +116,7 @@ public class DialogueManager : Singleton<DialogueManager>
         //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
 
         speakingC = null;
-        characters = new List<Character>{ null, null, null};
+        characters = new List<Character> { null, null, null };
 
         openCloseDialogue();
 
@@ -150,7 +150,7 @@ public class DialogueManager : Singleton<DialogueManager>
             ObjectPool.Instance.AnswerQueue.Enqueue(answer.gameObject);
         }
     }
-   
+
     void destroyCharacters()
     {
         GameObject[] character_objs = GameObject.FindGameObjectsWithTag("Character");
@@ -185,7 +185,7 @@ public class DialogueManager : Singleton<DialogueManager>
             return;
         }
 
-        foreach(Dictionary<string, object> element in turnLines)
+        foreach (Dictionary<string, object> element in turnLines)
         {
             lineQueue.Enqueue(element);
         }
@@ -256,6 +256,7 @@ public class DialogueManager : Singleton<DialogueManager>
         //Debug.Log("======대사 종료=======");
         destroyCharacters();
         openCloseDialogue();
+        dialogueLog.clearLog();
         nowTurn = 0;
 
         if (mode == 1)
@@ -293,7 +294,7 @@ public class DialogueManager : Singleton<DialogueManager>
     // list에 null이 들어가면 Find가 안되서 해줌
     int existCharacter(string id)
     {
-        for(int i = 0; i < characters.Count; i++)
+        for (int i = 0; i < characters.Count; i++)
         {
             if (characters[i] != null && characters[i].id == id)
                 return i;
@@ -351,7 +352,7 @@ public class DialogueManager : Singleton<DialogueManager>
                 c1.setCharacter(line["C1"].ToString(), getCharacterName(line["C1"].ToString()), 0);
                 c1.setPosition(0);
             }
-            
+
             if (idx2 != -1)
                 characters[idx2].moveRight();
             else
