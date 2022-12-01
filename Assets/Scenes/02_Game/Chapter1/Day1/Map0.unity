@@ -833,16 +833,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: chainDs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: csvs.Array.data[0]
       value: 
       objectReference: {fileID: 4900000, guid: 2c5638fd96390b749a49f94c891c762c, type: 3}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: chainObjs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: dialogues.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: chainDs.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: defaultCSVs.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
+      propertyPath: chainObjs.Array.data[0]
+      value: "\uBC15\uC885\uC6B0"
       objectReference: {fileID: 0}
     - target: {fileID: 8852029178549810080, guid: fcd488a1e20c2484b9f3a26cc80cc8a1, type: 3}
       propertyPath: dialogues.Array.data[0]
@@ -2666,27 +2682,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chapter: 1
+  day: 0
+  mode: 0
   isEnable: 0
   isDLogOpen: 0
+  nowTurn: 0
+  nextTurn: 0
+  lineofTurn: 0
+  type: 0
   mission: 0
   missionRunning: 0
-  type: 0
-  lineoffset: 0
   isLineEnd: 0
   speakingC: 
-  characterNum: 0
-  ids:
-  - 
-  - 
-  - 
-  illusts: ffffffffffffffffffffffff
   characters:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   d_file: {fileID: 4900000, guid: 868787a9102898949a15dd3b7d8c8831, type: 3}
   a_file: {fileID: 4900000, guid: 520af013f0ffd524490d888feed725c9, type: 3}
-  nowLine: 0
   skipD: 1
   dialogueUIs: {fileID: 6037993965261279889}
   dialogueBox: {fileID: 5427846342679147966}
@@ -3391,7 +3404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5af96367fbcc14a96b552679da2ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: {fileID: 5427846342726215127}
   dialogue: {fileID: 4661510470256949466, guid: fc41b6c9f46bfcc47ba48591f565a23e, type: 3}
 --- !u!222 &5427846342941365837
 CanvasRenderer:
