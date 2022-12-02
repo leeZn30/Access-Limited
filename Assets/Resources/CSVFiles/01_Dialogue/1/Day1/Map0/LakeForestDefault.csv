@@ -1,2 +1,2 @@
-﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,LineOffset,FigureId,FigureIdx,PrivisoId,PrivisoIdx,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
-0,M0,CCTV가 있어서 다행이야 |이걸 관리할만한 사람이라면..,,1,M4,0,,,,,,,,,,,,,,,,,,
+﻿Turn,Type,SpeakingId,Dialogue,C1,C1illlust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
+0,0,M0,CCTV가 있어서 다행이야 |이걸 관리할만한 사람이라면..,M4,0,,,,,,,,,

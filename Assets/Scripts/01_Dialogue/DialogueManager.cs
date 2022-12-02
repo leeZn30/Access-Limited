@@ -256,7 +256,7 @@ public class DialogueManager : Singleton<DialogueManager>
         //Debug.Log("======대사 종료=======");
         destroyCharacters();
         openCloseDialogue();
-        //dialogueLog.clearLog();
+        dialogueLog.clearLog();
         nowTurn = 0;
 
         if (mode == 1)

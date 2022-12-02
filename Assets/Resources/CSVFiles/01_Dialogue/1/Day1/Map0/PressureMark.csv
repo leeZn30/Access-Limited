@@ -1,5 +1,5 @@
-﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,LineOffset,FigureId,FigureIdx,PrivisoId,PrivisoIdx,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
-0,M4,서리야 여기 좀 봐봐 |뭔가 다른데랑은 좀 다르지 않아?,,2,,,M0,0,M4,0,,,,,,,,,,,,,,
-0,M0,딱 이부분에만 풀이랑 꽃이 눌려있네,,,,,,,,,,,,,,,,,,,,,,
-0,M4,응 마치 <color=#5B69BA> 무언가가 무거운 게 올라가 있던</color> 것 같아,,,,,,,,,,,,,,,,,,,,,,
-0,M0,크기는 한.. 일반적인 과일 상자보다 조금 작아보이네,,,,,,,,,,,,,,P1-3,0,,,,,,,
+﻿Turn,Type,SpeakingId,Dialogue,C1,C1illlust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
+0,0,M4,서리야 여기 좀 봐봐 |뭔가 다른데랑은 좀 다르지 않아?,M0,0,M4,0,,,,,,,
+0,,M0,딱 이부분에만 풀이랑 꽃이 눌려있네,,,,,,,,,,,
+0,,M4,응 마치 <color=#5B69BA> 무언가가 무거운 게 올라가 있던</color> 것 같아,,,,,,,,,,,
+0,,M0,크기는 한.. 일반적인 과일 상자보다 조금 작아보이네,,,,,,,P1-3,0,,,

@@ -1,8 +1,8 @@
-﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,LineOffset,FigureId,FigureIdx,PrivisoId,PrivisoIdx,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
-0,M4,호수를 둘러싸고 있는 숲길이라니 |산책길로 딱이네!,,2,,,M0,0,M4,0,,,,,,,,,,,,,,
-0,,이것 봐. 정돈이 잘 되어있어,,,,,,,,,,,,,,,,,,,,,,
-0,M0,관리인이 따로 있는 숲이니까 그렇지,,,,,,,,,,,,,,,,,,,,,,
-0,,응… 저건?,,,,,,,,,,,,,,,,,,,,,,
-0,M4,앗 CCTV다!,,,,,,,,,,,,,,,,,,,,,,
-0,M0,"시골이라 없을 줄 알았는데, 역시 공무원이 관리하는 숲이란건가?",,,,,,,,,,,,,,,,,,,,,,
-0,,다행이야. 남지혜씨에게 CCTV를 볼 수 있는지 요청해봐야겠는걸,,,,,,,,,,,,,,,,,숲관리인집,ForestHouse1,,,,
+﻿Turn,Type,SpeakingId,Dialogue,C1,C1illlust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM,,,,,,,
+0,0,M4,호수를 둘러싸고 있는 숲길이라니 |산책길로 딱이네!,M0,0,M4,0,,,,,,,,,,,,,,
+0,,,이것 봐. 정돈이 잘 되어있어,,,,,,,,,,,,,,,,,,
+0,,M0,관리인이 따로 있는 숲이니까 그렇지,,,,,,,,,,,,,,,,,,
+0,,,응… 저건?,,,,,,,,,,,,,,,,,,
+0,,M4,앗 CCTV다!,,,,,,,,,,,,,,,,,,
+0,,M0,"시골이라 없을 줄 알았는데, 역시 공무원이 관리하는 숲이란건가?",,,,,,,,,,,,,,,,,,
+0,,,다행이야. 남지혜씨에게 CCTV를 볼 수 있는지 요청해봐야겠는걸,,,,,,,,,,,,,,,,,숲관리인집,ForestHouse1

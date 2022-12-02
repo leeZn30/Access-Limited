@@ -1,3 +1,3 @@
-﻿Type,CharacterId,Dialogue,,CharacterNum,MCharacter,MCIllust,LCharacter,LCIllust,RCharacter,RCIllust,,AnswerId,LineOffset,FigureId,FigureIdx,PrivisoId,PrivisoIdx,,TriggerObject,OpenDialogue,,Background,EffectSound,BGM
-0,M4,… 최정아씨..,,2,M0,0,M4,0,,,,,,,,,,,,,,,,
-0,M0,우울해하지마 |완전무결한 범죄는 없다며? |우리가 밝혀내면 되는거야,,,,,,,,,,,,,,,,,,,,,,
+﻿Turn,Type,SpeakingId,Dialogue,C1,C1illlust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
+0,0,M4,… 최정아씨..,M0,0,M4,0,,,,,,,
+0,,M0,우울해하지마 |완전무결한 범죄는 없다며? |우리가 밝혀내면 되는거야,,,,,,,,,,,
