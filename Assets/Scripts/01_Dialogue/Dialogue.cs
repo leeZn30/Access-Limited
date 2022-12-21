@@ -26,11 +26,10 @@ public class Dialogue : MonoBehaviour
 
     public void showline()
     {
-        // 문단 여러개일때 엔터 적용해야함 -> 보류
-
         DialogueManager.Instance.isLineEnd = false;
         name_b.text = c_name;
-        typing = dotTyping(line.Length * 0.1f).SetEase(Ease.Linear);    
+
+        typing = dotTyping(line.Length * 0.05f);
     }
 
     Sequence dotTyping(float speed)
@@ -40,9 +39,13 @@ public class Dialogue : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(DOTween.To(x => line_b.maxVisibleCharacters = (int)x, 0f, line_b.text.Length, speed));
+        sequence.Append(DOTween.To(x => line_b.maxVisibleCharacters
+                                   = (int)x, 0f, line_b.text.Length, speed)
+                                   .SetEase(Ease.Linear)
+                        );
 
-        sequence.AppendCallback(() => {
+        sequence.AppendCallback(() =>
+        {
             DialogueManager.Instance.isLineEnd = true;
         });
 

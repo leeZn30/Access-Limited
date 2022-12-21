@@ -2700,7 +2700,7 @@ MonoBehaviour:
   - {fileID: 0}
   d_file: {fileID: 4900000, guid: 868787a9102898949a15dd3b7d8c8831, type: 3}
   a_file: {fileID: 4900000, guid: 520af013f0ffd524490d888feed725c9, type: 3}
-  skipD: 1
+  skipD: 0
   dialogueUIs: {fileID: 6037993965261279889}
   dialogueBox: {fileID: 5427846342679147966}
   dialogueLog: {fileID: 5427846342941365836}
@@ -3404,7 +3404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5af96367fbcc14a96b552679da2ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollRect: {fileID: 0}
+  rectTransform: {fileID: 0}
   dialogue: {fileID: 4661510470256949466, guid: fc41b6c9f46bfcc47ba48591f565a23e, type: 3}
+  itemList: []
 --- !u!222 &5427846342941365837
 CanvasRenderer:
   m_ObjectHideFlags: 0

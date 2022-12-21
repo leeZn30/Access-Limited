@@ -214,7 +214,7 @@ public class DialogueManager : Singleton<DialogueManager>
         // Dialogue
         dialogueBox.line = line["Dialogue"].ToString().Replace("|", "\n");
         dialogueBox.c_name = getCharacterName(speakingC);
-        dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
+        //dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
         dialogueBox.showline();
 
         // 대화에 나타난 단서/인물
@@ -256,7 +256,7 @@ public class DialogueManager : Singleton<DialogueManager>
         //Debug.Log("======대사 종료=======");
         destroyCharacters();
         openCloseDialogue();
-        dialogueLog.clearLog();
+        //dialogueLog.clearLog();
         nowTurn = 0;
 
         if (mode == 1)
@@ -522,6 +522,7 @@ public class DialogueManager : Singleton<DialogueManager>
 
     void openCloseDialogueLog()
     {
+        /**
         if (!isDLogOpen)
         {
             dialogueLog.gameObject.SetActive(true);
@@ -532,5 +533,6 @@ public class DialogueManager : Singleton<DialogueManager>
             dialogueLog.gameObject.SetActive(false);
             isDLogOpen = false;
         }
+        **/
     }
 }
