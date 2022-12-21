@@ -11,7 +11,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
     public int chapter
     {
         get { return _chapter; }
-        set { _chapter = value;  }
+        set { _chapter = value; }
     }
 
     [Header("필요한 CSV파일")]
@@ -24,7 +24,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
         get { return _now_rayout; }
         set { _now_rayout = value; }
     }
-    
+
 
     [Header("버튼")]
     [SerializeField] Button exitBtn;
@@ -38,6 +38,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
     [Header("팝업창")]
     public bool isPopupOpen = false;
     [SerializeField] GameObject popup;
+    [SerializeField] GameObject background;
 
 
     void Awake()
@@ -78,6 +79,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
         if (!isPopupOpen)
         {
             popup.SetActive(true);
+            background.SetActive(true);
             isPopupOpen = true;
 
             if (!DialogueManager.Instance.isEnable)
@@ -92,6 +94,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
             goPage(0);
 
             popup.SetActive(false);
+            background.SetActive(false);
             isPopupOpen = false;
 
             if (!DialogueManager.Instance.isEnable)
