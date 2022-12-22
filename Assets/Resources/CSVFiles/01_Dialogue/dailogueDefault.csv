@@ -1,4 +1,4 @@
-﻿Turn,Type,SpeakingId,Dialogue,C1,C1illlust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
+﻿Turn,Type,SpeakingId,Dialogue,C1,C1illust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
 0,0,M0,turn0 - 0,M0,0,,,,,P0,1,,,
 0,,M4,turn0 - 1,,,,,,,P0,0,,,
 0,,M5,turn0 - 1,,,,,,,,,,,

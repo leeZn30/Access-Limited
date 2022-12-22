@@ -212,7 +212,7 @@ public class DialogueManager : Singleton<DialogueManager>
             speakingC = line["SpeakingId"].ToString();
 
         // Dialogue
-        dialogueBox.line = line["Dialogue"].ToString().Replace("|", "\n");
+        dialogueBox.line = line["Dialogue"].ToString().Replace("@", "\n");
         dialogueBox.c_name = getCharacterName(speakingC);
         //dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
         dialogueBox.showline();
@@ -415,7 +415,14 @@ public class DialogueManager : Singleton<DialogueManager>
     void setCharacterIllust()
     {
         int illust1;
-        //if (int.TryParse(line["C1illust"].ToString(), out illust1))
+        if (int.TryParse(line["C1illust"].ToString(), out illust1))
+        {
+            if (characters[0] != null)
+                characters[0].setIllust(illust1);
+            else
+                characters[1].setIllust(illust1);
+
+        }
         int illust2;
         if (int.TryParse(line["C2illust"].ToString(), out illust2))
             characters[2].setIllust(illust2);

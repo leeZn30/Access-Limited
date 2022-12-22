@@ -29,7 +29,7 @@ public class Dialogue : MonoBehaviour
         DialogueManager.Instance.isLineEnd = false;
         name_b.text = c_name;
 
-        typing = dotTyping(line.Length * 0.05f);
+        typing = dotTyping(line.Length * 0.07f);
     }
 
     Sequence dotTyping(float speed)
