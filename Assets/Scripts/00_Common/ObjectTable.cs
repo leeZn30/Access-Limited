@@ -84,9 +84,9 @@ public static class ObjectTable
         // day별 오브젝트 리스트
         string path = string.Format("CSVfiles/03_Objects/{0}", GameData.Instance.chapter);
         List<Dictionary<string, object>> objectLists = CSVReader.Read(path)
-                                                       .Where(e => int.Parse(e["Day"].ToString()) 
+                                                       .Where(e => int.Parse(e["Day"].ToString())
                                                                    == GameData.Instance.day).ToList();
-        
+
         foreach (Dictionary<string, object> c in objectLists)
         {
 

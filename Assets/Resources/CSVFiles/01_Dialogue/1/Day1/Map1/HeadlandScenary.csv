@@ -1,7 +1,7 @@
-﻿Turn,Type,SpeakingId,Dialogue,C1,C1illlust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,TriggerObject,OpenDialogue,Background,EffectSound,BGM
+﻿Turn,Type,SpeakingId,Dialogue,C1,C1illust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,TriggerObject,OpenDialogue,Background,EffectSound,BGM
 0,0,M0,곶 위에 사람 모습이 보일까했는데 |생각보다 꽤 거리가 가깝구나,M0,0,M4,0,,,,,,,,,
 0,,,확실히 이 정도면 위에 누군가 있다는 것은 알 수 있어도 |그게 누구인지는 판별하기 어려울 거 같아,,,,,,,,,,,,,
-0,,M4,곶 위로 올라가는 길은 저거 하나 뿐인가봐,,,,,,,,,,,,,
+0,,M4,곶 위로 올라가는 길은 저거 하나 뿐인가봐,,,,,,,,,,,0,,
 0,,,입구부터 쭉 길이 나있는 형태야,,,,,,,,,,,,,
 0,,M0,목격 정황을 생각해보면 최정아씨가 이 길을 따라 곶 위로 올라갔다는게 돼,,,,,,,,,,,,,
 0,,M4,그리고 <color=#A69F5E>어쩌다보니 호수에 빠졌다</color>…,,,,,,,,,,,,,
