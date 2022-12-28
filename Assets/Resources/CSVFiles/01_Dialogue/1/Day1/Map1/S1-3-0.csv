@@ -1,10 +1,10 @@
-﻿Turn,Type,SpeakingId,Dialogue,C1,C1illlust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
-0,0,M0,음… 안녕하세요?,M0,0,S1-3,0,,,,,,,
-0,,M4,아하하 AI에게 인사한다는게 쉽지는 않지?|괜찮아 우리는 이 세계에서 뒤돌면 잊어버릴 그냥 시스템 같은거야,,,,,,,M4,,,,
+﻿Turn,Type,SpeakingId,Dialogue,C1,C1illust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
+0,0,M4,안녕하세요! 이 마을 이장님 맞으시죠?,M0,0,F3,0,,,,,,,
+0,,,,,,,,,,,,,,
 0,,M0,…조용히 해,,,,,,,,,,,
 0,,,박종우씨는 여기에 자주 낚시하러 오시나요?,,,,,,,,,,,
 ,,,,,,,,,,,,,,
-1,0,S1-3,으잉?? 이 마을에 젊은 아가씨들이 오다니 특이한 일이구만.,S1-3,0,,,,,,,,,
+1,0,S1-3,으잉?? 이 마을에 젊은 아가씨들이 오다니 특이한 일이구만.,,,,,,,,,,,
 1,,,그려 난 매일같이 여기에 낚시하러 오지.,,,,,,,,,,,
 1,,,마을에 낚시터가 있어서 정말 다행이여.,,,,,,,,,,,
 1,,,안그랬으면 이 재미없는 생활 더 지루해질 뻔했다니께..,,,,,,,,,,,

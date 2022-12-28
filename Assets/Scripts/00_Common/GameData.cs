@@ -27,11 +27,9 @@ public class GameData : Singleton<GameData>
     public int day;
 
     [Header("√©≈Õ∫∞ ¿Œπ∞")]
-    [SerializeField] TextAsset figureCSV;
     public InfoList figures = new InfoList();
 
     [Header("√©≈Õ∫∞ ¥‹º≠")]
-    [SerializeField] TextAsset privisoCSV;
     public InfoList privisos = new InfoList();
 
     [Header("√©≈Õ∫∞ ¡§∫∏")]
@@ -72,9 +70,9 @@ public class GameData : Singleton<GameData>
                 }
                 else
                 {
-                    priviso = new Priviso(element["Id"].ToString(), 
-                                          element["Name"].ToString(), 
-                                          element["Content"].ToString(), 
+                    priviso = new Priviso(element["Id"].ToString(),
+                                          element["Name"].ToString(),
+                                          element["Content"].ToString(),
                                           idx);
 
                     privisos.Add(priviso);

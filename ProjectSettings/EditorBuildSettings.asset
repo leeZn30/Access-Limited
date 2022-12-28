@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/02_Game/Chapter1/Day1/Map3.unity
     guid: 615ebc2b7553f1c4a8a63b8a3f691f2d
   - enabled: 1
-    path: Assets/Scenes/02_Game/Chapter1/Day1/Map0.unity
+    path: Assets/Scenes/02_Game/Chapter1/Day1/Map1.unity
     guid: 103d431f064d58c47bbb23088805d477
   - enabled: 1
     path: Assets/Scenes/02_Game/Chapter1/Day1/Test Map - Time0.unity
