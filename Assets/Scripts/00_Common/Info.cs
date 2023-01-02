@@ -28,6 +28,7 @@ abstract public class Info
     {
         //contents.Insert(idx, content);
         //contents.Add(content);
+        content = content.Replace("@", "\n");
         contents[idx] = content;
 
         updatedInfo++;

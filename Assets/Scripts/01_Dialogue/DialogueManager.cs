@@ -103,15 +103,29 @@ public class DialogueManager : Singleton<DialogueManager>
     public void resetDialogueManager(TextAsset d_file, int mode = 0)
     {
         this.mode = mode;
+        string path = "";
 
+        switch (mode)
+        {
+            case 0:
+                path = string.Format("CSVfiles/01_Dialogue/{0}/{1}",
+                                            chapter,
+                                            d_file.name
+                                            );
+                break;
+            case 1:
+                path = string.Format("CSVfiles/01_Dialogue/{0}/Day{1}/Map{2}/{3}",
+                                            chapter,
+                                            day,
+                                            GameManager.Instance.map,
+                                            d_file.name
+                                            );
+                break;
+            default:
+                break;
+        }
         // CSV파일 읽기
         this.d_file = d_file;
-        string path = string.Format("CSVfiles/01_Dialogue/{0}/Day{1}/Map{2}/{3}",
-                                    chapter,
-                                    day,
-                                    GameManager.Instance.map,
-                                    d_file.name
-                                    );
         lines = CSVReader.Read(path);
         //lines = CSVReader.Read("CSVfiles/01_Dialogue/" + d_file.name);
 
