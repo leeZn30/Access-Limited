@@ -9,7 +9,7 @@ public class Background : MonoBehaviour
     [SerializeField] int chapter;
 
     [Header("배경 정보")]
-    [SerializeField] int backgroundId;
+    [SerializeField] string backgroundId;
     [SerializeField] Image background;
 
 
@@ -35,7 +35,7 @@ public class Background : MonoBehaviour
 
     }
 
-    public void setBackground(int chapter, int id)
+    public void setBackground(int chapter, string id)
     {
         this.chapter = chapter;
         backgroundId = id;

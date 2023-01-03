@@ -29,7 +29,7 @@ public class Dialogue : MonoBehaviour
         DialogueManager.Instance.isLineEnd = false;
         name_b.text = c_name;
 
-        typing = dotTyping(line.Length * 0.07f);
+        typing = dotTyping(line.Length * 0.07f);   
     }
 
     Sequence dotTyping(float speed)
@@ -55,7 +55,6 @@ public class Dialogue : MonoBehaviour
 
     }
 
-    // 칸 스크롤링 - 추후 필요하면 개발
 
     public void showAllLine()
     {
@@ -76,5 +75,13 @@ public class Dialogue : MonoBehaviour
         showAllLine();
 
         DialogueManager.Instance.isLineEnd = true;
+    }
+
+    public void closeNameBox()
+    {
+        if (name_b.gameObject.transform.parent.gameObject.activeSelf == true)
+        {
+            name_b.gameObject.transform.parent.gameObject.SetActive(false);
+        }
     }
 }

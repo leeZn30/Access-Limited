@@ -244,9 +244,8 @@ public class DialogueManager : Singleton<DialogueManager>
         setcharacterGray();
 
         // 배경 있다면 전달
-        int BGid;
-        if (int.TryParse(line["Background"].ToString(), out BGid))
-            backgroundCanvas.setBackground(chapter, BGid);
+        if (line["Background"].ToString() != "")
+            backgroundCanvas.setBackground(chapter, line["Background"].ToString());
 
         // 미션
         mission = type;
