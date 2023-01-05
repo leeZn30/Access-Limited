@@ -14,7 +14,7 @@ public class DialogueManager : Singleton<DialogueManager>
      * 1: 오브젝트 클릭 대화
      */
     public int mode;
-    // dialogueUI가 열려있는지 > 이게 열려있어야 모든 대화에 관련된 기능 가능
+    // dialogueBox가 열려있는지 > 이게 열려있어야 모든 대화에 관련된 기능 가능
     public bool isEnable = false;
     [SerializeField] bool isDLogOpen = false;
 
@@ -53,6 +53,11 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         chapter = GameData.Instance.chapter;
         day = GameData.Instance.day;
+
+        // 다이얼로그 UI
+        dialogueUIs = GameObject.Find("DialogueUIs");
+        dialogueBox = dialogueUIs.transform.GetChild(0).GetComponent<Dialogue>();
+        dialogueLog = dialogueUIs.transform.GetChild(2).GetComponent<DialogueLog>();
 
         // 배경 찾기
         backgroundCanvas = GameObject.Find("BackgroundCanvas").GetComponentInChildren<Background>();
@@ -516,7 +521,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         if (!isEnable)
         {
-            dialogueUIs.SetActive(true);
+            dialogueBox.gameObject.SetActive(true);
             isEnable = true;
 
             if (MapManager.Instance != null)
@@ -528,7 +533,7 @@ public class DialogueManager : Singleton<DialogueManager>
         }
         else
         {
-            dialogueUIs.SetActive(false);
+            dialogueBox.gameObject.SetActive(false);
             isEnable = false;
 
             if (MapManager.Instance != null)

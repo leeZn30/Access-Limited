@@ -26,6 +26,9 @@ public class ObjectPool : Singleton<ObjectPool>
 
     void Awake()
     {
+        objectInfos[0].tfPoolParent = Camera.main.transform;
+        objectInfos[1].tfPoolParent = GameObject.Find("DialogueUIs").transform.GetChild(1).transform;
+
         CharacterQueue = InsertQueue(objectInfos[0]);
         AnswerQueue = InsertQueue(objectInfos[1]);
         figureQueue = InsertQueue(objectInfos[2]);
