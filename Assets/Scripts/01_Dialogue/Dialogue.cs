@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
@@ -29,18 +31,29 @@ public class Dialogue : MonoBehaviour
         DialogueManager.Instance.isLineEnd = false;
         name_b.text = c_name;
 
-        typing = dotTyping(line.Length * 0.07f);   
+        typing = dotTyping();
     }
 
-    Sequence dotTyping(float speed)
+    string patternLine()
+    {
+        string pattern = @"\<[^>]*\>";
+        string patterendLine = Regex.Replace(line, pattern, "");
+
+        return patterendLine;
+    }
+
+    Sequence dotTyping()
     {
         line_b.text = line;
         line_b.maxVisibleCharacters = 0;
 
+        int length = patternLine().Length;
+        float speed = length * 0.07f;
+
         Sequence sequence = DOTween.Sequence();
 
         sequence.Append(DOTween.To(x => line_b.maxVisibleCharacters
-                                   = (int)x, 0f, line_b.text.Length, speed)
+                                   = (int)x, 0f, length, speed)
                                    .SetEase(Ease.Linear)
                         );
 
@@ -55,11 +68,9 @@ public class Dialogue : MonoBehaviour
 
     }
 
-
     public void showAllLine()
     {
-        //line_b.text = line;
-        line_b.maxVisibleCharacters = line.Length;
+        line_b.maxVisibleCharacters = patternLine().Length;
     }
 
     void stopTyping()
