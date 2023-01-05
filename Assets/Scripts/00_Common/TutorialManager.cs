@@ -21,7 +21,8 @@ public class TutorialManager : Singleton<TutorialManager>
 
     void Start()
     {
-        exitbtn.onClick.AddListener(delegate {
+        exitbtn.onClick.AddListener(delegate
+        {
             if (nowCo != null)
                 StopCoroutine(nowCo);
             isTutorialRunning = false;

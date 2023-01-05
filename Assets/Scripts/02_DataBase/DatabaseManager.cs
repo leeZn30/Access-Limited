@@ -25,12 +25,10 @@ public class DatabaseManager : Singleton<DatabaseManager>
         set { _now_rayout = value; }
     }
 
-
-    [Header("버튼")]
+    [Header("Database UI")]
+    [SerializeField] GameObject databaseUI;
     [SerializeField] Button exitBtn;
     [SerializeField] Button backBtn;
-
-    [Header("레이아웃")]
     const int rayoutNum = 7;
     [SerializeField] GameObject[] rayouts = new GameObject[rayoutNum];
     [SerializeField] LinkedList<int>[] pageLinks = new LinkedList<int>[rayoutNum];
@@ -43,7 +41,16 @@ public class DatabaseManager : Singleton<DatabaseManager>
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        databaseUI = GameObject.Find("DatabaseUI");
+        background = databaseUI.transform.GetChild(0).gameObject;
+        popup = databaseUI.transform.GetChild(1).gameObject;
+        exitBtn = popup.transform.GetChild(0).GetChild(0).GetComponent<Button>();
+        backBtn = popup.transform.GetChild(0).GetChild(1).GetComponent<Button>();
+
+        for (int i = 0; i < rayoutNum; i++)
+            rayouts[i] = popup.transform.GetChild(i + 2).gameObject;
+
+        setLinks();
     }
 
 
@@ -54,7 +61,7 @@ public class DatabaseManager : Singleton<DatabaseManager>
         backBtn.onClick.AddListener(backPage);
 
         // 레이아웃 링크 설정
-        setLinks();
+        // setLinks();
     }
 
     void setLinks()
