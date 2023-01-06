@@ -228,11 +228,22 @@ public class DialogueManager : Singleton<DialogueManager>
 
         // SpeakingId
         if (line["SpeakingId"].ToString() != "")
+        {
             speakingC = line["SpeakingId"].ToString();
+            switch (speakingC)
+            {
+                case "none":
+                    dialogueBox.hideNameBox();
+                    break;
+                default:
+                    dialogueBox.c_name = getCharacterName(speakingC);
+                    dialogueBox.showNameBox();
+                    break;
+            }
+        }
 
         // Dialogue
         dialogueBox.line = line["Dialogue"].ToString().Replace("@", "\n");
-        dialogueBox.c_name = getCharacterName(speakingC);
         //dialogueLog.addLog(dialogueBox.c_name, dialogueBox.line);
         dialogueBox.showline();
 

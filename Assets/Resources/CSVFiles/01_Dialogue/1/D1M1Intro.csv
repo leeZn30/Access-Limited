@@ -1,5 +1,5 @@
 ﻿Turn,Type,SpeakingId,Dialogue,C1,C1illust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
-0,,,<color=#A69F5E><align=center>시신 발견 당일 B100/10/10 오후 2시 경</color></align>,,,,,,,,,,,
+0,,none,<color=#A69F5E><align=center>시신 발견 당일 B100/10/10 오후 2시 경</color></align>,,,,,,,,,,,
 ,,,,,,,,,,,,,,
 1,,M4,이번 사건의 특징이 뭔지 알아?,M4,0,,,,,,,,,
 1,,,피해자의 시신이 호수에서 발견됐어. @즉 사건이 일어난 장소를 특정할 수 없다는거야.,,,,,,,,,,,

@@ -95,4 +95,16 @@ public class Dialogue : MonoBehaviour
             name_b.gameObject.transform.parent.gameObject.SetActive(false);
         }
     }
+
+    public void showNameBox()
+    {
+        if (!name_b.transform.parent.gameObject.activeSelf)
+            transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    public void hideNameBox()
+    {
+        if (name_b.transform.parent.gameObject.activeSelf)
+            transform.GetChild(0).gameObject.SetActive(false);
+    }
 }
