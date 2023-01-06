@@ -1,3 +1,5 @@
 ﻿Turn,Type,SpeakingId,Dialogue,C1,C1illust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
 0,0,M0,호수 가까운 곳에 절벽이 있어.,M0,0,M4,0,,,,,,,
-,,M4,저 위에서 여기를 바라보면 정말 이쁠 것 같은데?,,,,,,,,,,,
+0,,M4,저 위에서 여기 풍경을 바라보면 정말 이쁘겠다.,,,,,,,,,,,
+0,,,응? 와 저거봐! @저 꼭대기에 벤치 보여?,,,,,,,,,,,
+0,,M0,정말이네. 아마 저 위로 이어진 길이 있을 것 같은데..,,,,,,,,,,,

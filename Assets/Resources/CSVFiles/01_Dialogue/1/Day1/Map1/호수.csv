@@ -1,2 +1,4 @@
 ﻿Turn,Type,SpeakingId,Dialogue,C1,C1illust,C2,C2illust,AnswerId,NextTurn,InfoId,InfoIdx,Background,EffectSound,BGM
-0,0,,,,,,,,,,,,,
+0,0,M4,최정아씨가 죽은 호수..,M0,0,M4,0,,,,,,,
+0,,M0,그냥 보면 너무 고요하고 아름다워.,,,,,,,,,,,
+0,,,이런 곳이 죽음의 무대가 되다니 참 아이러니하네.,,,,,,,,,,,

@@ -46,7 +46,7 @@ public class DialogueManager : Singleton<DialogueManager>
     [SerializeField] GameObject dialogueUIs;
     [SerializeField] Dialogue dialogueBox;
     [SerializeField] DialogueLog dialogueLog;
-    [SerializeField] Background backgroundCanvas;
+    [SerializeField] Background background;
     [SerializeField] PushEffect push;
 
     void Awake()
@@ -60,7 +60,7 @@ public class DialogueManager : Singleton<DialogueManager>
         dialogueLog = dialogueUIs.transform.GetChild(2).GetComponent<DialogueLog>();
 
         // 배경 찾기
-        backgroundCanvas = GameObject.Find("BackgroundCanvas").GetComponentInChildren<Background>();
+        background = GameObject.FindObjectOfType<Background>();
     }
 
     void Start()
@@ -261,7 +261,12 @@ public class DialogueManager : Singleton<DialogueManager>
 
         // 배경 있다면 전달
         if (line["Background"].ToString() != "")
-            backgroundCanvas.setBackground(chapter, line["Background"].ToString());
+        {
+            int bgmode = 0;
+            if (line["BGMode"].ToString() != "")
+                bgmode = int.Parse(line["BGMode"].ToString());
+            background.setBackground(chapter, line["Background"].ToString(), bgmode);
+        }
 
         // 미션
         mission = type;
