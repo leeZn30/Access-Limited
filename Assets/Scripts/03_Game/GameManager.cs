@@ -32,7 +32,6 @@ public class GameManager : Singleton<GameManager>
         // 시간정지 단축키
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            GameObject.Find("Background").GetComponent<Image>().color = Color.blue;
         }
     }
 

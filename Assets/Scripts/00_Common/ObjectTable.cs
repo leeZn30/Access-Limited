@@ -8,8 +8,6 @@ public class ObjectData
 {
     public string name;
     public int dialogueNum;
-    //public List<string> dialogueList = new List<string>();
-
     public List<bool> openDialouges = new List<bool>();
     public List<bool> completeDialogues = new List<bool>();
 

@@ -95,7 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c87d1865278cc46ab80a67f81a27c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectId: 
-  isChecked: 0
+  o_name: 
+  o_type: 0
+  selection: {fileID: 6828426916896089178, guid: 035dae7c53af105459f74e32e1808b86, type: 3}
+  chainObjs: []
+  chainDs: 
+  essentialCsvs: []
+  defaultcsv: {fileID: 0}
   lineCSV: {fileID: 0}
-  defaultCSV: {fileID: 0}

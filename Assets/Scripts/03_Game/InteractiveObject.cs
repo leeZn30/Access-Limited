@@ -8,17 +8,17 @@ public class InteractiveObject : MonoBehaviour
 {
     [Header("오브젝트 정보")]
     public string o_name;
+    public int o_type;
     public ObjectData objectData;
+    [SerializeField] GameObject selection;
 
     [Header("연쇄 오브젝트 정보")]
     // dictionary로 하고 싶으나 inspector에서 바꿔줘야 하므로
     [SerializeField] List<string> chainObjs = new List<string>();
     [SerializeField] List<int> chainDs = new List<int>();
-    //public Dictionary<string, int> chainDs = new Dictionary<string, int>();
 
     [Header("나타나는 대화")]
-    [SerializeField] List<TextAsset> csvs = new List<TextAsset>();
-    //[SerializeField] List<TextAsset> defaultCSVs = new List<TextAsset>();
+    [SerializeField] List<TextAsset> essentialCsvs = new List<TextAsset>();
     [SerializeField] TextAsset defaultcsv;
     [SerializeField] TextAsset lineCSV;
 
@@ -27,32 +27,45 @@ public class InteractiveObject : MonoBehaviour
         objectData = ObjectTable.oTable[o_name] as ObjectData;
     }
 
-    /**
-    void checkAllDialogue()
-    {
-        if (objectData.completeDialogues[objectData.dialogueList.Count - 1])
-        {
-            isAllDsChecked = true;
-        }
-    }
-    **/
-
     void OnMouseDown()
     {
         if (MapManager.Instance.isInteractiveEnable)
         {
-            if (!objectData.isChecked)
-            {
-                GameManager.Instance.clickedObj = this;
+            GameManager.Instance.clickedObj = this;
 
-                lineCSV = csvs[objectData.nowDialogue];
-                DialogueManager.Instance.resetDialogueManager(lineCSV, 1);
-            }
-            else
+            switch (o_type)
             {
-                DialogueManager.Instance.resetDialogueManager(defaultcsv);
+                // 인물 -> 단서 제출 가능
+                case 1:
+                    Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    pos.z = 10f;
+                    Instantiate(
+                                selection,
+                                pos,
+                                Quaternion.identity,
+                                FindObjectOfType<Canvas>().transform
+                                );
+                    MapManager.Instance.offInteractiveObject();
+                    break;
+
+                // 일반적
+                default:
+                    startDialogue();
+                    break;
             }
 
+        }
+    }
+
+    public void startDialogue()
+    {
+        if (!objectData.isChecked)
+        {
+            DialogueManager.Instance.resetDialogueManager(essentialCsvs[objectData.nowDialogue], 1);
+        }
+        else
+        {
+            DialogueManager.Instance.resetDialogueManager(defaultcsv);
         }
     }
 

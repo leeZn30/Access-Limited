@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7463831261288460025}
   - component: {fileID: 1557675331615804472}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Illust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 1557675331806443199}
   - component: {fileID: 1557675331806443198}
   - component: {fileID: 3675280021743624330}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Character
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -128,9 +128,9 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557675331806443193}
   m_Enabled: 1
-  m_SortingLayerID: -1539622315
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayerID: -1783978329
+  m_SortingLayer: 3
+  m_SortingOrder: -1
 --- !u!114 &3675280021743624330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,12 +145,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 
   c_name: 
-  illusts:
-  - {fileID: 21300000, guid: 4989960293f9ca941994b8f47deaf381, type: 3}
-  - {fileID: 21300000, guid: 8c859e28d0b26164e894719701b3d213, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   illust_num: 0
   now_illust: 0
